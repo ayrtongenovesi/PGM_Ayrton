@@ -13,23 +13,23 @@ body {
 }
 .imgIcono{
   height: 50px;
-  width: 270px;
+  width: 235px;
   padding-left: 25px;
   padding-bottom: 10px;
 }
 /* Barra lateral (Sidebar) */
 .sidebar {
   background-color: #bebcc2;
-  padding-top: 15px;
+  
   box-shadow: 2px 2px 15px 5px rgba(0, 0, 0, 0.2);
+  /*box-shadow: 8px 4px #d8d7d8;*/
 }
 
 .FlexLista{
   display: flex;
   flex-direction: row;
-}
-.ULestilo{
-  padding-left: 0px !important; 
+  padding-bottom: 10px;
+  padding-top: 5px;
 }
 
 .letrasMenu{
@@ -38,18 +38,30 @@ body {
 }
 .txtNav {
   margin: 5px;
-  color: black;
+  margin-left: 10px;
+  display: flex;
+  justify-content: center;
+  width: 250px;
+  margin-left: 20px;
+  background-color: #156b8d;
+  color: rgb(255, 255, 255);
   padding: 12px 20px;
   text-decoration: none;
   font-size: 18px;
   text-align: left;
-  font-size: 25px; 
+  font-size: 25px;
   border-radius: 8px;
 }
 
+* {    
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 .txtNav:hover{
-  background-color: rgb(230, 230, 230);
-  width: 230px;
+  background-color: #3ba3cc;
+ 
 }
 .spanNav{
 margin-top: 2px;
@@ -65,6 +77,7 @@ margin-right: 3px;
 .spanNavH{
   padding: 0 !important; 
 }
+
 
 /* Dropdown */
 .dropdown-content {
@@ -95,11 +108,11 @@ margin-right: 3px;
 
 /* Contenido principal */
 .content {
-    width: 100%;
-    height: 100%;
-    
-  
-  border-radius: 50px;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .contentGeneral{
   margin: 5px;
@@ -146,6 +159,9 @@ margin-right: 3px;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
   /* Centra el formulario en la barra de navegación */
   
+}
+.ULestilo{
+  padding: 0px;
 }
 
 .search-form {

@@ -11,4 +11,4 @@ import { OrdenTrabajoComponent } from './orden-trabajo.component';  // Tu compon
       AppComponent  // Importa el componente standalone, no lo declares
     ]
   })
-  export class OrdenTrabajoModule { }
+  export class OrdenTrabajoModule {  }

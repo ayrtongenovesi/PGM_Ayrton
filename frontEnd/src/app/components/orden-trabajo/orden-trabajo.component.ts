@@ -39,21 +39,21 @@ export class OrdenTrabajoComponent  {
   selectedTipoActivo: string = '';
   selectedUbicacion: string = '';
 
-  // Lista de edificios con sus IDs y nombres
+  
   edificios = [
     { id: 1, nombre: 'Laprida 651' },
     { id: 2, nombre: 'Castelli 501' },
     { id: 3, nombre: 'Laprida 648' }
   ];
 
-  // Lista de sectores con sus IDs y nombres
+  
   sectores = [
     { id: 1, nombre: 'Administración' },
     { id: 2, nombre: 'Recursos Humanos' },
     { id: 3, nombre: 'IT' }
   ];
 
-  // Lista de pisos con sus IDs y nombres
+  
   pisos = [
     { id: 1, nombre: 'Planta Baja' },
     { id: 2, nombre: 'Primer Piso' },
@@ -62,7 +62,7 @@ export class OrdenTrabajoComponent  {
     { id: 5, nombre: 'Terraza' }
   ];
 
-  // Lista de tipos de activo con sus IDs y nombres
+  
   tiposActivo = [
     { id: 1, nombre: 'Computadora' },
     { id: 2, nombre: 'Impresora' },
@@ -73,14 +73,14 @@ export class OrdenTrabajoComponent  {
     
   ];
 
-  // Lista de ubicaciones con sus IDs y nombres
+  
   ubicaciones = [
     { id: 1, nombre: 'Interior' },
     { id: 2, nombre: 'Exterior con techo' },
     { id: 3, nombre: 'Exterior sin techo' }
   ];
 
-  // IDs a recorrer para cada tipo de dato
+  
   idsEdificiosARecorrer = [1, 3];
   idsSectoresARecorrer = [1,3];
   idsPisosARecorrer = [1, 5];
@@ -90,7 +90,7 @@ export class OrdenTrabajoComponent  {
   selectedOrdenTrabajoComponent: any;
   ubicacion: any;
 
-  // Métodos para filtrar por IDs y devolver los nombres correspondientes
+ 
   obtenerNombresEdificiosPorIds(): string[] {
     return this.edificios.filter(edificio => this.idsEdificiosARecorrer.includes(edificio.id)).map(edificio => edificio.nombre);
   }

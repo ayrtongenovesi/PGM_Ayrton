@@ -9,7 +9,6 @@ import { AppRoutingModule } from './app.routes';
 
 
 @NgModule({
-  
   imports: [
     FormsModule,
     BrowserModule,

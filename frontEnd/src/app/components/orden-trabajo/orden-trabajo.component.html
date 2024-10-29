@@ -8,29 +8,36 @@
 
         <li class="FlexLista">
           <a class="txtNav letrasMenu" href="/inicio">
-          <span class="spanNav material-symbols-outlined">home</span> Inicio </a>
+          Inicio </a>
         </li>
 
         <li class="FlexLista dropdown">
-          <a href="/ot" class="txtNav txtNavOt dropbtn"> <span class="spanNav material-symbols-outlined">
-            edit
-            </span>Orden de trabajo</a>
+          <a href="/ot" class="txtNav txtNavOt dropbtn">Orden de trabajo</a>
         </li>
         
         <li class="FlexLista">
           <a  class="txtNav " href="/ot">
-            <span class="spanNav spanNavH material-symbols-outlined">history</span>Historial
+            Historial
+          </a>
+        </li>
+        <li class="FlexLista">
+          <a  class="txtNav " href="/ot">
+            Gestion
+          </a>
+        </li>
+        <li class="FlexLista">
+          <a  class="txtNav " href="/ot">
+            Configuración
           </a>
         </li>
       </ul>
-      <a href="">
-      <button class="Btn">
-        <div class="sign"><svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path></svg></div>
-        <div class="text">Salir</div>
-      </button></a>
+      
     </nav>
+
+
     <main class="content">
-      <div class="barraGeneral">
+     
+     <!--- <div class="barraGeneral">
 
         <ul class="OTflex">
           <li class="listaFlex">
@@ -70,10 +77,6 @@
                 </li>
           </ul>
 
-          <!--<ul>
-            <li> </li>
-          </ul>-->
-
           <span class="btnFlex">
           <button class="btnBorrar" (click)="borrarSeleccion()">BORRAR</button>
           <button class="btnBorrar" (click)="imprimirPagina()">IMPRIMIR</button>
@@ -106,9 +109,111 @@
             <div class="gridLineas div18"><h3 class="textoOT">9 |</h3> <h2 class="textoOT"> Complete la documentación de mantenimiento</h2> </div>
             <div class="gridLineas div19"><h3 class="textoOT">10|</h3> <h2 class="textoOT"> Al finalizar la actividad deje el área y equipo limpios, ordenados y seguros.</h2> </div>
             </div>
+        </div> -->
+        
+        <div class="form-container">
+          <div class="form-group">
+              <select class="selectOptions" aria-placeholder="EDIFICIO"  [(ngModel)]="selectedEdificio">
+                <option value="" disabled>EDIFICIO</option>
+                <option  *ngFor="let edificio of edificios" [value]="edificio.nombre">{{ edificio.nombre }}</option>
+              </select>  
+              
+          </div>
+  
+          <div class="form-group">
+              <select class="selectOptions" [(ngModel)]="selectedPiso">
+                  <option value="" disabled>PISO</option>
+                  <option *ngFor="let piso of pisos" [value]="piso.nombre">{{ piso.nombre }}</option>
+                  
+              </select>
+              
+          </div>
+  
+          <div class="form-group">
+              <select class="selectOptions" [(ngModel)]="selectedSector">
+                  <option value="" disabled>SECTOR</option>
+                  <option *ngFor="let sector of sectores" [value]="sector.nombre">{{ sector.nombre }} </option>
+              </select>
+              
+          </div>
+  
+          <div class="form-group">
+              <select class="selectOptions" [(ngModel)]="selectedUbicacion">
+                  <option value="" disabled>UBICACION</option>
+                  <option *ngFor="let ubicacion of ubicaciones" [value]="ubicacion.nombre">{{ ubicacion.nombre }}</option>
+                  
+              </select>
+              
+          </div>
+  
+          <div class="form-group">
+              <select class="selectOptions" [(ngModel)]="selectedTipoActivo">
+                  <option value="" disabled>ACTIVO</option>
+                  <option *ngFor="let activo of tiposActivo" [value]="activo.nombre">{{ activo.nombre }}</option>
+    
+              </select>
+              
+          </div>
+  
+          <div class="form-group">
+              <select class="selectOptions">
+                  <option value="">Operario</option>
+                  <option value="1">Juan</option>
+                  <option value="2">Alberto</option>
+                  <option value="3">Luis</option>
+              </select>
+              
+          </div>
+  
+          <div class="form-group">
+              <select class="selectOptions">
+                  <option value="">Tipo de tarea</option>
+                  <option value="1">Preventiva</option>
+                  <option value="2">Urgente</option>
+                  <option value="3">Diagramada</option>
+              </select>
+              
+          </div>
+  
+          <div class="form-group">
+              <select class="selectOptions">
+                  <option value="">Tareas</option>
+                  <option value="1">Opción 1</option>
+                  <option value="2">Opción 2</option>
+                  <option value="3">Opción 3</option>
+              </select>
+              <input class="inputFormOT selectInput" type="text" placeholder="">
+          </div>
+  
+          <div class="form-group formBottom">      
+              <input class="inputFormOT inputDate" type="date" placeholder="Ingrese información">
+          </div>
+          <div class="form-buttons">
+            <button type="submit" class="btn-submit">Crear</button>
+        </div>
+
+        <div class="vistaPrevia">
+          <h1 class="vistaTXT"> </h1>
+          <ul class="vistaPreviaUl">
+            <li class="vistaPreviaLi liSubrayado">Vista Previa</li>
+            <li class="vistaPreviaLi">Edificio: {{ selectedEdificio}} </li>
+            <li class="vistaPreviaLi">Piso: {{ selectedPiso}}  </li>
+            <li class="vistaPreviaLi">Sector: {{ selectedSector}}  </li>
+            <li class="vistaPreviaLi">Ubicacion: {{ selectedUbicacion}}  </li>
+            <li class="vistaPreviaLi">Activo: {{ selectedTipoActivo}} </li>
+            <li class="vistaPreviaLi">Operario: </li>
+            <li class="vistaPreviaLi">Tipo de tarea:  </li>
+          </ul>
+
         </div>
         
-      </div>
+      </div>  
+      
+
+
+
+
+      
       </main>
 
     
