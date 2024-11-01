@@ -1,24 +1,31 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-import { AppComponent } from './app.component';  // Importa el componente standalone
 import { FormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { EntornoComponent } from './components/entorno/entorno.component';
+import { LoginComponent } from './components/login/login.component';
 import { OrdenTrabajoComponent } from './components/orden-trabajo/orden-trabajo.component';
-import { AppRoutingModule } from './app.routes';
-
-
+import { OrdenVisualComponent } from './components/orden-visual/orden-visual.component';
+import { HistorialComponent } from './components/historial/historial.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  imports: [
-    FormsModule,
-    BrowserModule,
+  declarations: [
     AppComponent,
-    AppRoutingModule,
+    EntornoComponent,
+    LoginComponent,
     OrdenTrabajoComponent,
-    HttpClientModule  // Importa el componente standalone
+    OrdenVisualComponent,
+    HistorialComponent
   ],
-  
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
+  ],
   providers: [],
-   // El componente raíz sigue siendo el AppComponent
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

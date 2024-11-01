@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
+
 })
 
-export class OtServicio {
+export class OtServiceService {
 
   private apiUrl = 'http://localhost:3000/api';
-
+ 
   constructor(private http: HttpClient) {}
 
   getCUIA(cuia: string): Observable<any> {
@@ -40,7 +41,14 @@ export class OtServicio {
 
   getUser(operario: string): Observable<any> {
     const params = new HttpParams().set('operario', operario);
-    return this.http.get(`${this.apiUrl}/operario`, { params });
+    return this.http.get(`${this.apiUrl}/operarios`, { params });
+  }
+
+  getUbicacion(ubicacion: string): Observable<any> {
+    const params = new HttpParams().set('ubicacion', ubicacion);
+    return this.http.get(`${this.apiUrl}/ubicacion`, { params });
   }
 }
+
+
 

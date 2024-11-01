@@ -3,9 +3,19 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "proyectoGestorUtn": {
+    "proyectoutn": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:component": {
+          "standalone": false
+        },
+        "@schematics/angular:directive": {
+          "standalone": false
+        },
+        "@schematics/angular:pipe": {
+          "standalone": false
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -13,7 +23,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/proyecto-gestor-utn",
+            "outputPath": "dist/proyectoutn",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -57,10 +67,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "proyectoGestorUtn:build:production"
+              "buildTarget": "proyectoutn:build:production"
             },
             "development": {
-              "buildTarget": "proyectoGestorUtn:build:development"
+              "buildTarget": "proyectoutn:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -68,7 +78,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "proyectoGestorUtn:build"
+            "buildTarget": "proyectoutn:build"
           }
         },
         "test": {
@@ -93,6 +103,6 @@
     }
   },
   "cli": {
-    "analytics": "2d39495d-2c74-4f99-bf66-28ebce150f22"
+    "analytics": "f2047f97-a44c-4e14-87ae-6870d5790246"
   }
 }

@@ -1,0 +1,92 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 800px;
+    margin: 20px auto;
+    border: 1px solid black;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.logo {
+    font-weight: bold;
+    text-align: right;
+}
+
+.info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 10px;
+    border-bottom: 1px solid black;
+}
+
+.info div {
+    padding: 5px;
+}
+
+.code {
+    text-align: center;
+    font-weight: bold;
+}
+
+.task-instructions {
+    padding: 10px;
+    border-bottom: 1px solid black;
+}
+
+.task-header {
+    font-weight: bold;
+    padding-bottom: 5px;
+}
+
+.task-list ol {
+    list-style: none;
+    padding-left: 0;
+}
+
+.task-list ol li {
+    margin-bottom: 5px;
+}
+
+.footer {
+    padding: 10px;
+}
+
+.footer div {
+    margin-bottom: 10px;
+}
+
+.time-used {
+    display: flex;
+    justify-content: space-between;
+}
+
+.observations {
+    border-top: 1px solid black;
+    padding-top: 10px;
+}
+
+.qr-zone {
+    border: 1px dashed black;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    margin-top: 10px;
+}
