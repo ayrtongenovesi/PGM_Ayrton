@@ -7,9 +7,9 @@ import { OrdenVisualComponent } from './components/orden-visual/orden-visual.com
 import { HistorialComponent } from './components/historial/historial.component';
 
 export const routes: Routes = [
-
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
-    path: '',
+    path: 'login',
     component: LoginComponent
   },
   {
