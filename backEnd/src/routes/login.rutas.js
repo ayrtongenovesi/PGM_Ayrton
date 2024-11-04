@@ -1,14 +1,9 @@
-import express from 'express'
-import { createLogin, deleteLogin, getLogin, updateLogin } from '../controllers/login.controller'
+import express from 'express';
+import { register, login } from '../controllers/login.controller.js';
 
-const router = express.Router()
+const router = express.Router();
 
-router.get('/login', getLogin)
+router.post('/register', register);
+router.post('/login', login);
 
-router.put('/login', updateLogin)
-
-router.delete('/login:id', deleteLogin)
-
-router.post('/login/', createLogin)
-
-export default router
+export default router;

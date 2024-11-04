@@ -3,13 +3,13 @@ import { getUser,updateUser,deleteUser,createUser} from '../controllers/usuario.
 
 const router = express.Router();
 
-router.get('/operarios',getUser);
+router.get('/usuario',getUser);
 
-router.put('/usuarios',updateUser);
+router.put('/usuario',updateUser);
 
-router.delete('/usuarios/:id', deleteUser);
+router.delete('/usuario/:id', deleteUser);
 
 //asignar que solo admins puedan usar esta funcion 
-router.post('/usuarios/', createUser);
+router.post('/usuario/', createUser);
 
 export default router;
