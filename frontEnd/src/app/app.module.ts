@@ -9,6 +9,7 @@ import { OrdenTrabajoComponent } from './components/orden-trabajo/orden-trabajo.
 import { OrdenVisualComponent } from './components/orden-visual/orden-visual.component';
 import { HistorialComponent } from './components/historial/historial.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ProtectedComponent } from './components/ProtectedComponent';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent,
     OrdenTrabajoComponent,
     OrdenVisualComponent,
-    HistorialComponent
+    HistorialComponent,
+    ProtectedComponent
   ],
   imports: [
     BrowserModule,

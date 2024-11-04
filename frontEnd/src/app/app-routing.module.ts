@@ -5,7 +5,7 @@ import { EntornoComponent } from './components/entorno/entorno.component';
 import { LoginComponent } from './components/login/login.component';
 import { OrdenVisualComponent } from './components/orden-visual/orden-visual.component';
 import { HistorialComponent } from './components/historial/historial.component';
-
+import { LoginGuard } from '../service/guards/login.guard'; 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
@@ -13,22 +13,25 @@ export const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'inicio', 
-    component: EntornoComponent
+    path: 'inicio',
+    component: EntornoComponent,
+    canActivate: [LoginGuard] // Protege esta ruta
   },
   {
-    path: 'ot', 
-    component: OrdenTrabajoComponent
+    path: 'ot',
+    component: OrdenTrabajoComponent,
+    canActivate: [LoginGuard] // Protege esta ruta
   },
   {
-   path: 'visual',
-   component: OrdenVisualComponent
+    path: 'visual',
+    component: OrdenVisualComponent,
+    canActivate: [LoginGuard] // Protege esta ruta
   },
   {
     path: 'historial',
-    component: HistorialComponent
-   }
-
+    component: HistorialComponent,
+    canActivate: [LoginGuard] // Protege esta ruta
+  }
 ];
 
 @NgModule({
