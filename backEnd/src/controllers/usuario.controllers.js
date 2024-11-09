@@ -2,7 +2,7 @@ import {pool} from '../../config/database.js';
 
 export const getUser = async (req,res)=> {
     try {
-        const [rows] = await pool.query('SELECT * FROM operarios')
+        const [rows] = await pool.query('SELECT * FROM usuario')
         res.json(rows);
     } catch (err) {
         console.error(err);

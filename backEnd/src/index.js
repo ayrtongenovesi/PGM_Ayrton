@@ -10,7 +10,10 @@ import {pool} from '../config/database.js';
  import pisoRoutes from './routes/piso.rutas.js';
  import activoRoutes from './routes/activotarea.rutas.js'; //activo solo
  import ubicacionRoutes from './routes/ubicacion.rutas.js';
- //import sectorRoutes from './routes/piso.rutas.js';
+ import sectorRoutes from './routes/sector.rutas.js';
+ import TareaRoutes from './routes/tareas.rutas.js';
+ import ordenRoutes from './routes/OrdenTrabajo.rutas.js';
+ 
 
 
 const app = express();
@@ -31,6 +34,9 @@ app.use('/api',edificioRoutes );
 app.use('/api', pisoRoutes);
 app.use ('/api', activoRoutes);
 app.use ('/api', ubicacionRoutes);
+app.use ('/api', sectorRoutes );
+app.use ('/api', TareaRoutes );
+app.use ('/api', ordenRoutes );
 //app.use('/api', sectorRoutes);
 
 

@@ -620,6 +620,7 @@ button:hover {
 }
 .vistaPreviaUl{
   list-style: none;
+  text-decoration: none;
   padding-top: 50px;
   padding-bottom: 100px;
   padding-right: 30vh;
@@ -627,10 +628,39 @@ button:hover {
 .vistaPreviaLi{
   margin: 12px;
   width: 400px;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+strong{
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.tareasStrong{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .liSubrayado{
   text-decoration: underline wavy;
  
+}
+.opcionMultiple{
+  height: 200px;
+}
+.txtBotonOT{
+  text-decoration: none;
+  color: white;
+}
+
+iframe {
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  margin-top: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 

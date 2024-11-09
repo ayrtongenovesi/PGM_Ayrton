@@ -41,13 +41,23 @@ export class OtServiceService {
 
   getUser(operario: string): Observable<any> {
     const params = new HttpParams().set('operario', operario);
-    return this.http.get(`${this.apiUrl}/operarios`, { params });
+    return this.http.get(`${this.apiUrl}/usuarios`, { params });
   }
 
   getUbicacion(ubicacion: string): Observable<any> {
     const params = new HttpParams().set('ubicacion', ubicacion);
     return this.http.get(`${this.apiUrl}/ubicacion`, { params });
   }
+
+  getTarea(tarea: string): Observable<any> {
+    const params = new HttpParams().set('tareas', tarea);
+    return this.http.get(`${this.apiUrl}/tareas`, { params });
+  }
+
+  createOT(datos: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/ot/create`, datos); 
+  }
+
 }
 
 
