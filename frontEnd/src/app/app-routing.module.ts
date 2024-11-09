@@ -6,6 +6,7 @@ import { LoginComponent } from './components/login/login.component';
 import { OrdenVisualComponent } from './components/orden-visual/orden-visual.component';
 import { HistorialComponent } from './components/historial/historial.component';
 import { LoginGuard } from '../service/guards/login.guard'; 
+
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   {
@@ -15,22 +16,22 @@ export const routes: Routes = [
   {
     path: 'inicio',
     component: EntornoComponent,
-    canActivate: [LoginGuard] // Protege esta ruta
+    canActivate: [LoginGuard] // Para admin y operario
   },
   {
     path: 'ot',
     component: OrdenTrabajoComponent,
-    canActivate: [LoginGuard] // Protege esta ruta
+    canActivate: [LoginGuard] // Solo accesible para admin
   },
   {
     path: 'visual',
     component: OrdenVisualComponent,
-    canActivate: [LoginGuard] // Protege esta ruta
+    canActivate: [LoginGuard] // Para admin y operario
   },
   {
     path: 'historial',
     component: HistorialComponent,
-    canActivate: [LoginGuard] // Protege esta ruta
+    canActivate: [LoginGuard] // Para admin y operario
   }
 ];
 

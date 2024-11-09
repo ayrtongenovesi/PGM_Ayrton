@@ -10,10 +10,18 @@ export class LoginGuard implements CanActivate {
 
   canActivate(): boolean {  
     if (this.userService.checkLoginStatus()) { 
-      return true; // Permitir el acceso
+      const userType = this.userService.getIdTipoUsuario();
+      if (userType === 2) {
+      
+        return true;
+      } else {
+       
+        return true; 
+      }
     } else {
-      this.router.navigate(['/login']); // Redirigir al login si no está autenticado
-      return false; // No permitir el acceso
+      
+      this.router.navigate(['/login']);
+      return false; 
     }
   }
 }
