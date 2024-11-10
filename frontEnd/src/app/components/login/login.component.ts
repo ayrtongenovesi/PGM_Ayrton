@@ -36,17 +36,17 @@ export class LoginComponent {
       );
   }
 
-  // Método para iniciar sesión
+  
   login() {
     const credentials = {
-        mail: this.mail, // Obtén el correo del formulario
-        contraseña: this.contrasena // Obtén la contraseña del formulario
+        mail: this.mail, 
+        contraseña: this.contrasena 
     };
     
     this.userService.login(credentials).subscribe(
         response => {
             console.log('Inicio de sesión exitoso:', response);
-            this.router.navigate(['/inicio']); // Redirige a la página de inicio
+            this.router.navigate(['/inicio']); 
         },
         error => {
             console.error('Error al iniciar sesión:', error);

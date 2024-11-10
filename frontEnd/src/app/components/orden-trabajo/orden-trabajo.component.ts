@@ -4,10 +4,9 @@ import { AppModule } from '../../app.module';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { OtServiceService } from '../../../service/ot-service.service';
+import { UserService } from '../../../service/services/user.service';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-
-
 
 @Component({
   selector: 'app-orden-trabajo',
@@ -15,8 +14,6 @@ import html2canvas from 'html2canvas';
   styleUrl: './orden-trabajo.component.css'
 })
 export class OrdenTrabajoComponent {
-
-
   selectedEdificio: string = '';
   selectedSector: string = '';
   selectedPiso: string = '';
@@ -35,8 +32,12 @@ export class OrdenTrabajoComponent {
   datosSector: any[] = [];
   datosTareas: any[] = [];
 
-  constructor(private apiService: OtServiceService) {}
+  constructor(private apiService: OtServiceService, private userService : UserService) {}
 
+  logout() {
+    this.userService.logout();
+    window.location.href = '/login';  
+  }
   ngOnInit(): void {
     this.dataPiso()
     this.dataEdificio()
