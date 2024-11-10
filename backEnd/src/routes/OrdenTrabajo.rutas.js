@@ -1,14 +1,14 @@
 import express from 'express'
+import { createOT, deleteOT, getOT, updateOT } from '../controllers/OrdenTrabajo.controller.js'
 
 const router = express.Router()
 
-router.get('/',)
+router.get('/ot', getOT)
 
-router.put('/',)
+router.put('/ot', updateOT)
 
-router.delete('/',)
+router.delete('/ot/:id', deleteOT)
 
- 
-router.post('/',)
+router.post('/ot/create', createOT)
 
 export default router

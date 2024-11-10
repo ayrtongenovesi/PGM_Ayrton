@@ -1,8 +1,9 @@
-//import {pool} from 
+import {pool} from '../../config/database.js';
 
 export const getTarea = async (req,res)=> {
     try {
-        const [rows] = await pool.query('SELECT * FROM tarea')
+        const [rows] = await pool.query('SELECT * FROM tareas')
+        res.json(rows);
     } catch (err) {
         console.error(err);
         res.status(500).json({message: 'Error Servicio Interno', error: err.message})
