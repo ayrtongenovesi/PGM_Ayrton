@@ -11,6 +11,7 @@ import { HistorialComponent } from './components/historial/historial.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ProtectedComponent } from './components/ProtectedComponent';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +20,8 @@ import { ProtectedComponent } from './components/ProtectedComponent';
     OrdenTrabajoComponent,
     OrdenVisualComponent,
     HistorialComponent,
-    ProtectedComponent
+    ProtectedComponent,
+   
   ],
   imports: [
     BrowserModule,
