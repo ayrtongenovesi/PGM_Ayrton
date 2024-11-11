@@ -34,5 +34,14 @@
         </label>
       </div>
     </div>
+
+    <div class="notification" *ngIf="showNotification"
+         [ngClass]="{
+           'success': notificationType === 'success',
+           'error': notificationType === 'error',
+           'info': notificationType === 'info'
+         }">
+      {{ notificationMessage }}
+    </div>
   </body>
 </html>

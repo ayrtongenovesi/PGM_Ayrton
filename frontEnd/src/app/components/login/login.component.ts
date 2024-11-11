@@ -5,52 +5,106 @@ import { UserService } from '../../../service/services/user.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'] 
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  mail: string = ''; 
-  contrasena: string = ''; 
-  nombre: string = ''; 
+  mail: string = '';
+  contrasena: string = '';
+  nombre: string = '';
+  notificationMessage: string = '';
+  notificationType: string = '';
+  showNotification: boolean = false;
 
   constructor(private userService: UserService, private router: Router) {
-    console.log('LoginComponent instanciado'); // Verifica que el componente se cargue
-}
-
-  
-  register() {
-      const userData = {
-          nombre: this.nombre,
-          mail: this.mail, 
-          IdTipoUsuario: 1, 
-          contraseña: this.contrasena 
-      };
-
-      this.userService.register(userData).subscribe(
-          response => {
-              console.log('Registro exitoso:', response);
-              this.router.navigate(['/inicio']); 
-          },
-          error => {
-              console.error('Error al registrar:', error);
-          }
-      );
+    console.log('LoginComponent instanciado');
   }
 
-  
+  private showTempNotification(message: string, type: 'success' | 'error' | 'info') {
+    this.notificationMessage = message;
+    this.notificationType = type;
+    this.showNotification = true;
+
+    setTimeout(() => {
+      this.showNotification = false;
+    }, 1000);
+  }
+
+  // Método para validar el formato del correo
+  private isValidEmail(email: string): boolean {
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailPattern.test(email);
+  }
+
   login() {
+    if (!this.mail || !this.contrasena) {
+      this.showTempNotification('Todos los campos son requeridos.', 'error');
+      return;
+    }
+
+    if (!this.isValidEmail(this.mail)) {
+      this.showTempNotification('El correo no tiene un formato válido.', 'error');
+      return;
+    }
+
     const credentials = {
-        mail: this.mail, 
-        contraseña: this.contrasena 
+      mail: this.mail,
+      contraseña: this.contrasena
     };
-    
+
     this.userService.login(credentials).subscribe(
+      response => {
+        console.log('Inicio de sesión exitoso:', response);
+        this.showTempNotification('Inicio de sesión exitoso.', 'success');
+        setTimeout(() => this.router.navigate(['/inicio']), 2000);
+      },
+      error => {
+        console.error('Error al iniciar sesión:', error);
+        this.showTempNotification('Correo o contraseña incorrectos.', 'error');
+      }
+    );
+  }
+
+  register() {
+    if (!this.nombre || !this.mail || !this.contrasena) {
+        this.showTempNotification('Todos los datos son necesarios.', 'error');
+        return;
+    }
+
+    if (!this.isValidEmail(this.mail)) {
+        this.showTempNotification('El correo no tiene un formato válido.', 'error');
+        return;
+    }
+
+    const userData = {
+        nombre: this.nombre,
+        mail: this.mail,
+        IdTipoUsuario: 1,
+        contraseña: this.contrasena
+    };
+
+    this.userService.register(userData).subscribe(
         response => {
-            console.log('Inicio de sesión exitoso:', response);
-            this.router.navigate(['/inicio']); 
+            console.log('Registro exitoso:', response);
+            this.showTempNotification('Usuario creado exitosamente.', 'success');
+            setTimeout(() => this.router.navigate(['/inicio']), 2000);
         },
         error => {
-            console.error('Error al iniciar sesión:', error);
+            console.error('Error al registrar:', error);
+
+            // Mostrar el mensaje de error específico según lo que devuelve el backend
+            if (error.status === 400) {
+                if (error.error.message === 'El correo ya está en uso') {
+                    this.showTempNotification('El correo ya está en uso.', 'error');
+                } else if (error.error.message === 'El nombre de usuario ya está en uso') {
+                    this.showTempNotification('El nombre de usuario ya está en uso.', 'error');
+                } else {
+                    this.showTempNotification('Error al registrar. Intente nuevamente.', 'error');
+                }
+            } else {
+                this.showTempNotification('Error desconocido. Intente nuevamente.', 'error');
+            }
         }
     );
 }
+
 }
