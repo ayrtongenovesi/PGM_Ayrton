@@ -56,8 +56,9 @@ export class HistorialComponent implements OnInit {
             <th class="tabla-encabezado">Sector</th>
             <th class="tabla-encabezado">Activo</th>
             <th class="tabla-encabezado">Operario</th>
-            <th class="tabla-encabezado">Disponibilidad</th>
+            <th class="tabla-encabezado">T/F</th>
             <th class="tabla-encabezado">Tareas</th>
+            <th class="tabla-encabezado"></th>
           </tr>
         </thead>
         <tbody>
@@ -77,7 +78,7 @@ export class HistorialComponent implements OnInit {
             <td class="tabla-operario tablaTXT">${orden.Tareas}</td>
             <td class="tabla-operario tablaTXT tablaButon"> 
               <button class="delete-btn" (click)="promptDeleteOT(orden.id)" data-id="${orden.id}">🗑️</button>
-              <button class="btnCambio" (click)="cambiarEstado(orden.id, !orden.disponible)">
+              <button class="botonTilde" (click)="cambiarEstado(orden.id, !orden.disponible)">
               ✔
               </button>
              
@@ -140,7 +141,9 @@ export class HistorialComponent implements OnInit {
             <th class="tabla-encabezado">Sector</th>
             <th class="tabla-encabezado">Activo</th>
             <th class="tabla-encabezado">Operario</th>
-             <th class="tabla-encabezado">Tareas</th>
+            <th class="tabla-encabezado">T/F</th>
+            <th class="tabla-encabezado">Tareas</th>
+            <th class="tabla-encabezado"></th>
           </tr>
         </thead>
         <tbody>
@@ -156,6 +159,7 @@ export class HistorialComponent implements OnInit {
           <td class="tabla-sector tablaTXT">${orden.Sector}</td>
           <td class="tabla-sector tablaTXT">${orden.Tipo_Activo}</td>
           <td class="tabla-sector tablaTXT">${orden.usuarios}</td>
+          <td class="tabla-operario tablaTXT">${orden.disponible}</td>
           <td class="tabla-operario tablaTXT">${orden.Tareas}</td>
           <td class="tabla-operario tablaTXT tablaButon"> 
               <button class="delete-btn" 

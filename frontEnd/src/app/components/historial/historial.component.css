@@ -7,7 +7,7 @@
     display: grid;
     grid-template-columns: 350px 1fr; /* Menú de 250px y contenido restante */
     height: 100vh; /* Altura completa de la ventana */
-    background-color: #d1d1d1;
+    background-color: #d1e1f3;
   }
   .imgIcono{
     height: 60px;
@@ -19,7 +19,7 @@
   .sidebar {
     background-color: #afc0d3;
     padding-top: 15px;
-    box-shadow: 2px 2px 15px 5px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 20px 12px rgba(0, 0, 0, 0.2);
     /*box-shadow: 8px 4px #d8d7d8;*/
   }
   
@@ -106,6 +106,7 @@
   align-items: center;
   margin-top: 50px;
   
+  
 }
 
 .tabla-ot {
@@ -113,6 +114,7 @@
   border-collapse: collapse;
   margin-bottom: 15px;
   border-radius: 2px;
+  box-shadow: 0px 0px 5px 6px rgba(0, 0, 0, 0.2);
 }
 
 .tabla-encabezado {

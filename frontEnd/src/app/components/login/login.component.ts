@@ -55,7 +55,7 @@ export class LoginComponent {
         console.log('Inicio de sesión exitoso:', response);
         this.showTempNotification('Inicio de sesión exitoso.', 'success');
         this.clearFields();  
-        setTimeout(() => this.router.navigate(['/inicio']), 2000);
+        setTimeout(() => this.router.navigate(['/ot']), 1000);
       },
       error => {
         console.error('Error al iniciar sesión:', error);
@@ -82,7 +82,7 @@ export class LoginComponent {
         console.log('Registro exitoso:', response);
         this.showTempNotification('Usuario creado exitosamente.', 'success');
         this.clearFields();  
-        setTimeout(() => this.router.navigate(['/inicio']), 2000);
+        setTimeout(() => this.router.navigate(['/historial']), 1000);
       },
       error => {
         console.error('Error al registrar:', error);
