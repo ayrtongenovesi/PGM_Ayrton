@@ -69,7 +69,9 @@ export class LoginComponent {
       this.showTempNotification('Todos los datos son necesarios.', 'error');
       return;
     }
-  
+    if (!this.isValidEmail(this.mail)) {
+      this.showTempNotification('El correo no tiene un formato válido.', 'error');
+      return;}
     const userData = {
       nombre: this.nombre,
       mail: this.mail,
@@ -81,8 +83,9 @@ export class LoginComponent {
       response => {
         console.log('Registro exitoso:', response);
         this.showTempNotification('Usuario creado exitosamente.', 'success');
+        setTimeout(() => this.router.navigate(['/historial']), 2000);
         this.clearFields();  
-        setTimeout(() => this.router.navigate(['/historial']), 1000);
+       
       },
       error => {
         console.error('Error al registrar:', error);

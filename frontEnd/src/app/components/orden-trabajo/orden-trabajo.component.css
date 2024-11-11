@@ -61,6 +61,7 @@ body {
     background-color: #3ba3cc;
     width: 300px;
   }
+ 
   .spanNav{
   margin-top: 2px;
   margin-right: 3px;
@@ -141,7 +142,7 @@ body {
 
   .barraGeneral{
     margin: 0;
-    background-color: #bebcc2;
+    background-color: #d1e1f3;
     padding: 30px;
     display: flex;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
@@ -529,7 +530,7 @@ body {
   width: 50%;
   padding: 20px;
   
-  background-color: #c4d8e7;
+  background-color: #a1c4df;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
@@ -657,8 +658,40 @@ iframe {
   border-radius: 8px;
   margin-top: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  
+}
+.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  opacity: 0.9;
+  z-index: 1000;
 }
 
+.notification.show {
+  opacity: 0.9;
+  visibility: visible;
+}
+
+.notification.success {
+  background-color: #28a745;  
+  color: #fff;
+}
+
+.notification.error {
+  background-color: #dc3545;  
+  color: #fff;
+}
+
+.notification.info {
+  background-color: #17a2b8;  
+  color: #fff;
+}
 
 /*FIN DE FORMULARIO*/
 
@@ -742,8 +775,23 @@ iframe {
   
 }
 .txtSalir{
-  font-family: Arial, Helvetica, sans-serif;
-  margin-top: 4px;
+    margin: 5px;
+    margin-left: 20px;
+    display: flex;
+    justify-content: center;
+    width: 300px;
+    background-color: #d14c4c;
+    color: rgb(255, 255, 255);
+    padding: 12px 20px;
+    text-decoration: none;
+    font-size: 18px;
+    text-align: left;
+    font-size: 25px;
+    border-radius: 8px;
+}
+.txtSalir:hover{
+  background: #f65959;
+
 }
 
 /*fin botonlogout*/

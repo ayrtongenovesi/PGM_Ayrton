@@ -28,11 +28,15 @@ export class HistorialComponent implements OnInit {
   renderer: any;
   showPopup: boolean | undefined;
   http: any;
-  
+  isAdmin:boolean = false ;
 
   constructor(private otService: OtServiceService, private userService : UserService) {}
 
   ngOnInit(): void {
+    
+    const userType = this.userService.getIdTipoUsuario();
+    this.isAdmin = userType === 2; 
+
     this.otService.getOT().subscribe((ots: any[]) => {
       console.log('Datos recibidos:', ots);
       this.ots = ots; // Store OT data for filtering

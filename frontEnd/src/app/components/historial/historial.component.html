@@ -2,12 +2,9 @@
 <div class="container">
     <nav class="sidebar">
         <ul class="ULestilo">
-          <li class="FlexLista" ><img class="imgIcono" src="https://www.utn.edu.ar/images/logo-utn.png" alt=""></li>
-  
-
-  
+          <li class="FlexLista" ><a href="/ot"><img class="imgIcono" src="https://www.utn.edu.ar/images/logo-utn.png" alt=""></a></li>
           <li class="FlexLista dropdown">
-            <a href="/ot" class="txtNav txtNavOt dropbtn">Orden de trabajo</a>
+            <a href="/ot" class="txtNav txtNavOt dropbtn *ngIf="isAdmin>Orden de trabajo</a>
           </li>
           
           <li class="FlexLista">
@@ -25,7 +22,8 @@
           
           <label class="LabelFilter" for="">Edificio</label>
           <select class="selectFilter" [(ngModel)]="selectedEdificio" (change)="filtrarOTs()">
-            <option value="">Todos</option>
+            <option value="" selected disabled>EDIFICIO</option>
+            <option value="" >Todos</option>
             <option *ngFor="let edificio of edificios" [value]="edificio">{{ edificio }}</option>
           </select>
         

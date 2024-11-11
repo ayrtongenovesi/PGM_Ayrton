@@ -8,7 +8,7 @@
 <div class="container">
     <nav class="sidebar">
       <ul class="ULestilo">
-        <li class="FlexLista" ><img class="imgIcono" src="https://www.utn.edu.ar/images/logo-utn.png" alt=""></li>
+        <li class="FlexLista" > <a href="/ot"><img class="imgIcono" src="https://www.utn.edu.ar/images/logo-utn.png" alt=""></a></li>
 
         <li class="FlexLista dropdown">
           <a href="/ot" class="txtNav txtNavOt dropbtn">Orden de trabajo</a>
@@ -24,11 +24,12 @@
             Gestion
           </a>
         </li>
-
+        <li class="FlexLista">
+          <a  class="txtNav txtSalir" href="/ot" (click)="logout()" >
+            Cerrar sesion
+          </a>
+        </li>
       </ul>
-      <button class="botonSalir" (click)="logout()"><span class="material-symbols-outlined">
-        logout
-        </span><strong class="txtSalir">SALIR</strong></button>
     </nav>
 
 
@@ -105,6 +106,14 @@
           <div class="form-buttons">
             <button class="btn-submit" (click)="generatePDF()">Generar PDF</button>
           </div>
+          <div class="notification" *ngIf="showNotification"
+          [ngClass]="{
+            'success': notificationType === 'success',
+            'error': notificationType === 'error',
+            'info': notificationType === 'info'
+          }">
+       {{ notificationMessage }}
+     </div>
 
         <!-- <div class="vistaPrevia">
           <h1 class="vistaTXT"> </h1>

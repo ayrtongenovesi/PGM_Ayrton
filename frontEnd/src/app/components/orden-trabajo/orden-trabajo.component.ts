@@ -24,6 +24,10 @@ export class OrdenTrabajoComponent {
   selectedUsuario: string = '';
   selectedTareas: string = '';
   pdfUrl: string = '';
+   
+  notificationMessage: string = '';
+  notificationType: string = '';
+  showNotification: boolean = false;
 
   data: any[] = [];
   datosPiso: any[] = [];
@@ -35,7 +39,16 @@ export class OrdenTrabajoComponent {
   datosTareas: any[] = [];
 
   constructor(private apiService: OtServiceService, private userService : UserService) {}
+ 
+  private showTempNotification(message: string, type: 'success' | 'error' | 'info') {
+    this.notificationMessage = message;
+    this.notificationType = type;
+    this.showNotification = true;
 
+    setTimeout(() => {
+      this.showNotification = false;
+    }, 1000);
+  }
   logout() {
     this.userService.logout();
     window.location.href = '/login';  
@@ -104,11 +117,12 @@ export class OrdenTrabajoComponent {
     if (!this.selectedEdificio || !this.selectedPiso || !this.selectedUbicacion || 
         !this.selectedSector || !this.selectedTipoActivo || !this.selectedUsuario || 
         !this.selectedTareas) {
-      // Si falta algún campo, mostrar el modal
-      this.mostrarModal('¡Por favor, completa todos los campos antes de continuar!');
+    
+          this.showTempNotification('Rellenar todos los datos.', 'error');
     } else {
       // Si todos los campos están completos, guardar los datos
       this.guardarEnOT();
+      this.showTempNotification('Orden de trabajo guardada.', 'success');
     }
   }
   
