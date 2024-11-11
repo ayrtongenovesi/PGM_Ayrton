@@ -18,7 +18,11 @@ export class LoginComponent {
   constructor(private userService: UserService, private router: Router) {
     console.log('LoginComponent instanciado');
   }
-
+  private clearFields() {
+    this.mail = '';
+    this.contrasena = '';
+    this.nombre = '';
+  }
   private showTempNotification(message: string, type: 'success' | 'error' | 'info') {
     this.notificationMessage = message;
     this.notificationType = type;
@@ -29,7 +33,7 @@ export class LoginComponent {
     }, 1000);
   }
 
-  // Método para validar el formato del correo
+
   private isValidEmail(email: string): boolean {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return emailPattern.test(email);
@@ -40,71 +44,55 @@ export class LoginComponent {
       this.showTempNotification('Todos los campos son requeridos.', 'error');
       return;
     }
-
-    if (!this.isValidEmail(this.mail)) {
-      this.showTempNotification('El correo no tiene un formato válido.', 'error');
-      return;
-    }
-
+  
     const credentials = {
       mail: this.mail,
       contraseña: this.contrasena
     };
-
+  
     this.userService.login(credentials).subscribe(
       response => {
         console.log('Inicio de sesión exitoso:', response);
         this.showTempNotification('Inicio de sesión exitoso.', 'success');
+        this.clearFields();  
         setTimeout(() => this.router.navigate(['/inicio']), 2000);
       },
       error => {
         console.error('Error al iniciar sesión:', error);
-        this.showTempNotification('Correo o contraseña incorrectos.', 'error');
+        this.showTempNotification('Contraseña o correo incorrecto.', 'error');
       }
     );
   }
-
+  
   register() {
     if (!this.nombre || !this.mail || !this.contrasena) {
-        this.showTempNotification('Todos los datos son necesarios.', 'error');
-        return;
+      this.showTempNotification('Todos los datos son necesarios.', 'error');
+      return;
     }
-
-    if (!this.isValidEmail(this.mail)) {
-        this.showTempNotification('El correo no tiene un formato válido.', 'error');
-        return;
-    }
-
+  
     const userData = {
-        nombre: this.nombre,
-        mail: this.mail,
-        IdTipoUsuario: 1,
-        contraseña: this.contrasena
+      nombre: this.nombre,
+      mail: this.mail,
+      IdTipoUsuario: 1,
+      contraseña: this.contrasena
     };
-
+  
     this.userService.register(userData).subscribe(
-        response => {
-            console.log('Registro exitoso:', response);
-            this.showTempNotification('Usuario creado exitosamente.', 'success');
-            setTimeout(() => this.router.navigate(['/inicio']), 2000);
-        },
-        error => {
-            console.error('Error al registrar:', error);
-
-            // Mostrar el mensaje de error específico según lo que devuelve el backend
-            if (error.status === 400) {
-                if (error.error.message === 'El correo ya está en uso') {
-                    this.showTempNotification('El correo ya está en uso.', 'error');
-                } else if (error.error.message === 'El nombre de usuario ya está en uso') {
-                    this.showTempNotification('El nombre de usuario ya está en uso.', 'error');
-                } else {
-                    this.showTempNotification('Error al registrar. Intente nuevamente.', 'error');
-                }
-            } else {
-                this.showTempNotification('Error desconocido. Intente nuevamente.', 'error');
-            }
+      response => {
+        console.log('Registro exitoso:', response);
+        this.showTempNotification('Usuario creado exitosamente.', 'success');
+        this.clearFields();  
+        setTimeout(() => this.router.navigate(['/inicio']), 2000);
+      },
+      error => {
+        console.error('Error al registrar:', error);
+        if (error.status === 400) {
+          this.showTempNotification('El correo o nombre ya está en uso.', 'error');
+        } else {
+          this.showTempNotification('Error al registrar. Intente nuevamente.', 'error');
         }
+      }
     );
-}
+  }
 
 }
