@@ -20,11 +20,6 @@
               Gestion
             </a>
           </li>
-          <li class="FlexLista">
-            <a  class="txtNav " href="/ot">
-              Configuración
-            </a>
-          </li>
         </ul>
         <div class="divFilter">
           
@@ -75,7 +70,9 @@
         </div>
         
       </nav>
-      
+      <!-- <div *ngFor="let orden of ots">
+        <button class="tareas-btn" (click)="mostrarTareasPopup(orden.id)">Ver Tareas</button>
+      </div>-->
       
 
       <div id="tabla-container">
@@ -83,31 +80,6 @@
 
 
 
-
       </div>
-
    
-
-
-      <!--
-     <table>
-      <div id="tabla" class="tabla" >
-        <table>
-            <thead>
-                <tr>
-                    <th>Edificio</th>
-                    <th>Piso</th>
-                    <th>Sector</th>
-                    <th>Ubicación</th>
-                    <th>Activo</th>
-                    <th>Operario</th>
-                    <th>Operaciones</th>
-                </tr>
-            </thead>
-        </table> 
-    </div>
-        <div></div>
-     </table>
-    
-    </div>
-  </body>-->
+   

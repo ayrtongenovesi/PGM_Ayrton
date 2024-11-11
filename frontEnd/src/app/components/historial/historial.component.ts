@@ -1,5 +1,6 @@
 import { Component, OnInit, Renderer2, ViewEncapsulation } from '@angular/core';
 import { OrdenTrabajo, OtServiceService } from '../../../service/ot-service.service';
+import { UserService } from '../../../service/services/user.service';
 
 @Component({
   selector: 'app-historial',
@@ -26,8 +27,10 @@ export class HistorialComponent implements OnInit {
   selectedWorkOrderId: any;
   renderer: any;
   showPopup: boolean | undefined;
+  http: any;
+  
 
-  constructor(private otService: OtServiceService) {}
+  constructor(private otService: OtServiceService, private userService : UserService) {}
 
   ngOnInit(): void {
     this.otService.getOT().subscribe((ots: any[]) => {
@@ -54,6 +57,7 @@ export class HistorialComponent implements OnInit {
             <th class="tabla-encabezado">Activo</th>
             <th class="tabla-encabezado">Operario</th>
             <th class="tabla-encabezado">Disponibilidad</th>
+            <th class="tabla-encabezado">Tareas</th>
           </tr>
         </thead>
         <tbody>
@@ -61,7 +65,7 @@ export class HistorialComponent implements OnInit {
   
       ots.forEach((orden) => {
         tablaHTML += `
-          <tr>
+          <tr *ngFor="let orden of ots" >
             <td class="tabla-edificio tablaTXT">${orden.id}</td>
             <td class="tabla-edificio tablaTXT">${orden.Edificio}</td>
             <td class="tabla-piso tablaTXT">${orden.Piso}</td>
@@ -70,12 +74,12 @@ export class HistorialComponent implements OnInit {
             <td class="tabla-activo tablaTXT">${orden.Tipo_Activo}</td>
             <td class="tabla-operario tablaTXT">${orden.usuarios}</td>
             <td class="tabla-operario tablaTXT">${orden.disponible}</td>
-            <td class="tabla-operario tablaTXT"> 
+            <td class="tabla-operario tablaTXT">${orden.Tareas}</td>
+            <td class="tabla-operario tablaTXT tablaButon"> 
               <button class="delete-btn" (click)="promptDeleteOT(orden.id)" data-id="${orden.id}">🗑️</button>
-              <button class="botonTilde">✔</button>
-              <div *ngFor="let orden of ots"> 
-              <button class="tareas-btn" (click)="mostrarTareasPopup(orden.id)">Tareas</button>
-              </div>
+              <button class="btnCambio" (click)="cambiarEstado(orden.id, !orden.disponible)">
+              ✔
+              </button>
              
             </td>
           </tr>
@@ -136,6 +140,7 @@ export class HistorialComponent implements OnInit {
             <th class="tabla-encabezado">Sector</th>
             <th class="tabla-encabezado">Activo</th>
             <th class="tabla-encabezado">Operario</th>
+             <th class="tabla-encabezado">Tareas</th>
           </tr>
         </thead>
         <tbody>
@@ -143,7 +148,7 @@ export class HistorialComponent implements OnInit {
 
     datosFiltrados.forEach(orden => {
       tablaHTML += `
-        <tr>
+        <tr *ngFor="let orden of ots">
           <td class="tabla-sector tablaTXT">${orden.id}</td>
           <td class="tabla-sector tablaTXT">${orden.Edificio}</td>
           <td class="tabla-sector tablaTXT">${orden.Piso}</td>
@@ -151,11 +156,11 @@ export class HistorialComponent implements OnInit {
           <td class="tabla-sector tablaTXT">${orden.Sector}</td>
           <td class="tabla-sector tablaTXT">${orden.Tipo_Activo}</td>
           <td class="tabla-sector tablaTXT">${orden.usuarios}</td>
-          <td class="tabla-operario tablaTXT">
+          <td class="tabla-operario tablaTXT">${orden.Tareas}</td>
+          <td class="tabla-operario tablaTXT tablaButon"> 
               <button class="delete-btn" 
               data-id="${orden.id}">🗑️</button>
               <button class="botonTilde">✔</button>
-             <button class="tareas-btn" (click)="mostrarTareasPopup(orden.id)">Tareas</button>
             </td>
         </tr>
       `;
@@ -211,10 +216,32 @@ export class HistorialComponent implements OnInit {
   reiniciar(){
     window.location.reload();
   }
-  
 
-  
+
+  cambiarEstado(id: number, estado: boolean): void {
+   
+    const nuevaOrden = this.ots.find(orden => orden.id === id);
+    if (nuevaOrden) {
+      nuevaOrden.estado = estado;  
+
+      
+      this.otService.updateEstadoOT(id, estado).subscribe(
+        (response) => {
+          console.log('Estado actualizado', response);
+        },
+        (error) => {
+          console.error('Error al actualizar el estado', error);
+         
+          nuevaOrden.estado = !estado; 
+        }
+      );
+    }
+  }
+  logout() {
+    this.userService.logout();
+    window.location.href = '/login';  
+  }
+
 }
-
 
 

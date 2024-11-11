@@ -205,7 +205,7 @@ export class OrdenTrabajoComponent {
     const DATA = document.getElementById('pdf-content'); 
     if (DATA) {
       html2canvas(DATA).then(canvas => {
-        const imgData = canvas.toDataURL('image/png'); 
+        const imgData = canvas.toDataURL('/assets/pdf/otpdf.pdf'); 
         const pdf = new jsPDF('p', 'mm', 'a4'); 
 
         
@@ -229,7 +229,7 @@ export class OrdenTrabajoComponent {
 
         this.pdfUrl = pdfBase64;
 
-        pdf.save('documento-angular.pdf');
+        pdf.save('ordenDeTrabajo.pdf');
       });
     }
   }
