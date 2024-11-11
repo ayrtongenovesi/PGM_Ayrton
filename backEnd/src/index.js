@@ -40,7 +40,7 @@ app.use('/api',edificioRoutes );
 app.use('/api', pisoRoutes);
 app.use ('/api', activoRoutes);
 app.use ('/api', ubicacionRoutes);
-
+app.use ('/api', userRoutes );
 app.use ('/api', sectorRoutes );
 app.use ('/api', TareaRoutes );
 app.use ('/api', ordenRoutes );

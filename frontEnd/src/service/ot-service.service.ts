@@ -2,6 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+export interface OrdenTrabajo {
+  id: number;
+  Edificio: string;
+  Piso: string;
+  Sector: string;
+  Ubicacion: string;
+  Tipo_Activo: string;
+  Tareas: string;
+  /*Operario: string;*/
+}
 
 @Injectable({
   providedIn: 'root'
@@ -39,9 +49,9 @@ export class OtServiceService {
     return this.http.get(`${this.apiUrl}/activo`, { params });
   }
 
-  getUser(operario: string): Observable<any> {
-    const params = new HttpParams().set('operario', operario);
-    return this.http.get(`${this.apiUrl}/usuarios`, { params });
+  getUser(usuario: string): Observable<any> {
+    const params = new HttpParams().set('usuario', usuario);
+    return this.http.get(`${this.apiUrl}/usuario`, { params });
   }
 
   getUbicacion(ubicacion: string): Observable<any> {
@@ -58,7 +68,20 @@ export class OtServiceService {
     return this.http.post(`${this.apiUrl}/ot/create`, datos); 
   }
 
+  getOT(): Observable<OrdenTrabajo[]> {
+    return this.http.get<OrdenTrabajo[]>(`${this.apiUrl}/ot`);
+  }
+
+  updateOT(id: number, updatedData: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/ot/edit`, { id, ...updatedData }); // Enviamos los datos con el id
+  }
+
+  deleteOT(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/ot/delete${id}`); 
+  }
 }
+
+
 
 
 

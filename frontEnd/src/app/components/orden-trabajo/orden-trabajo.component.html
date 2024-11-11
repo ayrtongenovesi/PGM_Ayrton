@@ -1,18 +1,14 @@
 <head>
-
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=logout" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap" />
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.6/pdfobject.min.js"></script>
   </head>
+<body>
 <div class="container">
     <nav class="sidebar">
       <ul class="ULestilo">
         <li class="FlexLista" ><img class="imgIcono" src="https://www.utn.edu.ar/images/logo-utn.png" alt=""></li>
-
-        <li class="FlexLista">
-          <a class="txtNav letrasMenu" href="/inicio">
-          Inicio </a>
-        </li>
 
         <li class="FlexLista dropdown">
           <a href="/ot" class="txtNav txtNavOt dropbtn">Orden de trabajo</a>
@@ -34,7 +30,9 @@
           </a>
         </li>
       </ul>
-      <button (click)="logout()">SALIR</button>
+      <button class="botonSalir" (click)="logout()"><span class="material-symbols-outlined">
+        logout
+        </span><strong class="txtSalir">SALIR</strong></button>
     </nav>
 
 
@@ -92,15 +90,6 @@
               
           </div>
   
-          <!-- <div class="form-group">
-              <select class="selectOptions">
-                  <option value="">Tipo de tarea</option>
-                  <option value="1">Preventiva</option>
-                  <option value="2">Urgente</option>
-                  <option value="3">Diagramada</option>
-              </select> 
-          </div>-->
-  
           <div class="form-group">
             <select multiple type class="selectOptions opcionMultiple" [(ngModel)]="selectedTareas">
               <option value="" disabled>TAREAS</option>
@@ -115,7 +104,7 @@
 
 
           <div class="form-buttons">
-            <button type="submit" class="btn-submit" (click)="guardarEnOT()">Crear</button>
+            <button type="submit" class="btn-submit" (click)="validarYGuardar()">Crear</button>
           </div>
           <div class="form-buttons">
             <button class="btn-submit" (click)="generatePDF()">Generar PDF</button>
@@ -157,7 +146,8 @@
         </div>
 
       </main>
-
+      </div>
+    </body>
 
    
       

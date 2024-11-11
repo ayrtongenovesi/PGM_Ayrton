@@ -13,7 +13,9 @@ import html2canvas from 'html2canvas';
   templateUrl: './orden-trabajo.component.html',
   styleUrl: './orden-trabajo.component.css'
 })
+
 export class OrdenTrabajoComponent {
+  selectedFecha: string = '';
   selectedEdificio: string = '';
   selectedSector: string = '';
   selectedPiso: string = '';
@@ -98,6 +100,61 @@ export class OrdenTrabajoComponent {
     })
   }
 
+  validarYGuardar(): void {
+    if (!this.selectedEdificio || !this.selectedPiso || !this.selectedUbicacion || 
+        !this.selectedSector || !this.selectedTipoActivo || !this.selectedUsuario || 
+        !this.selectedTareas) {
+      // Si falta algún campo, mostrar el modal
+      this.mostrarModal('¡Por favor, completa todos los campos antes de continuar!');
+    } else {
+      // Si todos los campos están completos, guardar los datos
+      this.guardarEnOT();
+    }
+  }
+  
+  mostrarModal(mensaje: string): void {
+   
+    const modal = document.createElement('div');
+    modal.classList.add('modal-overlay');
+    
+    
+    const modalContent = document.createElement('div');
+    modalContent.classList.add('modal-content');
+    
+   
+    const message = document.createElement('p');
+    message.innerText = mensaje;
+    message.classList.add('mensajeModal');
+    
+    
+    const closeButton = document.createElement('button');
+    closeButton.innerText = 'Cerrar';
+    closeButton.classList.add('modal-close-button');
+    closeButton.onclick = () => {
+      
+      document.body.removeChild(modal);
+    };
+    
+    
+    modalContent.appendChild(message);
+    modalContent.appendChild(closeButton);
+    modal.appendChild(modalContent);
+    
+    
+    document.body.appendChild(modal);
+  }
+
+  @ViewChild('fechaInput') fechaInput!: ElementRef; 
+
+  ngAfterViewInit() {
+    this.fechaInput.nativeElement.addEventListener('change', (event: Event) => {
+      const inputValue = (event.target as HTMLInputElement).value;
+      this.selectedFecha = inputValue;  // Guarda la fecha seleccionada en la variable
+      const fechaSeleccionada = document.getElementById('fechaSeleccionada');
+      fechaSeleccionada!.innerText = "Fecha seleccionada: " + inputValue;
+    });
+  }
+  
   guardarEnOT() {
     const datosSeleccionados = {
       edificio: this.selectedEdificio,
@@ -105,13 +162,13 @@ export class OrdenTrabajoComponent {
       piso: this.selectedPiso,
       tipoActivo: this.selectedTipoActivo,
       ubicacion: this.selectedUbicacion,
-      /*usuario: this.selectedUsuario,*/
-      tareas: this.selectedTareas
+      usuario: this.selectedUsuario,
+      tareas: this.selectedTareas,
+      fecha: this.selectedFecha
     };
-    console.log (this.guardarEnOT);
-    console.log (datosSeleccionados);
-    
-
+  
+    console.log("Datos a guardar:", datosSeleccionados);
+  
     this.apiService.createOT(datosSeleccionados).subscribe({
       next: (response) => {
         console.log('Datos guardados en la tabla OT:', response);
@@ -121,25 +178,28 @@ export class OrdenTrabajoComponent {
       },
       complete: () => {
         console.log('Operación completada');
+        this.borradoForm(); // Resetear el formulario o hacer otras acciones necesarias
       }
     });
-  };
+  }
+  
+  // Función para limpiar los campos seleccionados
+  borradoForm() {
+    this.selectedEdificio = '';
+    this.selectedSector = '';
+    this.selectedPiso = '';
+    this.selectedTipoActivo = '';
+    this.selectedUbicacion = '';
+    this.selectedUsuario = '';
+    this.selectedTareas = '';
+    this.pdfUrl = '';
+  }
 
   
  imprimirPagina(){
       window.print()
   }; 
 
-  @ViewChild('fechaInput') fechaInput!: ElementRef; 
-
-  ngAfterViewInit() {
-    this.fechaInput.nativeElement.addEventListener('change', (event: Event) => {
-      const fechaSeleccionada = document.getElementById('fechaSeleccionada');
-      const inputValue = (event.target as HTMLInputElement).value; 
-      fechaSeleccionada!.innerText = "Fecha seleccionada: " + inputValue;
-    });
-
-  }
   
   generatePDF() {
     const DATA = document.getElementById('pdf-content'); 
@@ -173,5 +233,8 @@ export class OrdenTrabajoComponent {
       });
     }
   }
+
+  
+  
   
 }

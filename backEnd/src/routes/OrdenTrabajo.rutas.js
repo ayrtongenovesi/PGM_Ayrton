@@ -5,9 +5,9 @@ const router = express.Router()
 
 router.get('/ot', getOT)
 
-router.put('/ot', updateOT)
+router.put('/ot/edit:id', updateOT)
 
-router.delete('/ot/:id', deleteOT)
+router.delete('/ot/delete:id', deleteOT)
 
 router.post('/ot/create', createOT)
 

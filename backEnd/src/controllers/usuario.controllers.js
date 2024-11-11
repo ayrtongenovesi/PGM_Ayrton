@@ -10,16 +10,16 @@ export const getUser = async (req,res)=> {
     }
 }
 
-export const createUser =async (req,res)=>{
-    const {name, mail, password}= req.body;
-    try {
-        const[result] = await pool.query('INSERT INTO usuario (name,mail,password) VALUES(?,?,?)', [name, mail, password])
-    } catch (err) {
-        console.error(err)
-        res.status(500).json({message: 'Error Servicio Interno', error: err.message})
+    export const createUser =async (req,res)=>{
+        const {name, mail, password}= req.body;
+        try {
+            const[result] = await pool.query('INSERT INTO usuario (name,mail,password) VALUES(?,?,?)', [name, mail, password])
+        } catch (err) {
+            console.error(err)
+            res.status(500).json({message: 'Error Servicio Interno', error: err.message})
+        }
     }
-}
-
+    
 export const deleteUser= async(req,res)=>{
     const {id} = req.params
     try {

@@ -12,14 +12,14 @@ export const getOT = async (req,res)=> {
 
 export const createOT = async (req, res) => {
     console.log('Datos recibidos en req.body:', req.body);
-    const { edificio, sector, piso, tipoActivo, ubicacion, tareas} = req.body;
+    const { edificio, sector, piso, tipoActivo, ubicacion, tareas, usuario, fecha} = req.body;
     
     const tareasTexto = tareas.join(', ');
     
     try {
       const [result] = await pool.query(
-        'INSERT INTO ot (Edificio, Piso, Ubicacion, Sector, Tipo_Activo, Tareas) VALUES (?, ?, ?, ?, ?, ?)',
-        [edificio, piso, ubicacion, sector, tipoActivo, tareasTexto] 
+        'INSERT INTO ot (Edificio, Piso, Ubicacion, Sector, Tipo_Activo, Tareas, usuarios, fecha) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        [edificio, piso, ubicacion, sector, tipoActivo, tareasTexto, usuario, fecha] 
       );
       res.status(201).json({ message: 'Registro creado exitosamente', id: result.insertId });
     } catch (err) {
@@ -38,26 +38,25 @@ export const createOT = async (req, res) => {
     }
 }*/
 
-export const deleteOT= async(req,res)=>{
-    const {OT} = req.params
+export const deleteOT = async (req, res) => {
+    console.log('Datos recibidos en delete:', req.params);
+    const { id } = req.params; 
     try {
-        const [result] = await pool.query('DELETE FROM OT WHERE OT = ?', [OT])
+        const [result] = await pool.query('DELETE FROM ot WHERE id = ?', [id]);
         if (result.affectedRows === 0) {
-            return res.status(404).json({message:'OT no encontrado'})
-            
+            return res.status(404).json({ message: 'OT no encontrado' });
         }
-        res.status(204).send()
+        res.status(204).send(); 
     } catch (err) {
-        console.error(err)
-        res.status(500).json({message: 'Error Servicio Interno', error: err.message})
+        console.error(err);
+        res.status(500).json({ message: 'Error Servicio Interno', error: err.message });
     }
 }
 
 export const updateOT = async (req,res)=>{
     const {OT} = req.params
-    
     try {
-        const [result] =await pool.query('UPDATE OT SET (????) = ? ', [OTT])
+        const [result] =await pool.query('UPDATE OT SET (????) = ? ', [OT])
         if (result.affectedRows === 0) {
             return res.status(404).json({message:'OT no encontrado'})
         }
