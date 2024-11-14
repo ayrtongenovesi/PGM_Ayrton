@@ -1,12 +1,12 @@
-* { /*ACA ESTABA EL PROBLEMA*/   
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
   }
   .container {
     display: grid;
-    grid-template-columns: 350px 1fr; /* Menú de 250px y contenido restante */
-    height: 100vh; /* Altura completa de la ventana */
+    grid-template-columns: 350px 1fr; 
+    height: 100vh; 
     background-color: #d1e1f3;
   }
   .imgIcono{
@@ -15,12 +15,11 @@
     padding-left: 25px;
     padding-bottom: 10px;
   }
-  /* Barra lateral (Sidebar) */
+  
   .sidebar {
     background-color: #afc0d3;
     padding-top: 15px;
     box-shadow: 2px 2px 20px 12px rgba(0, 0, 0, 0.2);
-    /*box-shadow: 8px 4px #d8d7d8;*/
   }
   
   .FlexLista{
@@ -28,14 +27,6 @@
     flex-direction: row;
     padding-bottom: 10px;
     padding-top: 5px;
-  }
-  .ULestilo{
-    padding-left: 0px !important; 
-  }
-
-  .letrasMenu{
-    display: flex;
-    flex-direction: row;
   }
   .txtNav {
     margin: 5px;
@@ -57,58 +48,17 @@
     background-color: #3ba3cc;
     width: 300px;
   }
-  .spanNav{
-  margin-top: 2px;
-  margin-right: 3px;
-  }
-  .spanNavOT{
-    margin-top: 4px;
-  }
   .txtNavOT{
     margin-bottom: 10px;
     margin-right: 2px;
   }
-  .spanNavH{
-    padding: 0 !important; 
-  }
-
-  .dropdown-content {
-    display: none;
-    position: relative;
-    background-color: #e8dff7;
-    min-width: 250px;
-    z-index: 1;
-    
-  }
-  
-  .dropdown-content a {
-    color: white;
-    padding: 12px 20px;
-    text-decoration: none;
-    display: block;
-    
-  }
-  
-  .dropdown-content a:hover {
-    background-color: #666;
-  }
-  
-  /* Mostrar el dropdown al hacer hover */
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
-
-/*FIN DEL NAV*/
 
 #tabla-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 50px;
-  
-  
+  margin-top: 50px; 
 }
-
 .tabla-ot {
   width: 80%;
   border-collapse: collapse;
@@ -116,13 +66,11 @@
   border-radius: 2px;
   box-shadow: 0px 0px 5px 6px rgba(0, 0, 0, 0.2);
 }
-
 .tabla-encabezado {
   background-color: #a1c4df;
   text-align: center;
   padding: 10px;
   font-weight: bold;
- 
 }
 
 .tabla-edificio, .tabla-piso, .tabla-ubicacion, .tabla-sector, .tabla-activo, .tabla-operario {
@@ -131,14 +79,12 @@
   border: 1px solid #ddd;
   border-radius: 2px;
 }
-
 .tabla-ot tbody tr {
   background-color: #e4f3f8;
 }
 .tabla-encabezado{
   font-family: 'Arial';
 }
-
 .tablaTXT{
   font-family: 'Arial';
 }
@@ -147,13 +93,11 @@
   width: 30px;
   background: #ee8888;
 }
-.btnCambio{
+.botonTilde{
   height: 30px;
   width: 30px;
-  background: #aff390;
+  background: #8aeb9a;
 }
-/*popup*/
-
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -166,25 +110,12 @@
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-/* Contenido del modal */
-.modal-content {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  max-width: 300px;
-  width: 100%;
-}
-
-/* Mensaje dentro del modal */
 .modal-message {
   margin-bottom: 20px;
   font-size: 16px;
   font-family: Arial, Helvetica, sans-serif;
   color: #333;
 }
-
-/* Botón de confirmación */
 .modal-confirm-button {
   background-color: #4CAF50;
   color: white;
@@ -194,12 +125,9 @@
   cursor: pointer;
   margin-right: 10px;
 }
-
 .modal-confirm-button:hover {
   background-color: #45a049;
 }
-
-/* Botón de cancelación */
 .modal-cancel-button {
   background-color: #f44336;
   color: white;
@@ -208,11 +136,9 @@
   border-radius: 4px;
   cursor: pointer;
 }
-
 .modal-cancel-button:hover {
   background-color: #d32f2f;
 }
-
 .divFilter{
   display: flex;
   flex-direction: column;
@@ -241,12 +167,6 @@
 .tablaButon{
   width: 100px;
 }
-
-.botonTilde{
-  height: 30px;
-  width: 30px;
-  background: #8aeb9a;
-}
 .btnReinicio{
   margin-top: 15px;
   height: 30px;
@@ -260,7 +180,6 @@
   font-family: Arial, Helvetica, sans-serif;
   color: white;
 }
-
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -272,14 +191,14 @@
   align-items: center;
   justify-content: center;
 }
-
 .modal-content {
-  background: white;
+  background-color: #fff;
   padding: 20px;
   border-radius: 8px;
-  width: 300px;
+  text-align: center;
+  max-width: 300px;
+  width: 100%;
 }
-
 .modal-close-button {
   margin-top: 15px;
 }

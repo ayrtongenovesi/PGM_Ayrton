@@ -5,10 +5,10 @@ const router = express.Router()
 
 router.get('/tareas', getTarea)
 
-router.put('/tareas', updateTarea)
+router.put('/tareas/edit:id', updateTarea)
 
-router.delete('/tareas/:id', deleteTarea)
+router.delete('/tareas/delete:id', deleteTarea)
 
-router.post('/tareas/', createTarea)
+router.post('/tareas/create', createTarea)
 
 export default router

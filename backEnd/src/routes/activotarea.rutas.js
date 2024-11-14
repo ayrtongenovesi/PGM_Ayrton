@@ -1,14 +1,13 @@
 import express from 'express'
 import { createAT, deleteAT, getAT, updateAT } from '../controllers/activotarea.controller.js'
-//ActivoSOLO
 const router = express.Router()
 
 router.get('/activo', getAT) 
 
-router.put('/activo', updateAT)
+router.put('/activo/edit:id', updateAT)
 
-router.delete('/activo/:id',deleteAT)
+router.delete('/activo/delete:id',deleteAT)
 
-router.post('/activo/',createAT)
+router.post('/activo/create',createAT)
 
 export default router

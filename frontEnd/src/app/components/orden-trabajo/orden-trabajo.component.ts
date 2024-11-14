@@ -23,13 +23,12 @@ export class OrdenTrabajoComponent {
   selectedUbicacion: string = '';
   selectedUsuario: string = '';
   selectedTareas: string = '';
-  pdfUrl: string = '';
-   
+  pdfUrl: string = ''; 
   notificationMessage: string = '';
   notificationType: string = '';
   showNotification: boolean = false;
 
-  data: any[] = [];
+
   datosPiso: any[] = [];
   datosEdificio: any[] = [];
   datosUsuario: any[] = [];
@@ -53,10 +52,10 @@ export class OrdenTrabajoComponent {
     this.userService.logout();
     window.location.href = '/login';  
   }
+
   ngOnInit(): void {
     this.dataPiso()
     this.dataEdificio()
-    /*this.dataSector()*/
     this.dataUsuario()
     this.dataActivo()
     this.dataUbicacion()
@@ -117,10 +116,8 @@ export class OrdenTrabajoComponent {
     if (!this.selectedEdificio || !this.selectedPiso || !this.selectedUbicacion || 
         !this.selectedSector || !this.selectedTipoActivo || !this.selectedUsuario || 
         !this.selectedTareas) {
-    
           this.showTempNotification('Rellenar todos los datos.', 'error');
     } else {
-      // Si todos los campos están completos, guardar los datos
       this.guardarEnOT();
       this.showTempNotification('Orden de trabajo guardada.', 'success');
     }
@@ -163,7 +160,7 @@ export class OrdenTrabajoComponent {
   ngAfterViewInit() {
     this.fechaInput.nativeElement.addEventListener('change', (event: Event) => {
       const inputValue = (event.target as HTMLInputElement).value;
-      this.selectedFecha = inputValue;  // Guarda la fecha seleccionada en la variable
+      this.selectedFecha = inputValue;
       const fechaSeleccionada = document.getElementById('fechaSeleccionada');
       fechaSeleccionada!.innerText = "Fecha seleccionada: " + inputValue;
     });
@@ -192,12 +189,11 @@ export class OrdenTrabajoComponent {
       },
       complete: () => {
         console.log('Operación completada');
-        this.borradoForm(); // Resetear el formulario o hacer otras acciones necesarias
+        this.borradoForm();
       }
     });
   }
   
-  // Función para limpiar los campos seleccionados
   borradoForm() {
     this.selectedEdificio = '';
     this.selectedSector = '';
@@ -209,11 +205,9 @@ export class OrdenTrabajoComponent {
     this.pdfUrl = '';
   }
 
-  
  imprimirPagina(){
       window.print()
   }; 
-
   
   generatePDF() {
     const DATA = document.getElementById('pdf-content'); 
@@ -225,7 +219,7 @@ export class OrdenTrabajoComponent {
         
         const imgWidth = 150; 
         const pageHeight = pdf.internal.pageSize.height; 
-        const imgHeight = canvas.height * imgWidth / canvas.width; // Escalar la imagen
+        const imgHeight = canvas.height * imgWidth / canvas.width;
         let heightLeft = imgHeight;
         let position = 0;
 
@@ -247,8 +241,4 @@ export class OrdenTrabajoComponent {
       });
     }
   }
-
-  
-  
-  
 }

@@ -5,10 +5,10 @@ const router = express.Router()
 
 router.get('/edificio', getEdificio)
 
-router.put('/edificio', updateEdificio)
+router.put('/edificio/edit:id', updateEdificio)
 
-router.delete('/edificio/:id', deleteEdificio)
+router.delete('/edificio/delete:id', deleteEdificio)
 
-router.post('/edificio/', createEdificio)
+router.post('/edificio/create', createEdificio)
 
 export default router

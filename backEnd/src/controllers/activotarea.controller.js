@@ -1,5 +1,5 @@
 import {pool} from '../../config/database.js';
-// por ahora es el ACTIVO SOLO pero cambiar y crear otro cohntrolardor
+
 export const getAT = async (req,res)=> {
     try {
         const [rows] = await pool.query('SELECT * FROM activo')
@@ -19,7 +19,7 @@ export const createAT =async (req,res)=>{
         res.status(500).json({message: 'Error Servicio Interno', error: err.message})
     }
 }
-//posiblemente no se use por que no se borran datos si no que AT cambia estado de activo 
+
 export const deleteAT= async(req,res)=>{
     const {AT} = req.params
     try {

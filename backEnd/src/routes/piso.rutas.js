@@ -5,10 +5,10 @@ const router = express.Router()
 
 router.get('/piso',getPiso)
 
-router.put('/piso',updatePiso)
+router.put('/piso/edit:id',updatePiso)
 
-router.delete('/piso/:id',deletePiso)
+router.delete('/piso/delete:id',deletePiso)
 
-router.post('/piso/', createPiso)
+router.post('/piso/create', createPiso)
 
 export default router

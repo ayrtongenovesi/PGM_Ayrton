@@ -5,10 +5,10 @@ const router = express.Router()
 
 router.get('/sector', getSector);
 
-router.put('/sector', updateSector )
+router.put('/sector/edit:id', updateSector )
 
-router.delete('/sector/:id', deleteSector )
+router.delete('/sector/delete:id', deleteSector )
 
-router.post('/sector/', createSector )
+router.post('/sector/create', createSector )
 
 export default router

@@ -5,10 +5,10 @@ const router = express.Router()
 
 router.get('/ubicacion', getUbicacion);
 
-router.put('/ubicacion', updateUbicacion)
+router.put('/ubicacion/edit:id', updateUbicacion)
 
-router.delete('/ubicacion/:id', deleteUbicacion)
+router.delete('/ubicacion/delete/:id', deleteUbicacion)
 
-router.post('/ubicacion/', createUbicacion)
+router.post('/ubicacion/create', createUbicacion)
 
 export default router

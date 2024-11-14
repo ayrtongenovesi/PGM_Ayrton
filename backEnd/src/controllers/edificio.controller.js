@@ -19,7 +19,7 @@ export const createEdificio =async (req,res)=>{
         res.status(500).json({message: 'Error Servicio Interno', error: err.message})
     }
 }
-//posiblemente no se use por que no se borran datos si no que deleteEdificio cambia estado de activo 
+
 export const deleteEdificio= async(req,res)=>{
     const {edificio} = req.params
     try {

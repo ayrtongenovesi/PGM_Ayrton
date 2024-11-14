@@ -14,24 +14,19 @@ export const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'inicio',
-    component: EntornoComponent,
-    canActivate: [LoginGuard] // Para admin y operario
-  },
-  {
     path: 'ot',
     component: OrdenTrabajoComponent,
-    canActivate: [LoginGuard] // Solo accesible para admin
+    canActivate: [LoginGuard] 
   },
   {
     path: 'visual',
     component: OrdenVisualComponent,
-    canActivate: [LoginGuard] // Para admin y operario
+    canActivate: [LoginGuard] 
   },
   {
     path: 'historial',
     component: HistorialComponent,
-    canActivate: [LoginGuard] // Para admin y operario
+    canActivate: [LoginGuard] 
   }
 ];
 

@@ -8,7 +8,7 @@ import {pool} from '../config/database.js';
  import cuiaRoutes from './routes/CUIA.rutas.js';
  import edificioRoutes from './routes/edificio.rutas.js';
  import pisoRoutes from './routes/piso.rutas.js';
- import activoRoutes from './routes/activotarea.rutas.js'; //activo solo
+ import activoRoutes from './routes/activotarea.rutas.js'; 
  import ubicacionRoutes from './routes/ubicacion.rutas.js';
 
 
@@ -31,10 +31,8 @@ app.use(cors({
     origin:'http://localhost:4200',credentials:true
 }));
 
-//aplicar el import
 app.use(express.json());
 app.use('/api/auth', loginRoutes);
-//app.use('/api',userRoutes);
 app.use('/api',cuiaRoutes);
 app.use('/api',edificioRoutes );
 app.use('/api', pisoRoutes);
@@ -44,9 +42,6 @@ app.use ('/api', userRoutes );
 app.use ('/api', sectorRoutes );
 app.use ('/api', TareaRoutes );
 app.use ('/api', ordenRoutes );
-//app.use('/api', sectorRoutes);
-
-
 
 
 app.listen(PORT, () => {

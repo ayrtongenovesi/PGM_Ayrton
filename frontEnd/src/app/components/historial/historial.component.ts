@@ -9,6 +9,7 @@ import { UserService } from '../../../service/services/user.service';
   encapsulation: ViewEncapsulation.None
 })
 export class HistorialComponent implements OnInit {
+  
   ots: any[] = [];
   edificios: string[] = [];
   pisos: string[] = [];
@@ -24,23 +25,18 @@ export class HistorialComponent implements OnInit {
   selectedActivo: string = '';
   selectedOperario: string = '';
   datosTareas: any;
-  selectedWorkOrderId: any;
-  renderer: any;
-  showPopup: boolean | undefined;
-  http: any;
   isAdmin:boolean = false ;
 
   constructor(private otService: OtServiceService, private userService : UserService) {}
 
   ngOnInit(): void {
-    
     const userType = this.userService.getIdTipoUsuario();
     this.isAdmin = userType === 2; 
 
     this.otService.getOT().subscribe((ots: any[]) => {
       console.log('Datos recibidos:', ots);
-      this.ots = ots; // Store OT data for filtering
-      this.extractUniqueValues(); // Get unique values for each select
+      this.ots = ots; 
+      this.extractUniqueValues(); 
       this.mostrarTablaFiltrada();
   
       const container = document.getElementById('tabla-container');

@@ -10,7 +10,6 @@ export interface OrdenTrabajo {
   Ubicacion: string;
   Tipo_Activo: string;
   Tareas: string;
-  /*Operario: string;*/
 }
 
 @Injectable({
@@ -71,10 +70,6 @@ export class OtServiceService {
   getOT(): Observable<OrdenTrabajo[]> {
     return this.http.get<OrdenTrabajo[]>(`${this.apiUrl}/ot`);
   }
-
-  /*updateOT(id: number, updatedData: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/ot/edit`, { id, ...updatedData }); // Enviamos los datos con el id
-  }*/
 
   updateEstadoOT(id: number, estado: boolean): Observable<any> {
     return this.http.put(`${this.apiUrl}/ot/edit/${id}`, { estado });

@@ -19,62 +19,56 @@
           </li>
         </ul>
         <div class="divFilter">
+            <label class="LabelFilter" for="">Edificio</label>
+            <select class="selectFilter" [(ngModel)]="selectedEdificio" (change)="filtrarOTs()">
+              <option value="" selected disabled>EDIFICIO</option>
+              <option value="" >Todos</option>
+              <option *ngFor="let edificio of edificios" [value]="edificio">{{ edificio }}</option>
+            </select>
           
-          <label class="LabelFilter" for="">Edificio</label>
-          <select class="selectFilter" [(ngModel)]="selectedEdificio" (change)="filtrarOTs()">
-            <option value="" selected disabled>EDIFICIO</option>
-            <option value="" >Todos</option>
-            <option *ngFor="let edificio of edificios" [value]="edificio">{{ edificio }}</option>
-          </select>
-        
+            
+            <label class="LabelFilter" for="">Piso</label>
+            <select class="selectFilter" [(ngModel)]="selectedPiso" (change)="filtrarOTs()">
+              <option value="" selected disabled>PISO</option>
+              <option value="">Todos</option>
+              <option *ngFor="let piso of pisos" [value]="piso">{{ piso }}</option>
+            </select>
+
+            <label class="LabelFilter" for="">Ubicación</label>
+            <select class="selectFilter" [(ngModel)]="selectedUbicacion" (change)="filtrarOTs()">
+              <option value="" selected disabled>UBICACIÓN</option>
+              <option value="">Todos</option>
+              <option *ngFor="let ubicacion of ubicaciones" [value]="ubicacion">{{ ubicacion }}</option>
+            </select>
+
+            <label class="LabelFilter" for="">Sector</label>
+            <select class="selectFilter" [(ngModel)]="selectedSector" (change)="filtrarOTs()">
+              <option value="" selected disabled>SECTOR</option>
+              <option value="">Todos</option>
+              <option *ngFor="let sector of sectores" [value]="sector">{{ sector }}</option>
+            </select>
+
+            <label class="LabelFilter" for="">Activo</label>
+            <select class="selectFilter" [(ngModel)]="selectedActivo" (change)="filtrarOTs()">
+              <option value="" selected disabled>ACTIVO</option>
+              <option value="">Todos</option>
+              <option *ngFor="let activo of activos" [value]="activo">{{ activo }}</option>
+            </select>
+            
+            <label class="LabelFilter" for="">Operario</label>
+            <select class="selectFilter" [(ngModel)]="selectedOperario" (change)="filtrarOTs()">
+              <option value="" selected disabled>OPERARIO</option>
+              <option value="">Todos</option>
+              <option *ngFor="let operario of operarios" [value]="operario">{{ operario }}</option>
+            </select>
           
-          <label class="LabelFilter" for="">Piso</label>
-          <select class="selectFilter" [(ngModel)]="selectedPiso" (change)="filtrarOTs()">
-            <option value="" selected disabled>PISO</option>
-            <option value="">Todos</option>
-            <option *ngFor="let piso of pisos" [value]="piso">{{ piso }}</option>
-          </select>
-
-          <label class="LabelFilter" for="">Ubicación</label>
-          <select class="selectFilter" [(ngModel)]="selectedUbicacion" (change)="filtrarOTs()">
-            <option value="" selected disabled>UBICACIÓN</option>
-            <option value="">Todos</option>
-            <option *ngFor="let ubicacion of ubicaciones" [value]="ubicacion">{{ ubicacion }}</option>
-          </select>
-
-          <label class="LabelFilter" for="">Sector</label>
-          <select class="selectFilter" [(ngModel)]="selectedSector" (change)="filtrarOTs()">
-            <option value="" selected disabled>SECTOR</option>
-            <option value="">Todos</option>
-            <option *ngFor="let sector of sectores" [value]="sector">{{ sector }}</option>
-          </select>
-
-          <label class="LabelFilter" for="">Activo</label>
-          <select class="selectFilter" [(ngModel)]="selectedActivo" (change)="filtrarOTs()">
-            <option value="" selected disabled>ACTIVO</option>
-            <option value="">Todos</option>
-            <option *ngFor="let activo of activos" [value]="activo">{{ activo }}</option>
-          </select>
-          
-          <label class="LabelFilter" for="">Operario</label>
-          <select class="selectFilter" [(ngModel)]="selectedOperario" (change)="filtrarOTs()">
-            <option value="" selected disabled>OPERARIO</option>
-            <option value="">Todos</option>
-            <option *ngFor="let operario of operarios" [value]="operario">{{ operario }}</option>
-          </select>
-        
-        <button class="btnReinicio" (click)="reiniciar()"><a class="TXTReinicio" href="/historial">REINICIAR</a></button>
-          <!-- Agrega selectores similares para otros filtros si es necesario -->
+            <button class="btnReinicio" (click)="reiniciar()">
+              <a class="TXTReinicio" href="/historial">REINICIAR</a>
+            </button>
         </div>
-        
-      </nav>
-      <!-- <div *ngFor="let orden of ots">
-        <button class="tareas-btn" (click)="mostrarTareasPopup(orden.id)">Ver Tareas</button>
-      </div>-->
-      
+    </nav>
 
       <div id="tabla-container">
-
 
 
 

@@ -113,28 +113,12 @@
             'info': notificationType === 'info'
           }">
        {{ notificationMessage }}
-     </div>
+         </div>
 
-        <!-- <div class="vistaPrevia">
-          <h1 class="vistaTXT"> </h1>
-          <ul class="vistaPreviaUl">
-            <li class="vistaPreviaLi liSubrayado">Vista Previa</li>
-            <li class="vistaPreviaLi" >Edificio: {{ selectedEdificio}} </li>
-            <li class="vistaPreviaLi">Piso: {{ selectedPiso}}  </li>
-            <li class="vistaPreviaLi">Sector: {{ selectedSector}}  </li>
-            <li class="vistaPreviaLi">Ubicacion: {{ selectedUbicacion}}  </li>
-            <li class="vistaPreviaLi">Activo: {{ selectedTipoActivo}} </li>
-            <li class="vistaPreviaLi">Operario: {{selectedUsuario}} </li>
-            <li class="vistaPreviaLi">Tareas: {{selectedTareas}} <br></li>
-            <li class="vistaPreviaLi" id="fechaSeleccionada">Fecha:   <br></li>
-          </ul>
-
-         </div> -->
-
-        
          <div id="pdf-content" >
           <h1 class="vistaPreviaLi">Orden de trabajo</h1>
-          <li class="vistaPreviaLi liSubrayado">Vista Previa</li>
+          <ul >
+            <li class="vistaPreviaLi liSubrayado">Vista Previa</li>
             <li class="vistaPreviaLi" >Edificio:  <strong>{{ selectedEdificio}}</strong> </li>
             <li class="vistaPreviaLi">Piso: <strong>{{ selectedPiso}} </strong> </li>
             <li class="vistaPreviaLi">Sector:  <strong>{{ selectedSector}} </strong> </li>
@@ -143,7 +127,7 @@
             <li class="vistaPreviaLi">Operario: <strong>{{selectedUsuario}} </strong></li>
             <li class="vistaPreviaLi tareasStrong">Tareas: <br> <strong > {{selectedTareas}} </strong> <br></li>
             <li class="vistaPreviaLi" id="fechaSeleccionada"><strong>Fecha:    </strong><br></li>
-            
+          </ul>
          </div>
 
          <iframe *ngIf="pdfUrl" [src]="pdfUrl" width="100%" height="600px"></iframe>

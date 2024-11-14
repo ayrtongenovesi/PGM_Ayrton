@@ -20,7 +20,7 @@ export const createPiso =async (req,res)=>{
         res.status(500).json({message: 'Error Servicio Interno', error: err.message})
     }
 }
-//posiblemente no se use por que no se borran datos si no que piso cambia estado de activo 
+
 export const deletePiso= async(req,res)=>{
     const {piso} = req.params
     try {

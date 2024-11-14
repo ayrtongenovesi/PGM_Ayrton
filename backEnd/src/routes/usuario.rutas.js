@@ -10,7 +10,7 @@ router.put('/usuario', updateUser);
 
 router.delete('/usuario/:id', deleteUser);
 
-//asignar que solo admins puedan usar esta funcion 
+
 router.post('/usuario/', createUser);
 
 export default router;

@@ -1,5 +1,9 @@
+* {    
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #d1e1f3;
@@ -10,8 +14,8 @@ body {
   
   .container {
     display: grid;
-    grid-template-columns: 350px 1fr; /* Menú de 250px y contenido restante */
-    height: 100vh; /* Altura completa de la ventana */
+    grid-template-columns: 350px 1fr; 
+    height: 100vh; 
     background-color: #d1e1f3;
   }
   .imgIcono{
@@ -20,12 +24,12 @@ body {
     padding-left: 25px;
     padding-bottom: 10px;
   }
-  /* Barra lateral (Sidebar) */
+
   .sidebar {
     background-color: #afc0d3;
     padding-top: 15px;
     box-shadow: 2px 2px 20px 12px rgba(0, 0, 0, 0.2);
-    /*box-shadow: 8px 4px #d8d7d8;*/
+   
   }
   
   .FlexLista{
@@ -36,11 +40,6 @@ body {
   }
   .ULestilo{
     padding-left: 0px !important; 
-  }
-
-  .letrasMenu{
-    display: flex;
-    flex-direction: row;
   }
   .txtNav {
     margin: 5px;
@@ -66,43 +65,11 @@ body {
   margin-top: 2px;
   margin-right: 3px;
   }
-  .spanNavOT{
-    margin-top: 4px;
-  }
+
   .txtNavOT{
     margin-bottom: 10px;
     margin-right: 2px;
   }
-  .spanNavH{
-    padding: 0 !important; 
-  }
-  .dropdown-content {
-    display: none;
-    position: relative;
-    background-color: #e8dff7;
-    min-width: 250px;
-    z-index: 1;
-    
-  }
-
-  .dropdown-content a {
-    color: white;
-    padding: 12px 20px;
-    text-decoration: none;
-    display: block;
-    
-  }
-  
-  .dropdown-content a:hover {
-    background-color: #666;
-  }
-  
-  /* Mostrar el dropdown al hacer hover */
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
-  
-  /* Contenido principal */
 
   .contentGeneral{
     margin: 5px;
@@ -117,28 +84,6 @@ body {
     color: #666;
     font-size: 16px;
   }
-  
-  
-  /*Contenido externo*/
-  
-  
-  
-  .material-symbols-outlined {
-    
-    font-variation-settings:
-    'FILL' 0,
-    'wght' 200,
-    'GRAD' 0,
-    'opsz' 24
-    
-  }
-  .aver{
-    margin-left: 20px;
-  }
-  .logout{
-    padding-top: 550px;
-    padding-left: 130px;
-  }
 
   .barraGeneral{
     margin: 0;
@@ -146,75 +91,8 @@ body {
     padding: 30px;
     display: flex;
     box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-    /* Centra el formulario en la barra de navegación */
-    
-  }
-  
-  .search-form {
-    display: flex;
-    
-  }
-  
-  .search-input {
-    padding: 12px;
-    width: 1400px;
-    border: none;
-    border-radius: 4px 0 0 4px; /* Bordes redondeados solo a la izquierda */
-    background-color: #bfc1c4;
-    color: black;
-  }
-  
-  .search-button {
-    padding: 8px;
-    border: none;
-    background-color: #156b8d;
-    color: whitesmoke;
-    border-radius: 0 4px 4px 0; /* Bordes redondeados solo a la derecha */
-    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-  }
-  
-  .search-button:hover {
-    background-color: #156b8d; /* Cambia el color de fondo al pasar el mouse */
   }
 
-
-  /*NAV SEARCH*/
-
-
-
-.input-container {
-    width: 1450px;
-    position: relative;
-  }
-  
-  .icon {
-    position: absolute;
-    right: 10px;
-    top: calc(50% + 5px);
-    transform: translateY(calc(-50% - 5px));
-  }
-  
-  .input {
-    width: 100%;
-    height: 30px;
-    padding: 10px;
-    transition: .2s linear;
-    border: 2.5px solid black;
-    font-size: 14px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-  }
-  
-  .input:focus {
-    outline: none;
-    border: 0.5px solid black;
-    box-shadow: -5px -5px 0px black;
-  }
-  
-  .input-container:hover > .icon {
-    animation: anim 1s linear infinite;
-  }
-  
   @keyframes anim {
     0%,
     100% {
@@ -225,294 +103,6 @@ body {
       transform: translateY(calc(-50% - 5px)) scale(1.1);
     }
   }
-  
-  /* FIN NAV SEARCH*/
-
-  /*BTN LOGOUT*/
-
-.Btn {
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-start;
-    margin-top:550px;
-    margin-left: 30px;
-    width: 50px;
-    height: 50px;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition-duration: .3s;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
-    background-color: rgb(255, 65, 65);
-  }
-  
-  /* plus sign */
-  .sign {
-    width: 100%;
-    transition-duration: .3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .sign svg {
-    width: 17px;
-  }
-  
-  .sign svg path {
-    fill: white;
-  }
-  /* text */
-  .text {
-    position: absolute;
-    right: 0%;
-    width: 0%;
-    opacity: 0;
-    color: white;
-    font-size: 1.2em;
-    font-weight: 600;
-    transition-duration: .3s;
-  }
-  /* hover effect on button width */
-  .Btn:hover {
-    width: 125px;
-    border-radius: 40px;
-    transition-duration: .3s;
-  }
-  
-  .Btn:hover .sign {
-    width: 30%;
-    transition-duration: .3s;
-    padding-left: 20px;
-  }
-  /* hover effect button's text */
-  .Btn:hover .text {
-    opacity: 1;
-    width: 70%;
-    transition-duration: .3s;
-    padding-right: 10px;
-  }
-  /* button click effect*/
-  .Btn:active {
-    transform: translate(2px ,2px);
-  }
-
-  .seccionUnoOT{
-    width: 90%;
-    height: 150px;
-    
-    margin-top: 40px;
-    margin-left: 100px;
-  }
-  .OTflex{
-    display: flex;
-    flex-direction: row;
-
-  }
-  .listaFlex{
-    margin-left: 20px;
-    list-style: none;
-    margin-top: 15px;
-  }
-  .listaFlex2{
-    margin-left: 20px;
-    list-style: none;
-    margin-top: 15px;
-  }
- .selectBoton{
-  appearance: button;
-  width: 230px;
- background-color: #6b6c6d;
- border: solid transparent;
- border-radius: 5px;
- border-width: 0 0 4px;
- box-sizing: border-box;
- color: #FFFFFF;
- cursor: pointer;
- display: inline-block;
- font-size: 15px;
- font-weight: 700;
- letter-spacing: .8px;
- line-height: 20px;
- margin: 0;
- outline: none;
- overflow: visible;
- padding: 13px 19px;
- height: 50px;
- text-align: center;
- text-transform: uppercase;
- touch-action: manipulation;
- transform: translateZ(0);
- transition: filter .2s;
- user-select: none;
- -webkit-user-select: none;
- vertical-align: middle;
- white-space: nowrap;
-
- }
- .selectBoton:after {
-  background-clip: padding-box;
-  background-color: #1CB0F6;
-  border: solid transparent;
-  
-  border-width: 0 0 4px;
-  bottom: -4px;
-  content: "";
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: -1;
- }
-
-.select:main, button:focus {
-  user-select: auto;
- }
- 
- .selectBoton:hover:not(:disabled) {
-  filter: brightness(1.1);
- }
- 
- .selectBoton:disabled {
-  cursor: auto;
- }
- 
- .selectBoton:active:after {
-  border-width: 0 0 0px;
- }
- 
-/*CSS GRID OT*/
-
-.parent {
-  display: grid;
-  grid-template-columns: repeat(2, 0.4fr);
-  grid-template-rows: 4rem repeat(7, 3rem) repeat(2, 0);
-  grid-column-gap: 0px;
-  grid-row-gap: 0px;
-  }
-  
-  .parent {
-    display: grid;
-    grid-template-columns: 0.2fr 0.4fr;
-    grid-template-rows: 4rem repeat(7, 1.7rem) repeat(2, 0);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-  
-    }
-    
-    .div1 { grid-area: 1 / 1 / 2 / 3; }
-    .div2 { grid-area: 2 / 1 / 3 / 3; }
-    .div3 { grid-area: 3 / 1 / 4 / 3; }
-    .div4 { grid-area: 4 / 1 / 5 / 3; }
-    .div5 { grid-area: 5 / 1 / 6 / 3; }
-    .div6 { grid-area: 6 / 1 / 7 / 3; }
-    .div7 { grid-area: 7 / 1 / 8 / 3; }
-    .div8 { grid-area: 8 / 1 / 9 / 3; }
-
-    /*2DO GRID*/
-
-    .parent2 {
-      display: grid;
-      grid-template-columns: 0.2fr 0.4fr;
-      grid-template-rows: repeat(11, 1.5rem);
-      grid-column-gap: 0px;
-      grid-row-gap: 0px;
-      }
-      
-      .div9 { grid-area: 1 / 1 / 2 / 3; }
-      .div10 { grid-area: 2 / 1 / 3 / 3; }
-      .div11 { grid-area: 3 / 1 / 4 / 3; }
-      .div12 { grid-area: 4 / 1 / 5 / 3; }
-      .div13 { grid-area: 5 / 1 / 6 / 3; }
-      .div14 { grid-area: 6 / 1 / 7 / 3; }
-      .div15 { grid-area: 7 / 1 / 8 / 3; }
-      .div16 { grid-area: 8 / 1 / 9 / 3; }
-      .div17 { grid-area: 9 / 1 / 10 / 3; }
-      .div18 { grid-area: 10 / 1 / 11 / 3; }
-      .div19 { grid-area: 11 / 1 / 12 / 3; }
-
-  .gridLineas{
-    border-color: black;
-    border-width: 1px;
-    margin:0px;
-   border-style: solid;
-   display: flex;
-   flex-direction: row;
-   background-color: #eceaea;
-  }
-
-
-  .textoOT_Titulo{
-    margin: 0;
-    padding: 0;
-    font-size: 25px;
-    font-family: Verdana;
-    margin-top: 16px;
-    margin-left: 10px;
-  }
-  .textoOT{
-    margin: 0;
-    padding: 0;
-    font-size: 11px;
-    font-family: Verdana;
-    margin-top: 5px;
-    margin-left: 10px;
-  }
- .textoBD{
-    margin: 0;
-    padding: 0;
-    font-size: 20px;
-    font-family: Verdana;
-    margin-top: 18px;
-    margin-left: 20px;
- }
-
- /*FIN CSS GRID OT*/
-
- .placeholderSelector{
- margin: 0;
- display: flex;
- flex-direction: row ;
- justify-content: center;
- font-size: 20px;
- color: black;
- font-family: Verdana;
- }
- .btnFlex{
-  padding-left: 30px;
-  padding-top: 40px;
-  
- }
- .btnBorrar{
-  width: 80px;
-  height: 40px;
-  margin-left: 6px;
-  background-color: #6b6c6d;
-
-  color: white;
-  font-family: Arial;
- }
- .bgBlack{
-  background-color: black;
- }
- .bgTareas{
-  background-color: #bdbdbd;
- }
-
-.prueba{
-  display: flex;
-  flex-direction: row;
-}
-
-/*INICIO DE FORMULARIO*/
-
-* {    
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
 
 .content {
   height: 100%;
@@ -555,7 +145,6 @@ body {
 
 .selectInput{
   height: 100px;
-
 }
 
 .inputFormOT{
@@ -563,8 +152,6 @@ body {
   background-color: #f2f5f7;
   
 }
-
-
 .form-group:last-child {
   margin-bottom: 0;
 }
@@ -590,37 +177,16 @@ button {
   color: white;
 }
 
-.btn-cancel {
-  background-color: #f44336;
-  color: white;
-}
-
-/* Estilo para el hover de los botones */
 button:hover {
   opacity: 0.9;
 }
+
 .formBottom{
   margin-bottom: 5px !important;
   margin-top: 2px !important;
 }
 .inputDate{
   padding: 12px;
-}
-.vistaTXT{
-  font-size: 30px;
-  font-family: Arial;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: start;
-
-}
-.vistaPreviaUl{
-  list-style: none;
-  text-decoration: none;
-  padding-top: 50px;
-  padding-bottom: 100px;
-  padding-right: 30vh;
 }
 .vistaPreviaLi{
   margin: 12px;
@@ -631,11 +197,12 @@ button:hover {
   justify-content: center;
   align-items: center;
 }
-strong{
+strong {
   flex-direction: row;
   justify-content: center;
   align-items: center;
 }
+
 .tareasStrong{
   display: flex;
   flex-direction: column;
@@ -648,18 +215,14 @@ strong{
 .opcionMultiple{
   height: 200px;
 }
-.txtBotonOT{
-  text-decoration: none;
-  color: white;
-}
 
 iframe {
   border: 2px solid #ccc;
   border-radius: 8px;
   margin-top: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  
 }
+
 .notification {
   position: fixed;
   bottom: 20px;
@@ -693,9 +256,6 @@ iframe {
   color: #fff;
 }
 
-/*FIN DE FORMULARIO*/
-
-/*modal ot*/
 .modal-overlay {
   position: fixed !important;
   top: 0;
@@ -739,41 +299,6 @@ iframe {
   background-color: #0056b3;
 }
 
-/*fin modal ot*/
-
-.Btn {
-  --black: #000000;
-  --ch-black: #141414;
-  --eer-black: #1b1b1b;
-  --night-rider: #2e2e2e;
-  --white: #ffffff;
-  --af-white: #f3f3f3;
-  --ch-white: #e1e1e1;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  width: 45px;
-  height: 45px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition-duration: .3s;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
-  background-color: var(--night-rider);
-}
-/*botonlogout*/
-.botonSalir{
-  background: rgb(226, 92, 92);
-  margin-left: 115px;
-  width: 100px;
-  height: 45px;
-  display: flex;
-  flex-direction: row;
-  margin-top: 20px;
-  
-}
 .txtSalir{
     margin: 5px;
     margin-left: 20px;
@@ -793,5 +318,3 @@ iframe {
   background: #f65959;
 
 }
-
-/*fin botonlogout*/

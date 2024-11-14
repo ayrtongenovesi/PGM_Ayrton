@@ -1,13 +1,11 @@
 import express from 'express'
-import { getCUIA,deleteCUIA,updateCUIA,createCUIA } from '../controllers/CUIA.controller.js'
+import { getCUIA,updateCUIA,createCUIA } from '../controllers/CUIA.controller.js'
 const router = express.Router()
 
 router.get('/cuia',getCUIA)
 
-router.put('/cuia',updateCUIA)
+router.put('/cuia/edit:id',updateCUIA)
 
-//router.delete('/B', deleteCUIA)// no se utilice 
-
-router.post('/cuia/', createCUIA)
+router.post('/cuia/create', createCUIA)
 
 export default router
