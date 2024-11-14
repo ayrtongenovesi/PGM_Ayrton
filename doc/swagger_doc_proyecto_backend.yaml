@@ -1,0 +1,1495 @@
+openapi: 3.0.3
+info:
+  title: Software de Mantenimiento
+  description: Este software informático orientado al mantenimiento de los elementos dentro de los edificios relacionados a la UTN FRVT, se encarga de entregar planificaciones de tareas a realizar por empleados del sector que son designados como operarios.
+  version: 1.0.0
+servers:
+  - url: http://localhost:4200/
+tags:
+  - name: login
+    description: Endpoints encargados del logueo y registro del sistema.
+  - name: usuario
+    description: Endpoints que manejan la logica de creacion y eliminacion de usuarios
+  - name: OT
+    description: Endpoints para manipular las ordenes de trabajo y sus funcionalidades
+  - name: CUIA
+    description: Endpoints para manejar datos de CUIA.
+  - name: Activo
+    description: Endpoints para manejar datos de Activos.
+  - name: edificio
+    description: Endpoins para manejar los datos de los edificios
+  - name: piso
+    description: Endpoints para manejar los datos de los pisos o niveles
+  - name: sector
+    description: Endpoints para manejar los datos de los sectores .
+  - name: tarea
+    description: Endpoints para manejar las tareas.
+  - name: ubicacion
+    description: Endpoints para manejar las ubicaciones.
+  - name: index.js
+    description: "Información sobre la configuración del servidor principal y las rutas de la API"
+  - name: config
+    description: Variables de entorno del servidor y configuración de base de datos.
+    
+paths:
+  /login:
+    post:
+      tags: 
+        - login
+      summary: Inicio de sesión
+      description: Autentica a un usuario y retorna un token JWT.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                mail:
+                  type: string
+                  example: "juan.perez@example.com"
+                contraseña:
+                  type: string
+                  example: "password123"
+      responses:
+        '200':
+          description: Login exitoso
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Login exitoso"
+                  token:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        '400':
+          description: Error de autenticación (campos faltantes)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "El correo y la contraseña son requeridos"
+        '401':
+          description: Credenciales incorrectas
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Correo o contraseña incorrectos"
+        '500':
+          description: Error en el servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error en el servidor"
+                    
+  /register:
+    post:
+      tags:
+        - login
+      summary: Registro de usuario
+      description: Registra un nuevo usuario en el sistema.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  type: string
+                  example: "Juan Pérez"
+                mail:
+                  type: string
+                  example: "juan.perez@example.com"
+                IdTipoUsuario:
+                  type: integer
+                  example: 1
+                contraseña:
+                  type: string
+                  example: "password123"
+      responses:
+        '201':
+          description: Usuario registrado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Usuario registrado exitosamente"
+                  userId:
+                    type: integer
+                    example: 1
+        '400':
+          description: Error en el registro (campos faltantes o usuario ya registrado)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Todos los campos son requeridos"
+        '500':
+          description: Error en el servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error en el servidor"
+                    
+  /users:
+    get:
+      tags: 
+        - usuario
+      summary: Obtener todos los usuarios
+      description: Retorna una lista de todos los usuarios en el sistema.
+      responses:
+        '200':
+          description: Lista de usuarios
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id_usuario:
+                      type: integer
+                      example: 1
+                    nombre:
+                      type: string
+                      example: "Juan Pérez"
+                    mail:
+                      type: string
+                      example: "juan.perez@example.com"
+        '500':
+          description: Error en el servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error Servicio Interno"
+                  error:
+                    type: string
+                    example: "Detalle del error"
+
+    post:
+      tags: 
+        - usuario
+      summary: Crear un usuario
+      description: Crea un nuevo usuario en el sistema.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Juan Pérez"
+                mail:
+                  type: string
+                  example: "juan.perez@example.com"
+                password:
+                  type: string
+                  example: "password123"
+      responses:
+        '201':
+          description: Usuario creado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Usuario creado exitosamente"
+                  userId:
+                    type: integer
+                    example: 1
+        '500':
+          description: Error en el servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error Servicio Interno"
+                  error:
+                    type: string
+                    example: "Detalle del error"
+
+  /users/{id}:
+    delete:
+      tags: 
+        - usuario
+      summary: Eliminar un usuario
+      description: Elimina un usuario específico por su ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '204':
+          description: Usuario eliminado exitosamente (sin contenido en la respuesta)
+        '404':
+          description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Usuario no encontrado"
+        '500':
+          description: Error en el servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error Servicio Interno"
+                  error:
+                    type: string
+                    example: "Detalle del error"
+
+    put:
+      tags: 
+        - usuario
+      summary: Actualizar un usuario
+      description: Actualiza el nombre de un usuario específico por su ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  type: string
+                  example: "Juan Actualizado"
+      responses:
+        '200':
+          description: Usuario actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  nombre:
+                    type: string
+                    example: "Juan Actualizado"
+        '404':
+          description: Usuario no encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Usuario no encontrado"
+        '500':
+          description: Error en el servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error Servicio Interno"
+                  error:
+                    type: string
+                    example: "Detalle del error"
+  /ot:
+    get:
+      tags:
+        - OT
+      summary: Obtener todas las OT
+      description: Retorna una lista de todas las órdenes de trabajo en el sistema.
+      responses:
+        '200':
+          description: Lista de órdenes de trabajo
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    edificio:
+                      type: string
+                      example: "Edificio A"
+                    piso:
+                      type: string
+                      example: "3"
+                    ubicacion:
+                      type: string
+                      example: "Sala de servidores"
+                    sector:
+                      type: string
+                      example: "Tecnología"
+                    tipoActivo:
+                      type: string
+                      example: "Computadora"
+                    tareas:
+                      type: string
+                      example: "Limpiar, revisar cableado"
+                    usuario:
+                      type: string
+                      example: "Juan Pérez"
+                    fecha:
+                      type: string
+                      format: date
+                      example: "2023-05-10"
+        '500':
+          description: Error en el servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error Servicio Interno"
+
+    post:
+      tags:
+        - OT
+      summary: Crear una nueva OT
+      description: Crea una nueva orden de trabajo (OT) en el sistema.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                edificio:
+                  type: string
+                  example: "Edificio A"
+                piso:
+                  type: string
+                  example: "3"
+                ubicacion:
+                  type: string
+                  example: "Sala de servidores"
+                sector:
+                  type: string
+                  example: "Tecnología"
+                tipoActivo:
+                  type: string
+                  example: "Computadora"
+                tareas:
+                  type: array
+                  items:
+                    type: string
+                  example: ["Limpiar", "revisar cableado"]
+                usuario:
+                  type: string
+                  example: "Juan Pérez"
+                fecha:
+                  type: string
+                  format: date
+                  example: "2023-05-10"
+      responses:
+        '201':
+          description: OT creada exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Registro creado exitosamente"
+                  id:
+                    type: integer
+                    example: 1
+        '500':
+          description: Error en el servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error Servicio Interno"
+
+  /ot/{id}:
+    delete:
+      tags:
+        - OT
+      summary: Eliminar una OT
+      description: Elimina una orden de trabajo (OT) específica por su ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '204':
+          description: OT eliminada exitosamente (sin contenido en la respuesta)
+        '404':
+          description: OT no encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "OT no encontrada"
+        '500':
+          description: Error en el servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error Servicio Interno"
+
+    put:
+      tags:
+        - OT
+      summary: Actualizar el estado de una OT
+      description: Actualiza el estado de disponibilidad de una orden de trabajo (OT) específica por su ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                estado:
+                  type: boolean
+                  example: true
+      responses:
+        '200':
+          description: Estado actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Estado actualizado"
+        '404':
+          description: OT no encontrada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "OT no encontrada"
+        '500':
+          description: Error en el servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error Servicio Interno"
+  /cuia:
+    get:
+      tags:
+        - CUIA
+      summary: Obtener todos los CUIA
+      description: Retorna una lista de todos los registros de CUIA en el sistema.
+      responses:
+        '200':
+          description: Lista de registros CUIA
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    nombre:
+                      type: string
+                      example: "Ejemplo CUIA"
+                    descripcion:
+                      type: string
+                      example: "Descripción del registro CUIA"
+                    fecha_creacion:
+                      type: string
+                      format: date
+                      example: "2023-05-10"
+        '500':
+          description: Error en el servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error Servicio Interno"
+
+    post:
+      tags:
+        - CUIA
+      summary: Crear un nuevo CUIA
+      description: Crea un nuevo registro CUIA en el sistema.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  type: string
+                  example: "Ejemplo CUIA"
+                descripcion:
+                  type: string
+                  example: "Descripción del registro CUIA"
+                valor:
+                  type: string
+                  example: "12345"
+      responses:
+        '201':
+          description: CUIA creado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "CUIA creado exitosamente"
+                  id:
+                    type: integer
+                    example: 1
+        '500':
+          description: Error en el servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error Servicio Interno"
+
+  /cuia/{CUIA}:
+    put:
+      tags:
+        - CUIA
+      summary: Actualizar CUIA
+      description: Actualiza el estado de un registro CUIA específico por su ID o identificador.
+      parameters:
+        - name: CUIA
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "1"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                estado:
+                  type: boolean
+                  example: true
+      responses:
+        '200':
+          description: CUIA actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "CUIA actualizado exitosamente"
+                  CUIA:
+                    type: string
+                    example: "1"
+        '404':
+          description: CUIA no encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "CUIA no encontrado"
+        '500':
+          description: Error en el servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error Servicio Interno"
+  /activo:
+    get:
+      tags:
+        - Activo
+      summary: Obtener todos los activos
+      description: Retorna una lista de todos los activos en el sistema.
+      responses:
+        '200':
+          description: Lista de activos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    codigo:
+                      type: string
+                      example: "A1234"
+                    nombre:
+                      type: string
+                      example: "Equipo de Aire Acondicionado"
+                    descripcion:
+                      type: string
+                      example: "Aire acondicionado de 5 toneladas"
+        '500':
+          description: Error en el servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error Servicio Interno"
+
+    post:
+      tags:
+        - Activo
+      summary: Crear un nuevo activo
+      description: Crea un nuevo activo en el sistema.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                codigo:
+                  type: string
+                  example: "A1234"
+                nombre:
+                  type: string
+                  example: "Equipo de Aire Acondicionado"
+                descripcion:
+                  type: string
+                  example: "Aire acondicionado de 5 toneladas"
+      responses:
+        '201':
+          description: Activo creado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Activo creado con éxito"
+                  id:
+                    type: integer
+                    example: 1
+        '500':
+          description: Error en el servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error Servicio Interno"
+                  error:
+                    type: string
+                    example: "Detalle del error"
+
+  /activo/{id}:
+    delete:
+      tags:
+        - Activo
+      summary: Eliminar un activo
+      description: Elimina un activo específico por su ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '204':
+          description: Activo eliminado exitosamente (sin contenido en la respuesta)
+        '404':
+          description: Activo no encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Activo no encontrado"
+        '500':
+          description: Error en el servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error Servicio Interno"
+                  error:
+                    type: string
+                    example: "Detalle del error"
+
+    put:
+      tags:
+        - Activo
+      summary: Actualizar un activo
+      description: Actualiza el nombre y la descripción de un activo específico por su ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nombre:
+                  type: string
+                  example: "Nuevo Equipo de Aire Acondicionado"
+                descripcion:
+                  type: string
+                  example: "Aire acondicionado de 6 toneladas"
+      responses:
+        '200':
+          description: Activo actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Activo actualizado con éxito"
+        '404':
+          description: Activo no encontrado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Activo no encontrado"
+        '500':
+          description: Error en el servidor
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error Servicio Interno"
+                  error:
+                    type: string
+                    example: "Detalle del error"
+  /edificio:
+    get:
+      tags:
+      - edificio
+      summary: Obtener todos los edificios
+      description: Obtiene la lista completa de edificios.
+      responses:
+        '200':
+          description: Lista de edificios
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    edificio:
+                      type: string
+                    direccion:
+                      type: string
+                    fecha_creacion:
+                      type: string
+                      format: date
+        '500':
+          description: Error en el servidor
+
+    post:
+      tags:
+      - edificio
+      summary: Crear un nuevo edificio
+      description: Crea un nuevo edificio en la base de datos.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                edificio:
+                  type: string
+                direccion:
+                  type: string
+              required:
+                - edificio
+                - direccion
+      responses:
+        '201':
+          description: Edificio creado correctamente
+        '500':
+          description: Error en el servidor
+
+  /edificio/{edificio}:
+    delete:
+      tags:
+      - edificio
+      summary: Eliminar un edificio
+      description: Elimina un edificio por su identificador.
+      parameters:
+        - in: path
+          name: edificio
+          required: true
+          schema:
+            type: string
+          description: El identificador del edificio a eliminar
+      responses:
+        '204':
+          description: Edificio eliminado correctamente
+        '404':
+          description: Edificio no encontrado
+        '500':
+          description: Error en el servidor
+
+    put:
+      tags:
+      - edificio
+      summary: Actualizar un edificio
+      description: Actualiza los datos de un edificio existente.
+      parameters:
+        - in: path
+          name: edificio
+          required: true
+          schema:
+            type: string
+          description: El identificador del edificio a actualizar
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                direccion:
+                  type: string
+              required:
+                - direccion
+      responses:
+        '200':
+          description: Edificio actualizado correctamente
+        '404':
+          description: Edificio no encontrado
+        '500':
+          description: Error en el servidor
+  /piso:
+    get:
+      tags:
+        - piso
+      summary: Obtener todos los pisos
+      description: Obtiene la lista completa de pisos o niveles.
+      responses:
+        '200':
+          description: Lista de pisos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    piso:
+                      type: string
+                    nivel:
+                      type: string
+                    descripcion:
+                      type: string
+        '500':
+          description: Error en el servidor
+
+    post:
+      tags:
+        - piso
+      summary: Crear un nuevo piso
+      description: Crea un nuevo piso o nivel en la base de datos.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                piso:
+                  type: string
+                nivel:
+                  type: string
+                descripcion:
+                  type: string
+              required:
+                - piso
+                - nivel
+      responses:
+        '201':
+          description: Piso creado correctamente
+        '500':
+          description: Error en el servidor
+
+  /piso/{piso}:
+    delete:
+      tags:
+        - piso
+      summary: Eliminar un piso
+      description: Elimina un piso o nivel por su identificador.
+      parameters:
+        - in: path
+          name: piso
+          required: true
+          schema:
+            type: string
+          description: El identificador del piso a eliminar
+      responses:
+        '204':
+          description: Piso eliminado correctamente
+        '404':
+          description: Piso no encontrado
+        '500':
+          description: Error en el servidor
+
+    put:
+      tags:
+        - piso
+      summary: Actualizar un piso
+      description: Actualiza los datos de un piso o nivel existente.
+      parameters:
+        - in: path
+          name: piso
+          required: true
+          schema:
+            type: string
+          description: El identificador del piso a actualizar
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                nivel:
+                  type: string
+                descripcion:
+                  type: string
+              required:
+                - nivel
+                - descripcion
+      responses:
+        '200':
+          description: Piso actualizado correctamente
+        '404':
+          description: Piso no encontrado
+        '500':
+          description: Error en el servido
+  /sector:
+    get:
+      tags:
+        - sector
+      summary: Obtener todos los sectores
+      description: Obtiene la lista completa de sectores dentro de los edificios.
+      responses:
+        '200':
+          description: Lista de sectores
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    sector:
+                      type: string
+                    descripcion:
+                      type: string
+        '500':
+          description: Error en el servidor
+
+    post:
+      tags:
+        - sector
+      summary: Crear un nuevo sector
+      description: Crea un nuevo sector dentro de un edificio.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sector:
+                  type: string
+                descripcion:
+                  type: string
+              required:
+                - sector
+                - descripcion
+      responses:
+        '201':
+          description: Sector creado correctamente
+        '500':
+          description: Error en el servidor
+
+  /sector/{sector}:
+    delete:
+      tags:
+        - sector
+      summary: Eliminar un sector
+      description: Elimina un sector por su identificador.
+      parameters:
+        - in: path
+          name: sector
+          required: true
+          schema:
+            type: string
+          description: El identificador del sector a eliminar
+      responses:
+        '204':
+          description: Sector eliminado correctamente
+        '404':
+          description: Sector no encontrado
+        '500':
+          description: Error en el servidor
+
+    put:
+      tags:
+        - sector
+      summary: Actualizar un sector
+      description: Actualiza los datos de un sector existente.
+      parameters:
+        - in: path
+          name: sector
+          required: true
+          schema:
+            type: string
+          description: El identificador del sector a actualizar
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                descripcion:
+                  type: string
+              required:
+                - descripcion
+      responses:
+        '200':
+          description: Sector actualizado correctamente
+        '404':
+          description: Sector no encontrado
+        '500':
+          description: Error en el servidor
+  /tarea:
+    get:
+      tags:
+        - tarea
+      summary: Obtener todas las tareas
+      description: Obtiene la lista completa de todas las tareas.
+      responses:
+        '200':
+          description: Lista de tareas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    tarea:
+                      type: string
+                    descripcion:
+                      type: string
+        '500':
+          description: Error en el servidor
+
+    post:
+      tags:
+        - tarea
+      summary: Crear una nueva tarea
+      description: Crea una nueva tarea dentro del sistema.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                tarea:
+                  type: string
+                descripcion:
+                  type: string
+              required:
+                - tarea
+                - descripcion
+      responses:
+        '201':
+          description: Tarea creada correctamente
+        '500':
+          description: Error en el servidor
+
+  /tarea/{tarea}:
+    delete:
+      tags:
+        - tarea
+      summary: Eliminar una tarea
+      description: Elimina una tarea especificada por su identificador.
+      parameters:
+        - in: path
+          name: tarea
+          required: true
+          schema:
+            type: string
+          description: El identificador de la tarea a eliminar
+      responses:
+        '204':
+          description: Tarea eliminada correctamente
+        '404':
+          description: Tarea no encontrada
+        '500':
+          description: Error en el servidor
+
+    put:
+      tags:
+        - tarea
+      summary: Actualizar una tarea
+      description: Actualiza los detalles de una tarea existente.
+      parameters:
+        - in: path
+          name: tarea
+          required: true
+          schema:
+            type: string
+          description: El identificador de la tarea a actualizar
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                descripcion:
+                  type: string
+              required:
+                - descripcion
+      responses:
+        '200':
+          description: Tarea actualizada correctamente
+        '404':
+          description: Tarea no encontrada
+        '500':
+          description: Error en el servidor
+  /ubicacion:
+    get:
+      tags:
+        - ubicacion
+      summary: Obtener todas las ubicaciones
+      description: Obtiene la lista completa de todas las ubicaciones.
+      responses:
+        '200':
+          description: Lista de ubicaciones
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    ubicacion:
+                      type: string
+                    descripcion:
+                      type: string
+        '500':
+          description: Error en el servidor
+
+    post:
+      tags:
+        - ubicacion
+      summary: Crear una nueva ubicación
+      description: Crea una nueva ubicación dentro del sistema.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ubicacion:
+                  type: string
+                descripcion:
+                  type: string
+              required:
+                - ubicacion
+                - descripcion
+      responses:
+        '201':
+          description: Ubicación creada correctamente
+        '500':
+          description: Error en el servidor
+
+  /ubicacion/{ubicacion}:
+    delete:
+      tags:
+        - ubicacion
+      summary: Eliminar una ubicación
+      description: Elimina una ubicación especificada por su identificador.
+      parameters:
+        - in: path
+          name: ubicacion
+          required: true
+          schema:
+            type: string
+          description: El identificador de la ubicación a eliminar
+      responses:
+        '204':
+          description: Ubicación eliminada correctamente
+        '404':
+          description: Ubicación no encontrada
+        '500':
+          description: Error en el servidor
+
+    put:
+      tags:
+        - ubicacion
+      summary: Actualizar una ubicación
+      description: Actualiza los detalles de una ubicación existente.
+      parameters:
+        - in: path
+          name: ubicacion
+          required: true
+          schema:
+            type: string
+          description: El identificador de la ubicación a actualizar
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                descripcion:
+                  type: string
+              required:
+                - descripcion
+      responses:
+        '200':
+          description: Ubicación actualizada correctamente
+        '404':
+          description: Ubicación no encontrada
+        '500':
+          description: Error en el servidor
+  /index.js:
+    get:
+      tags:
+        - index.js
+      summary: "Información sobre el archivo `index.js`"
+      description: |
+        El archivo `index.js` es el punto de entrada para la aplicación Express.
+        Se encarga de configurar la base de datos, las rutas de la API y otros servicios.
+        También maneja la configuración de CORS y establece el puerto en el que el servidor escuchará.
+      responses:
+        '200':
+          description: "Información sobre el servidor `index.js`"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  description:
+                    type: string
+                    example: "El archivo `index.js` configura el servidor Express, las rutas y la conexión a la base de datos."
+                  routes:
+                    type: array
+                    items:
+                      type: string
+                      example: ["/api/auth", "/api/users", "/api/ot"]
+                  cors:
+                    type: object
+                    properties:
+                      origin:
+                        type: string
+                        example: "http://localhost:4200"
+                      credentials:
+                        type: boolean
+                        example: true
+                  port:
+                    type: integer
+                    example: 3000
+  /config:
+    get:
+      tags:
+        - config
+      summary: Variables de configuración
+      description: Retorna las variables de entorno utilizadas en la configuración del servidor y base de datos.
+      responses:
+        '200':
+          description: Variables de configuración obtenidas exitosamente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  PORT:
+                    type: integer
+                    example: 3000
+                    description: "Puerto en el que el servidor está escuchando."
+                  DB_HOST:
+                    type: string
+                    example: "localhost"
+                    description: "Dirección del host de la base de datos."
+                  DB_USER:
+                    type: string
+                    example: "root"
+                    description: "Usuario para la conexión a la base de datos."
+                  DB_PASSWORD:
+                    type: string
+                    example: "ivo123"
+                    description: "Contraseña para el usuario de la base de datos."
+                  DB_DATABASE:
+                    type: string
+                    example: "mantenimiento"
+                    description: "Nombre de la base de datos a la que el servidor se conecta."
+                  JWT_SECRET:
+                    type: string
+                    example: "cartonerosdelaesquina"
+                    description: "Clave secreta para la generación y validación de tokens JWT."
+
+components:
+  schemas:
+    IndexJsInfo:
+      type: object
+      properties:
+        description:
+          type: string
+          example: "El archivo `index.js` gestiona la configuración del servidor Express, las rutas y la base de datos."
+        routes:
+          type: array
+          items:
+            type: string
+          example: ["/api/auth", "/api/users", "/api/ot"]
+        cors:
+          type: object
+          properties:
+            origin:
+              type: string
+              example: "http://localhost:4200"
+            credentials:
+              type: boolean
+              example: true
+        port:
+          type: integer
+          example: 3000
+  
+  
+  
+  
+    
