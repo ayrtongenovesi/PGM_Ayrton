@@ -10,7 +10,6 @@ import html2canvas from 'html2canvas';
 import { Piso } from '../../interfaces/piso';
 import { Edificio } from '../../interfaces/edificio';
 import { Usuario } from '../../interfaces/usuario';
-import { Action } from 'rxjs/internal/scheduler/Action';
 import { Activo } from '../../interfaces/activo';
 import { Ubicacion } from '../../interfaces/ubicacion';
 import { Sector } from '../../interfaces/sector';
