@@ -7,6 +7,14 @@ import { OtServiceService } from '../../../service/ot-service.service';
 import { UserService } from '../../../service/services/user.service';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { Piso } from '../../interfaces/piso';
+import { Edificio } from '../../interfaces/edificio';
+import { Usuario } from '../../interfaces/usuario';
+import { Action } from 'rxjs/internal/scheduler/Action';
+import { Activo } from '../../interfaces/activo';
+import { Ubicacion } from '../../interfaces/ubicacion';
+import { Sector } from '../../interfaces/sector';
+import { Tarea } from '../../interfaces/tarea';
 
 @Component({
   selector: 'app-orden-trabajo',
@@ -29,13 +37,13 @@ export class OrdenTrabajoComponent {
   showNotification: boolean = false;
 
 
-  datosPiso: any[] = [];
-  datosEdificio: any[] = [];
-  datosUsuario: any[] = [];
-  datosActivo: any[] = [];
-  datosUbicacion: any[] = [];
-  datosSector: any[] = [];
-  datosTareas: any[] = [];
+  datosPiso: Piso[] = [];
+  datosEdificio: Edificio [] = [];
+  datosUsuario: Usuario [] = [];
+  datosActivo: Activo [] = [];
+  datosUbicacion: Ubicacion [] = [];
+  datosSector: Sector [] = [];
+  datosTareas: Tarea [] = [];
 
   constructor(private apiService: OtServiceService, private userService : UserService) {}
  
@@ -65,49 +73,49 @@ export class OrdenTrabajoComponent {
 
   dataPiso(){
     this.apiService.getPiso('').subscribe(data => {
-      this.datosPiso = data;
+      this.datosPiso= Array.isArray(data) ? data : [data];
       console.log(this.datosPiso)
     })
   }
 
   dataEdificio(){
     this.apiService.getEdificio('').subscribe(data => {
-      this.datosEdificio = data;
+      this.datosEdificio= Array.isArray(data) ? data : [data];
       console.log(this.datosEdificio)
     })
   }
 
   dataSector(){
     this.apiService.getSector('').subscribe(data => {
-      this.datosSector = data;
+      this.datosSector = Array.isArray(data) ? data : [data];
       console.log(this.datosSector)
     })
   }
 
   dataUsuario(){
     this.apiService.getUser('').subscribe(data => {
-      this.datosUsuario = data;
+      this.datosUsuario = Array.isArray(data) ? data : [data];
       console.log(this.datosUsuario)
     })
   }
  
   dataActivo(){
     this.apiService.getAT('').subscribe(data => {
-      this.datosActivo = data;
+      this.datosActivo = Array.isArray(data) ? data : [data];
       console.log(this.datosActivo)
     })
   }
 
   dataUbicacion(){
     this.apiService.getUbicacion('').subscribe(data => {
-      this.datosUbicacion = data;
+      this.datosUbicacion = Array.isArray(data) ? data : [data];
       console.log(this.datosUbicacion)
     })
   }
 
   dataTareas(){
     this.apiService.getTarea('').subscribe(data => {
-      this.datosTareas = data;
+      this.datosTareas = Array.isArray(data) ? data : [data];
       console.log(this.datosTareas)
     })
   }

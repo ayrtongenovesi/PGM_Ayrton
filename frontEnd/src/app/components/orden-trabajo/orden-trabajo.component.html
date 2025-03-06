@@ -39,7 +39,7 @@
           <div class="form-group">
               <select class="selectOptions" [(ngModel)]="selectedEdificio">
                 <option value="" disabled selected hidden>EDIFICIO</option>
-                <option  *ngFor="let edificio of datosEdificio" [ngValue]="edificio.Nombre">{{ edificio.Nombre }}</option>
+                <option  *ngFor="let edificio of datosEdificio" [ngValue]="edificio.nombre">{{ edificio.nombre }}</option>
               </select>  
               
           </div>
@@ -47,7 +47,7 @@
           <div class="form-group">
               <select class="selectOptions" [(ngModel)]="selectedPiso">
                   <option value="" disabled>PISO</option>
-                  <option *ngFor="let piso of datosPiso" [ngValue]="piso.Nombre">{{ piso.Nombre }}</option>
+                  <option *ngFor="let piso of datosPiso" [ngValue]="piso.nombre">{{ piso.nombre }}</option>
                   
               </select>
               
@@ -56,7 +56,7 @@
           <div class="form-group">
               <select class="selectOptions" [(ngModel)]="selectedSector">
                   <option value="" disabled>SECTOR</option>
-                  <option *ngFor="let sector of datosSector" [ngValue]="sector.Sector">{{ sector.Sector }} </option> 
+                  <option *ngFor="let sector of datosSector" [ngValue]="sector.nombre">{{ sector.nombre }} </option> 
               </select>
               
           </div>
@@ -64,7 +64,7 @@
           <div class="form-group">
               <select class="selectOptions" [(ngModel)]="selectedUbicacion">
                   <option value="" disabled>UBICACION</option>
-                  <option *ngFor="let ubicacion of datosUbicacion" [ngValue]="ubicacion.Nombre">{{ ubicacion.Nombre }}</option>
+                  <option *ngFor="let ubicacion of datosUbicacion" [ngValue]="ubicacion.nombre">{{ ubicacion.nombre }}</option>
                   
               </select>
               
@@ -73,7 +73,7 @@
           <div class="form-group">
               <select class="selectOptions" [(ngModel)]="selectedTipoActivo">
                   <option value="" disabled>ACTIVO</option>
-                  <option *ngFor="let activo of datosActivo" [ngValue]="activo.Nombre">{{ activo.Nombre }}</option>
+                  <option *ngFor="let activo of datosActivo" [ngValue]="activo.nombre">{{ activo.nombre }}</option>
     
               </select>
               
@@ -90,7 +90,7 @@
           <div class="form-group">
             <select multiple type class="selectOptions opcionMultiple" [(ngModel)]="selectedTareas">
               <option value="" disabled>TAREAS</option>
-              <option *ngFor="let tarea of datosTareas" [ngValue]="tarea.Descripcion">{{ tarea.Descripcion }}</option>
+              <option *ngFor="let tarea of datosTareas" [ngValue]="tarea.descripcion">{{ tarea.descripcion }}</option>
               </select>
            
           </div>
