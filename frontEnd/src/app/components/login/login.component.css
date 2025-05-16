@@ -1,11 +1,8 @@
-/* login.component.css */
-
-/* Global resets */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: 'Segoe UI', sans-serif;
-  background-color: #0d2c4a;    /* mismo azul de la sidebar */
-  color: #fff;                   /* texto fuera del card en blanco */
+  background-color: #0d2c4a;
+  color: #fff;
 }
 
 /* Center wrapper */
@@ -15,13 +12,11 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: #0d2c4a;    /* mismo azul de la sidebar */
+  background-color: #0d2c4a; 
 }
 
-/* Hidden toggle input */
 .toggle { display: none; }
 
-/* Toggle row with labels and switch */
 .toggle-row {
   display: flex;
   align-items: center;
@@ -32,7 +27,7 @@ body {
   font-family: 'Segoe UI', sans-serif;
   font-size: 16px;
   font-weight: 600;
-  color: #fff;                  /* etiquetas en blanco */
+  color: #fff;
 }
 .switch {
   cursor: pointer;
@@ -64,7 +59,6 @@ body {
   transform: translateX(24px);
 }
 
-/* Flip-card container: auto-height */
 .flip-card__inner {
   width: 300px;
   min-height: 350px;
@@ -108,7 +102,6 @@ body {
   margin: 16px 0;
 }
 
-/* Form inputs */
 .flip-card__input {
   width: 100%; max-width: 260px;
   padding: 10px 14px;
@@ -128,7 +121,6 @@ body {
   box-shadow: 0 0 6px rgba(31,108,176,0.4);
 }
 
-/* Form buttons */
 .flip-card__btn {
   display: block;
   width: 140px;
@@ -147,7 +139,6 @@ body {
 .flip-card__btn:hover { background-color: #27ae60; }
 .flip-card__btn:active { transform: translateY(2px); }
 
-/* Notifications */
 .notification {
   position: fixed;
   bottom: 20px;

@@ -1,12 +1,10 @@
--- MySQL dump 10.13  Distrib 8.0.38, for Win64 (x86_64)
+CREATE DATABASE  IF NOT EXISTS `mantenimiento` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `mantenimiento`;
+-- MySQL dump 10.13  Distrib 8.0.42, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: mantenimiento
+-- Host: localhost    Database: mantenimiento
 -- ------------------------------------------------------
--- Server version	8.0.39
-
-CREATE DATABASE IF NOT EXISTS mantenimiento;
-
-USE mantenimiento;
+-- Server version	8.0.42
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -150,20 +148,22 @@ DROP TABLE IF EXISTS `ot`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `ot` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `cuia` varchar(35) NOT NULL,
-  `operario` varchar(35) NOT NULL,
-  `FechaCreacion` datetime NOT NULL,
-  `FechaFin` datetime NOT NULL,
-  `TiempoRealizacion` int NOT NULL,
+  `cuia` varchar(255) DEFAULT NULL,
+  `usuarios` varchar(100) DEFAULT NULL,
+  `FechaCreacion` datetime DEFAULT CURRENT_TIMESTAMP,
+  `FechaFin` date DEFAULT NULL,
+  `TiempoRealizacion` time DEFAULT NULL,
   `Edificio` varchar(45) NOT NULL,
   `Piso` varchar(45) NOT NULL,
   `Ubicacion` varchar(45) NOT NULL,
   `Sector` varchar(45) NOT NULL,
   `Tipo_Activo` varchar(45) NOT NULL,
   `Tareas` varchar(150) NOT NULL,
+  `fecha` date DEFAULT NULL,
+  `disponible` varchar(20) DEFAULT 'Pendiente',
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -172,6 +172,7 @@ CREATE TABLE `ot` (
 
 LOCK TABLES `ot` WRITE;
 /*!40000 ALTER TABLE `ot` DISABLE KEYS */;
+INSERT INTO `ot` VALUES (8,NULL,'Ayrton','2025-05-15 01:19:08',NULL,NULL,'UTN FRVT','Planta Baja','Interior','Aula 20','Ventilador','Relevar marca.','2025-05-31','Finalizada');
 /*!40000 ALTER TABLE `ot` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -248,7 +249,7 @@ CREATE TABLE `tareas` (
 
 LOCK TABLES `tareas` WRITE;
 /*!40000 ALTER TABLE `tareas` DISABLE KEYS */;
-INSERT INTO `tareas` VALUES (1,'Relevar marca.'),(2,'Relevar material.'),(3,'Relevar tamaño de gabinete'),(4,'Relevar material de paredes.'),(5,'Relevar marca de máquina primaria y alternador'),(6,'Relevar tipo de piso.'),(7,'Relevar modelo.'),(8,'Número de hojas'),(9,'Relevar tamaño'),(10,'Cerradura si/no.'),(11,'Mochila empotrada/exterior.'),(12,'Canaletas si/no.'),(13,'Bajadas si/no.'),(14,'Acceso desde el interior si/no.'),(15,'Relevar tipo. abril/corredizo/levadizo/otro.'),(16,'Relevar modelos.'),(17,'Relevar dimensiones.'),(18,'Relevar tipo de techo.'),(19,'Relevar material de piso.'),(20,'Tipo. caracol/marinera/convencional.'),(21,'Relevar potencia.'),(22,'Relevar potencia/tamaño'),(23,'Con vidrio/sin vidrio/tipo.'),(24,'Tipo de vidrio.'),(25,'Relevar tipo.'),(26,'De columna/empotrado.'),(27,'Relevar cantidad de piletas.'),(28,'Montaje: pared / techo / móvil'),(29,'Relevar tipo de accionamiento.'),(30,'Eléctrico/gas - tipo de gas'),(31,'Cantidad de bajadas.'),(32,'Relevar cantidad y potencia.'),(33,'Relevar potencia y características eléctricas principale'),(34,'Relevar tipo/material.'),(35,'Tipo de tapa. ciega/rejilla/otra.'),(36,'Abiertas/cerradas.'),(37,'Relevar material de techo.'),(38,'Relevar cantidad de lámparas por equipo'),(39,'Frío - calor - frío/calo'),(40,'Corrediza/de abrir.'),(41,'Relevar tipo de canilla.'),(42,'Relevar cantidad y material de palas.'),(43,'Tipo de puerta.'),(44,'Bajadas internas/externas.'),(45,'Baranda si/no.'),(46,'Relevar capacidad.'),(47,'Tiene iluminación sobre estructura'),(48,'Marca/modelo/tipo de cerradura.'),(49,'Agua fría/caliente'),(50,'Relevar tipo y marca de controlador.'),(51,'Puerta manual/automática'),(52,'Relevar dimensiones.'),(53,'Tiro balanceado si/no.'),(54,'Material de bajadas.'),(55,'Marca/modelo/tipo de bisagras.'),(56,'Relevar cualquier otro dato que considere relevante para el mantenimiento.'),(57,'Tomar fotografía'),(58,'Al finalizar la actividad deje el área limpia, ordenada y segura'),(59,'Señalice el área de trabaj'),(60,'Señalice el área de trabajo. Desconecte la energía eléctrica - verificar NO existencia de tensión eléc'),(61,'Control de louver.'),(62,'Verificar correcto estado de cableado eléctrico, tomacorriente y conexiones eléctrica'),(63,'Verifique correcto funcionamiento de válvulas'),(64,'Verificar correcto estado de cableado eléctric'),(65,'Verificar correcta y firme fijación a pared o estructura'),(66,'Verificar correcta y firme fijación de baranda a pared o estructura'),(67,'Utilice los elementos de protección personal para trabajos en altura'),(68,'Verificación de funcionamiento de la totalidad de las lámpara'),(69,'Verificar correcta y firme fijación a pared o estructura de ambas unidades'),(70,'Verificar NO de pérdidas'),(71,'Verifique y lubrique bisagras y/o correderas.'),(72,'Verifique y lubrique bisagras y/o correderas y/o enrolladores.'),(73,'Verificar estado de carga. Lectura de manómetro de presión y fecha de vencimient'),(74,'Verifique el buen estado general.'),(75,'Verificar estado general.'),(76,'ATENCIÓN: ESTA MISMA OT SERÁ UTILIZADA PARA LAS 4 ACTIVIDADES MENSUALE'),(77,'Verificación de estados de zócalos y/o portalámpar'),(78,'Verificar existencia y correcto montaje de protecciones mecánicas'),(79,'Realizar limpieza del equipo.'),(80,'Verifique y lubrique cerraduras.'),(81,'Verifique firme montaje de componentes.'),(82,'Verificar correcta sujección de coberturas, canaletas, cumbreras, cenefas y otros'),(83,'Verificar correcta y firme fijación a pared o estructura'),(84,'Verificar NO existencia de pérdidas'),(85,'Realice limpieza, ordenamiento y/o emprolijamiento del área'),(86,'Limpieza de luminaria y lámpara'),(87,'Verificar carga de gas y NO de fugas.'),(88,'Realice verificación de correcto funcionamiento'),(89,'Verifique correcta sujección de vidrios'),(90,'Verificar y correcto montaje de las protecciones contra choque eléctrico'),(91,'Verificar existencia y correcto montaje de protecciones mecánicas'),(92,'Verifique limpieza de canaletas. Debe encontrarse libre de obstrucciones y apta para la correcta descarga de agua.'),(93,'Actividad 1 de 4 Mensual. Indique Fecha:'),(94,'Verificar correcto montaje y sujección'),(95,'Realice limpieza de filtros.'),(96,'Verificar correcto funcionamiento de puertas y cerraduras.'),(97,'Verificar NO de pérdidas de líquidos y/o ga'),(98,'Realizar limpieza externa del equipo.'),(99,'Verifique sujección y estanqueidad de bajadas de descarga de canaletas'),(100,'Realice limpieza interna y externa de los equipos.'),(101,'Actividad 2 de 4 Mensual. Indique Fecha:'),(102,'Verifique correcto funcionamiento del equipo luego de finalizada la actividad.'),(103,'Realice limpieza completa de ambas unidades.'),(104,'Realice verificación de correcto funcionamiento'),(105,'Verificar correcto ajuste de conexiones eléctricas'),(106,'Verificar NO de señales de sobrecalentamiento de los componentes'),(107,'Verifique que las descargas de canaletas permitan flujo libre y se encuentren conectadas correctamente en extremos y uniones.'),(108,'Actividad 3 de 4 Mensual. Indique Fecha:'),(109,'Conecte nuevamente a la red eléctrica y realice una prueba de correcto funcionamiento'),(110,'Realizar limpieza del equipo. No utilice elementos húmedo ni líquidos. Para retirar polvos, utilice un equipo de aspiracion'),(111,'EN CASO DE DETECTAR ANOMALIAS CONTACTAR AL SERVICIO T CNICO AUTORIZADO. SI ESTAS ANOMALIAS SON CRITICAS, DETENGA EL USO DEL EQUIPO!!!'),(112,'Actividad 4 de 4 Mensual. Indique Fecha:'),(113,'Complete la documentación de mantenimiento'),(114,'Al finalizar la actividad deje el área y equipo limpios, ordenados y seguros');
+INSERT INTO `tareas` VALUES (1,'Relevar marca.'),(2,'Relevar material.'),(3,'Relevar tamaño de gabinete'),(4,'Relevar material de paredes.'),(5,'Relevar marca de máquina primaria y alternador'),(6,'Relevar tipo de piso.'),(7,'Relevar modelo.'),(8,'Número de hojas'),(9,'Relevar tamaño'),(10,'Cerradura si/no.'),(11,'Mochila empotrada/exterior.'),(12,'Canaletas si/no.'),(13,'Bajadas si/no.'),(14,'Acceso desde el interior si/no.'),(15,'Relevar tipo. abril/corredizo/levadizo/otro.'),(16,'Relevar modelos.'),(17,'Relevar dimensiones.'),(18,'Relevar tipo de techo.'),(19,'Relevar material de piso.'),(20,'Tipo. caracol/marinera/convencional.'),(21,'Relevar potencia.'),(22,'Relevar potencia/tamaño'),(23,'Con vidrio/sin vidrio/tipo.'),(24,'Tipo de vidrio.'),(25,'Relevar tipo.'),(26,'De columna/empotrado.'),(27,'Relevar cantidad de piletas.'),(28,'Montaje: pared / techo / móvil'),(29,'Relevar tipo de accionamiento.'),(30,'Eléctrico/gas - tipo de gas'),(31,'Cantidad de bajadas.'),(32,'Relevar cantidad y potencia.'),(33,'Relevar potencia y características eléctricas principale'),(34,'Relevar tipo/material.'),(35,'Tipo de tapa. ciega/rejilla/otra.'),(36,'Abiertas/cerradas.'),(37,'Relevar material de techo.'),(38,'Relevar cantidad de lámparas por equipo'),(39,'Frío - calor - frío/calo'),(40,'Corrediza/de abrir.'),(41,'Relevar tipo de canilla.'),(42,'Relevar cantidad y material de palas.'),(43,'Tipo de puerta.'),(44,'Bajadas internas/externas.'),(45,'Baranda si/no.'),(46,'Relevar capacidad.'),(47,'Tiene iluminación sobre estructura'),(48,'Marca/modelo/tipo de cerradura.'),(49,'Agua fría/caliente'),(50,'Relevar tipo y marca de controlador.'),(51,'Puerta manual/automática'),(52,'Relevar dimensiones.'),(53,'Tiro balanceado si/no.'),(54,'Material de bajadas.'),(55,'Marca/modelo/tipo de bisagras.'),(56,'Relevar cualquier otro dato que considere relevante para el mantenimiento.'),(57,'Tomar fotografía'),(58,'Al finalizar la actividad deje el área limpia, ordenada y segura'),(59,'Señalice el área de trabaj'),(60,'Señalice el área de trabajo. Desconecte la energía eléctrica - verificar NO existencia de tensión eléc'),(61,'Control de louver.'),(62,'Verificar correcto estado de cableado eléctrico, tomacorriente y conexiones eléctrica'),(63,'Verifique correcto funcionamiento de válvulas'),(64,'Verificar correcto estado de cableado eléctric'),(65,'Verificar correcta y firme fijación a pared o estructura'),(66,'Verificar correcta y firme fijación de baranda a pared o estructura'),(67,'Utilice los elementos de protección personal para trabajos en altura'),(68,'Verificación de funcionamiento de la totalidad de las lámpara'),(69,'Verificar correcta y firme fijación a pared o estructura de ambas unidades'),(70,'Verificar NO de pérdidas'),(71,'Verifique y lubrique bisagras y/o correderas.'),(72,'Verifique y lubrique bisagras y/o correderas y/o enrolladores.'),(73,'Verificar estado de carga. Lectura de manómetro de presión y fecha de vencimient'),(74,'Verifique el buen estado general.'),(75,'Verificar estado general.'),(76,'ATENCIÓN: ESTA MISMA OT SERÁ UTILIZADA PARA LAS 4 ACTIVIDADES MENSUALE'),(77,'Verificación de estados de zócalos y/o portalámpar'),(78,'Verificar existencia y correcto montaje de protecciones mecánicas'),(79,'Realizar limpieza del equipo.'),(80,'Verifique y lubrique cerraduras.'),(81,'Verifique firme montaje de componentes.'),(82,'Verificar correcta sujección de coberturas, canaletas, cumbreras, cenefas y otros'),(83,'Verificar correcta y firme fijación a pared o estructura'),(84,'Verificar NO existencia de pérdidas'),(85,'Realice limpieza, ordenamiento y/o emprolijamiento del área'),(86,'Limpieza de luminaria y lámpara'),(87,'Verificar carga de gas y NO de fugas.'),(88,'Realice verificación de correcto funcionamiento'),(89,'Verifique correcta sujección de vidrios'),(90,'Verificar y correcto montaje de las protecciones contra choque eléctrico'),(91,'Verificar existencia y correcto montaje de protecciones mecánicas'),(92,'Verifique limpieza de canaletas. Debe encontrarse libre de obstrucciones y apta para la correcta descarga de agua.'),(93,'Actividad 1 de 4 Mensual. Indique Fecha:'),(94,'Verificar correcto montaje y sujección'),(95,'Realice limpieza de filtros.'),(96,'Verificar correcto funcionamiento de puertas y cerraduras.'),(97,'Verificar NO de pérdidas de líquidos y/o ga'),(98,'Realizar limpieza externa del equipo.'),(99,'Verifique sujección y estanqueidad de bajadas de descarga de canaletas'),(100,'Realice limpieza interna y externa de los equipos.'),(101,'Actividad 2 de 4 Mensual. Indique Fecha:'),(102,'Verifique correcto funcionamiento del equipo luego de finalizada la actividad.'),(103,'Realice limpieza completa de ambas unidades.'),(104,'Realice verificación de correcto funcionamiento'),(105,'Verificar correcto ajuste de conexiones eléctricas'),(106,'Verificar NO de señales de sobrecalentamiento de los componentes'),(107,'Verifique que las descargas de canaletas permitan flujo libre y se encuentren conectadas correctamente en extremos y uniones.'),(108,'Actividad 3 de 4 Mensual. Indique Fecha:'),(109,'Conecte nuevamente a la red eléctrica y realice una prueba de correcto funcionamiento'),(110,'Realizar limpieza del equipo. No utilice elementos húmedo ni líquidos. Para retirar polvos, utilice un equipo de aspiracion'),(111,'EN CASO DE DETECTAR ANOMALIAS CONTACTAR AL SERVICIO TÉCNICO AUTORIZADO. SI ESTAS ANOMALIAS SON CRITICAS, DETENGA EL USO DEL EQUIPO!!!'),(112,'Actividad 4 de 4 Mensual. Indique Fecha:'),(113,'Complete la documentación de mantenimiento'),(114,'Al finalizar la actividad deje el área y equipo limpios, ordenados y seguros');
 /*!40000 ALTER TABLE `tareas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -316,7 +317,7 @@ CREATE TABLE `usuario` (
   `contraseña` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -325,7 +326,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES (1,'Admin',NULL,1,NULL),(2,'Juan',NULL,2,NULL),(3,'Pablo',NULL,2,NULL),(4,'Pedro',NULL,2,NULL),(5,'Ana',NULL,2,NULL),(6,'Carlos',NULL,2,NULL),(7,'Ruben',NULL,2,NULL);
+INSERT INTO `usuario` VALUES (1,'Ayrton','genovesiayrton5@gmail.com',1,'$2b$10$VCp6.8HLLqAle7nGgzi4Uu/xXpl.QhSueoYZdyDHePliIwSEAUvjG');
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -338,4 +339,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-08 15:36:47
+-- Dump completed on 2025-05-16  2:53:45
