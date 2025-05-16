@@ -72,52 +72,79 @@ export class OrdenTrabajoComponent {
 
   dataPiso(){
     this.apiService.getPiso('').subscribe(data => {
-      this.datosPiso= Array.isArray(data) ? data : [data];
-      console.log(this.datosPiso)
-    })
+      this.datosPiso = (Array.isArray(data) ? data : [data]).map((p: any) => ({
+        id_piso: p.Id,
+        nombre: p.Nombre
+      }));
+      console.log(this.datosPiso);
+    });
   }
-
+  
   dataEdificio(){
     this.apiService.getEdificio('').subscribe(data => {
-      this.datosEdificio= Array.isArray(data) ? data : [data];
-      console.log(this.datosEdificio)
-    })
+      this.datosEdificio = (Array.isArray(data) ? data : [data]).map((e: any) => ({
+        id_edificio: e.Id,
+        nombre: e.Nombre,
+        direccion: e.Direccion
+      }));
+      console.log(this.datosEdificio);
+    });
   }
-
+  
   dataSector(){
     this.apiService.getSector('').subscribe(data => {
-      this.datosSector = Array.isArray(data) ? data : [data];
-      console.log(this.datosSector)
-    })
-  }
-
+      this.datosSector = (Array.isArray(data) ? data : [data]).map((s: any) => ({
+        id_sector: s.id ?? s.Id,
+        nombre: s.Sector ?? s.nombre,
+        id_edificio: s.IdEdificio ?? s.id_edificio
+      }));
+      console.log(this.datosSector);
+    });
+  }  
+  
   dataUsuario(){
     this.apiService.getUser('').subscribe(data => {
-      this.datosUsuario = Array.isArray(data) ? data : [data];
-      console.log(this.datosUsuario)
-    })
-  }
- 
+      this.datosUsuario = (Array.isArray(data) ? data : [data]).map((u: any) => ({
+        id_usuarios: u.id ?? u.Id,
+        nombre: u.nombre,
+        mail: u.mail,
+        id_tipousuario: u.IdTipoUsuario ?? u.id_tipousuario,
+        contraseña: u.contraseña
+      }));
+      console.log(this.datosUsuario);
+    });
+  }  
+  
   dataActivo(){
     this.apiService.getAT('').subscribe(data => {
-      this.datosActivo = Array.isArray(data) ? data : [data];
-      console.log(this.datosActivo)
-    })
+      this.datosActivo = (Array.isArray(data) ? data : [data]).map((a: any) => ({
+        id_activo: a.Id,
+        nombre: a.Nombre
+      }));
+      console.log(this.datosActivo);
+    });
   }
-
+  
   dataUbicacion(){
     this.apiService.getUbicacion('').subscribe(data => {
-      this.datosUbicacion = Array.isArray(data) ? data : [data];
-      console.log(this.datosUbicacion)
-    })
+      this.datosUbicacion = (Array.isArray(data) ? data : [data]).map((u: any) => ({
+        id_ubicacion: u.Id,
+        nombre: u.Nombre
+      }));
+      console.log(this.datosUbicacion);
+    });
   }
-
+  
   dataTareas(){
     this.apiService.getTarea('').subscribe(data => {
-      this.datosTareas = Array.isArray(data) ? data : [data];
-      console.log(this.datosTareas)
-    })
+      this.datosTareas = (Array.isArray(data) ? data : [data]).map((t: any) => ({
+        id_tarea: t.Id,
+        descripcion: t.Descripcion
+      }));
+      console.log(this.datosTareas);
+    });
   }
+  
 
   validarYGuardar(): void {
     if (!this.selectedEdificio || !this.selectedPiso || !this.selectedUbicacion || 
@@ -169,7 +196,9 @@ export class OrdenTrabajoComponent {
       const inputValue = (event.target as HTMLInputElement).value;
       this.selectedFecha = inputValue;
       const fechaSeleccionada = document.getElementById('fechaSeleccionada');
-      fechaSeleccionada!.innerText = "Fecha seleccionada: " + inputValue;
+      const [año, mes, dia] = inputValue.split("-");
+      const fechaFormateada = `${dia}/${mes}/${año}`;      
+      fechaSeleccionada!.innerText = ' ' + fechaFormateada;      
     });
   }
   
@@ -182,9 +211,10 @@ export class OrdenTrabajoComponent {
       ubicacion: this.selectedUbicacion,
       usuario: this.selectedUsuario,
       tareas: this.selectedTareas,
-      fecha: this.selectedFecha
+      fecha: this.selectedFecha,
+      disponible: 'Pendiente'
     };
-  
+    
     console.log("Datos a guardar:", datosSeleccionados);
   
     this.apiService.createOT(datosSeleccionados).subscribe({
@@ -220,32 +250,33 @@ export class OrdenTrabajoComponent {
     const DATA = document.getElementById('pdf-content'); 
     if (DATA) {
       html2canvas(DATA).then(canvas => {
-        const imgData = canvas.toDataURL('/assets/pdf/otpdf.pdf'); 
+        const imgData = canvas.toDataURL('image/png'); 
         const pdf = new jsPDF('p', 'mm', 'a4'); 
-
-        
-        const imgWidth = 150; 
-        const pageHeight = pdf.internal.pageSize.height; 
+      
+        const imgWidth = 150;
+        const pageHeight = pdf.internal.pageSize.getHeight();
+        const pageWidth = pdf.internal.pageSize.getWidth();
         const imgHeight = canvas.height * imgWidth / canvas.width;
+        const x = (pageWidth - imgWidth) / 2;
+      
         let heightLeft = imgHeight;
-        let position = 0;
-
-        pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight; 
-
+        let position = 20;
+      
+        pdf.addImage(imgData, 'PNG', x, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      
         while (heightLeft >= 0) {
           position = heightLeft - imgHeight;
           pdf.addPage();
-          pdf.addImage(imgData, 'PNG', 10, position, imgWidth, imgHeight);
-          heightLeft -= pageHeight; 
+          pdf.addImage(imgData, 'PNG', x, position, imgWidth, imgHeight);
+          heightLeft -= pageHeight;
         }
-         
+      
         const pdfBase64 = pdf.output('datauristring');
-
         this.pdfUrl = pdfBase64;
-
+      
         pdf.save('ordenDeTrabajo.pdf');
-      });
+      });      
     }
   }
 }

@@ -9,12 +9,12 @@ import { UserService } from '../../../service/services/user.service';
   encapsulation: ViewEncapsulation.None
 })
 export class HistorialComponent implements OnInit {
-  
+
   ots: any[] = [];
   edificios: string[] = [];
   pisos: string[] = [];
   ubicaciones: string[] = [];
-  sectores:string[] = [];
+  sectores: string[] = [];
   activos: string[] = [];
   operarios: string[] = [];
 
@@ -25,26 +25,26 @@ export class HistorialComponent implements OnInit {
   selectedActivo: string = '';
   selectedOperario: string = '';
   datosTareas: any;
-  isAdmin:boolean = false ;
+  isAdmin: boolean = false;
 
-  constructor(private otService: OtServiceService, private userService : UserService) {}
+  constructor(private otService: OtServiceService, private userService: UserService) { }
 
   ngOnInit(): void {
     const userType = this.userService.getIdTipoUsuario();
-    this.isAdmin = userType === 2; 
+    this.isAdmin = userType === 2;
 
     this.otService.getOT().subscribe((ots: any[]) => {
       console.log('Datos recibidos:', ots);
-      this.ots = ots; 
-      this.extractUniqueValues(); 
+      this.ots = ots;
+      this.extractUniqueValues();
       this.mostrarTablaFiltrada();
-  
+
       const container = document.getElementById('tabla-container');
       if (!container) {
         console.error('El contenedor no existe en el HTML');
         return;
       }
-  
+
       let tablaHTML = `
       <table class="tabla-ot">
         <thead>
@@ -56,14 +56,14 @@ export class HistorialComponent implements OnInit {
             <th class="tabla-encabezado">Sector</th>
             <th class="tabla-encabezado">Activo</th>
             <th class="tabla-encabezado">Operario</th>
-            <th class="tabla-encabezado">T/F</th>
+            <th class="tabla-encabezado">Estado</th>
             <th class="tabla-encabezado">Tareas</th>
             <th class="tabla-encabezado"></th>
           </tr>
         </thead>
         <tbody>
       `;
-  
+
       ots.forEach((orden) => {
         tablaHTML += `
           <tr *ngFor="let orden of ots" >
@@ -74,26 +74,28 @@ export class HistorialComponent implements OnInit {
             <td class="tabla-sector tablaTXT">${orden.Sector}</td>
             <td class="tabla-activo tablaTXT">${orden.Tipo_Activo}</td>
             <td class="tabla-operario tablaTXT">${orden.usuarios}</td>
-            <td class="tabla-operario tablaTXT">${orden.disponible}</td>
+<td class="tabla-operario tablaTXT">${orden.disponible === 'Finalizada' ? '✔ Finalizada' : 'Pendiente'}</td>
             <td class="tabla-operario tablaTXT">${orden.Tareas}</td>
             <td class="tabla-operario tablaTXT tablaButon"> 
-              <button class="delete-btn" (click)="promptDeleteOT(orden.id)" data-id="${orden.id}">🗑️</button>
-              <button class="botonTilde" (click)="cambiarEstado(orden.id, !orden.disponible)">
-              ✔
-              </button>
-             
-            </td>
+  <button class="delete-btn" data-id="${orden.id}">
+    <i class="fas fa-trash-alt"></i>
+  </button>
+  <button class="botonTilde" data-id="${orden.id}">
+    <i class="fas fa-check"></i>
+  </button>
+</td>
+
           </tr>
         `;
       });
-  
+
       tablaHTML += `
         </tbody>
       </table>
       `;
-  
+
       container.innerHTML = tablaHTML;
-  
+
       const deleteButtons = document.querySelectorAll('.delete-btn');
       deleteButtons.forEach(button => {
         button.addEventListener('click', (event) => {
@@ -103,9 +105,20 @@ export class HistorialComponent implements OnInit {
           }
         });
       });
+
+      const confirmButtons = document.querySelectorAll('.botonTilde');
+      confirmButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+          const id = (event.target as HTMLButtonElement).getAttribute('data-id');
+          if (id) {
+            this.cambiarEstado(Number(id), true);
+          }
+        });
+      });
+
     });
   }
- 
+
 
   extractUniqueValues() {
     this.edificios = [...new Set(this.ots.map(ot => ot.Edificio))];
@@ -127,8 +140,8 @@ export class HistorialComponent implements OnInit {
       (!this.selectedSector || ot.Sector.includes(this.selectedSector)) &&
       (!this.selectedActivo || ot.Tipo_Activo.includes(this.selectedActivo)) &&
       (!this.selectedOperario || ot.usuarios.includes(this.selectedOperario))
-  );
-  
+    );
+
 
     let tablaHTML = `
       <table class="tabla-ot">
@@ -141,7 +154,7 @@ export class HistorialComponent implements OnInit {
             <th class="tabla-encabezado">Sector</th>
             <th class="tabla-encabezado">Activo</th>
             <th class="tabla-encabezado">Operario</th>
-            <th class="tabla-encabezado">T/F</th>
+            <th class="tabla-encabezado">Estado</th>
             <th class="tabla-encabezado">Tareas</th>
             <th class="tabla-encabezado"></th>
           </tr>
@@ -151,7 +164,7 @@ export class HistorialComponent implements OnInit {
 
     datosFiltrados.forEach(orden => {
       tablaHTML += `
-        <tr *ngFor="let orden of ots">
+        <tr>
           <td class="tabla-sector tablaTXT">${orden.id}</td>
           <td class="tabla-sector tablaTXT">${orden.Edificio}</td>
           <td class="tabla-sector tablaTXT">${orden.Piso}</td>
@@ -159,19 +172,44 @@ export class HistorialComponent implements OnInit {
           <td class="tabla-sector tablaTXT">${orden.Sector}</td>
           <td class="tabla-sector tablaTXT">${orden.Tipo_Activo}</td>
           <td class="tabla-sector tablaTXT">${orden.usuarios}</td>
-          <td class="tabla-operario tablaTXT">${orden.disponible}</td>
+<td class="tabla-operario tablaTXT">${orden.disponible ? 'Finalizada' : 'Pendiente'}</td>
           <td class="tabla-operario tablaTXT">${orden.Tareas}</td>
           <td class="tabla-operario tablaTXT tablaButon"> 
-              <button class="delete-btn" 
-              data-id="${orden.id}">🗑️</button>
-              <button class="botonTilde">✔</button>
-            </td>
+            <button class="delete-btn" data-id="${orden.id}">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+            <button class="botonTilde" data-id="${orden.id}">
+              <i class="fas fa-check"></i>
+            </button>
+          </td>
         </tr>
       `;
     });
 
     tablaHTML += `</tbody></table>`;
     container.innerHTML = tablaHTML;
+
+    // VOLVER A ASIGNAR EVENTOS DESPUÉS DE FILTRAR
+    const deleteButtons = document.querySelectorAll('.delete-btn');
+    deleteButtons.forEach(button => {
+      button.addEventListener('click', (event) => {
+        const id = (event.target as HTMLElement).closest('button')?.getAttribute('data-id');
+        if (id) {
+          this.promptdeleteOT(Number(id));
+        }
+      });
+    });
+
+    const confirmButtons = document.querySelectorAll('.botonTilde');
+    confirmButtons.forEach(button => {
+      button.addEventListener('click', (event) => {
+        const id = (event.target as HTMLElement).closest('button')?.getAttribute('data-id');
+        if (id) {
+          this.cambiarEstado(Number(id), true);
+        }
+      });
+    });
+
   }
 
   filtrarOTs() {
@@ -217,33 +255,33 @@ export class HistorialComponent implements OnInit {
     document.body.appendChild(modal);
   }
 
-  reiniciar(){
+  reiniciar() {
     window.location.reload();
   }
 
 
   cambiarEstado(id: number, estado: boolean): void {
-   
     const nuevaOrden = this.ots.find(orden => orden.id === id);
     if (nuevaOrden) {
-      nuevaOrden.estado = estado;  
+      // Actualizamos directamente el estado en pantalla
+      nuevaOrden.disponible = estado;
 
-      
-      this.otService.updateEstadoOT(id, estado).subscribe(
+      this.otService.updateEstadoOT(id, 'Finalizada').subscribe(
         (response) => {
           console.log('Estado actualizado', response);
+          this.mostrarTablaFiltrada(); // Actualiza visualmente
         },
         (error) => {
           console.error('Error al actualizar el estado', error);
-         
-          nuevaOrden.estado = !estado; 
+          nuevaOrden.disponible = 'Pendiente'; // Revierte si falla
         }
-      );
+      );      
     }
   }
+
   logout() {
     this.userService.logout();
-    window.location.href = '/login';  
+    window.location.href = '/login';
   }
 
 }

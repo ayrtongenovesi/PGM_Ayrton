@@ -16,18 +16,18 @@ export const routes: Routes = [
   {
     path: 'ot',
     component: OrdenTrabajoComponent,
-    canActivate: [LoginGuard] 
+    canActivate: [LoginGuard]
   },
   {
     path: 'visual',
     component: OrdenVisualComponent,
-    canActivate: [LoginGuard] 
+    canActivate: [LoginGuard]
   },
   {
     path: 'historial',
     component: HistorialComponent,
-    canActivate: [LoginGuard] 
-  }
+    canActivate: [LoginGuard]
+  },
 ];
 
 @NgModule({

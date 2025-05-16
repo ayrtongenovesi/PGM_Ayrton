@@ -2,19 +2,14 @@
 <div class="container">
     <nav class="sidebar">
         <ul class="ULestilo">
-          <li class="FlexLista" ><a href="/ot"><img class="imgIcono" src="https://www.utn.edu.ar/images/logo-utn.png" alt=""></a></li>
+          <li class="FlexLista" ><a href="/ot"><img class="imgIcono" src="https://frsc.cvg.utn.edu.ar/theme/image.php/snap/theme/1741635814/img/logo" alt=""></a></li>
           <li class="FlexLista dropdown">
-            <a href="/ot" class="txtNav txtNavOt dropbtn *ngIf="isAdmin>Orden de trabajo</a>
+            <a href="/ot" class="txtNav txtNavOt dropbtn *ngIf="isAdmin>Orden de Trabajo</a>
           </li>
           
           <li class="FlexLista">
             <a  class="txtNav " href="/historial">
               Historial
-            </a>
-          </li>
-          <li class="FlexLista">
-            <a  class="txtNav " href="/ot">
-              Gestion
             </a>
           </li>
         </ul>
@@ -61,10 +56,7 @@
               <option value="">Todos</option>
               <option *ngFor="let operario of operarios" [value]="operario">{{ operario }}</option>
             </select>
-          
-            <button class="btnReinicio" (click)="reiniciar()">
-              <a class="TXTReinicio" href="/historial">REINICIAR</a>
-            </button>
+            <button class="btnReinicio" (click)="reiniciar()">REINICIAR</button>
         </div>
     </nav>
 

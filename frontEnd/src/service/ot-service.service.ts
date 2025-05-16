@@ -71,15 +71,13 @@ export class OtServiceService {
     return this.http.get<OrdenTrabajo[]>(`${this.apiUrl}/ot`);
   }
 
-  updateEstadoOT(id: number, estado: boolean): Observable<any> {
+  updateEstadoOT(id: number, estado: string | boolean): Observable<any> {
     return this.http.put(`${this.apiUrl}/ot/edit/${id}`, { estado });
   }
 
   deleteOT(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/ot/delete${id}`); 
   }
-
-
 }
 
 

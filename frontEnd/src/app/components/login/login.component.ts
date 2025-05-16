@@ -1,3 +1,4 @@
+// login.component.ts
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../../../service/services/user.service';
@@ -18,11 +19,13 @@ export class LoginComponent {
   constructor(private userService: UserService, private router: Router) {
     console.log('LoginComponent instanciado');
   }
+
   private clearFields() {
     this.mail = '';
     this.contrasena = '';
     this.nombre = '';
   }
+
   private showTempNotification(message: string, type: 'success' | 'error' | 'info') {
     this.notificationMessage = message;
     this.notificationType = type;
@@ -32,7 +35,6 @@ export class LoginComponent {
       this.showNotification = false;
     }, 1000);
   }
-
 
   private isValidEmail(email: string): boolean {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -71,7 +73,8 @@ export class LoginComponent {
     }
     if (!this.isValidEmail(this.mail)) {
       this.showTempNotification('El correo no tiene un formato válido.', 'error');
-      return;}
+      return;
+    }
     const userData = {
       nombre: this.nombre,
       mail: this.mail,
@@ -97,5 +100,4 @@ export class LoginComponent {
       }
     );
   }
-
 }

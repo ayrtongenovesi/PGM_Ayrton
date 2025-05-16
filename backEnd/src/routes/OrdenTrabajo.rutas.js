@@ -5,7 +5,7 @@ const router = express.Router()
 
 router.get('/ot', getOT)
 
-router.put('/ot/edit:id', updateEstadoOT)
+router.put('/ot/edit/:id', updateEstadoOT);
 
 router.delete('/ot/delete:id', deleteOT)
 

@@ -1,49 +1,47 @@
-<!DOCTYPE html>
-<html lang="es" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Formulario Login</title>
-  </head>
-  <body>
-    <div class="wrapper">
-      <div class="card-switch">
-        <label class="switch">
-          <input type="checkbox" class="toggle">
-          <span class="slider"></span>
-          <span class="card-side"></span>
-          <div class="flip-card__inner">
-            <div class="flip-card__front">
-              <div><img class="imgIcono" src="https://caimasegall.com.ar/wp-content/uploads/2020/08/logo-UTN-1.png" alt=""></div>
-              <div class="title">Ingresar</div>
-              <form class="flip-card__form" (ngSubmit)="login()">
-                <input class="flip-card__input" [(ngModel)]="mail" name="mail" placeholder="E-Mail" type="email" required>
-                <input class="flip-card__input" [(ngModel)]="contrasena" name="contrasena" placeholder="Contraseña" type="password" required>
-                <button class="flip-card__btn" type="submit">Log in</button>
-              </form>
-            </div>
+<!-- login.component.html -->
+<div class="wrapper">
+  <input type="checkbox" id="toggle" class="toggle">
+  <div class="toggle-row">
+    <span class="toggle-label">Ingresar</span>
+    <label for="toggle" class="switch">
+      <span class="slider"></span>
+    </label>
+    <span class="toggle-label">Registrarse</span>
+  </div>
 
-            <div class="flip-card__back">
-              <div><img class="imgIcono" src="https://caimasegall.com.ar/wp-content/uploads/2020/08/logo-UTN-1.png" alt=""></div>
-              <div class="title">Registrate</div>
-              <form class="flip-card__form" (ngSubmit)="register()">
-                <input class="flip-card__input" [(ngModel)]="nombre" name="nombre" placeholder="Nombre" type="text" required>
-                <input class="flip-card__input" [(ngModel)]="mail" name="email" placeholder="E-Mail" type="email" required>
-                <input class="flip-card__input" [(ngModel)]="contrasena" name="contraseña" placeholder="Contraseña" type="password" required>
-                <button class="flip-card__btn" type="submit">Confirmar</button>
-              </form>
-            </div>
-          </div>
-        </label>
-      </div>
+  <div class="flip-card__inner">
+    <!-- Front: Login -->
+    <div class="flip-card__front">
+      <img class="imgIcono" src="https://caimasegall.com.ar/wp-content/uploads/2020/08/logo-UTN-1.png" alt="Logo UTN">
+      <div class="title">Ingresar</div>
+      <form class="flip-card__form" (ngSubmit)="login()">
+        <input class="flip-card__input" [(ngModel)]="mail" name="mail" placeholder="E-Mail" type="email" required>
+        <input class="flip-card__input" [(ngModel)]="contrasena" name="contrasena" placeholder="Contraseña" type="password" required>
+        <button class="flip-card__btn" type="submit">Login</button>
+      </form>
     </div>
 
-    <div class="notification" *ngIf="showNotification"
-         [ngClass]="{
-           'success': notificationType === 'success',
-           'error': notificationType === 'error',
-           'info': notificationType === 'info'
-         }">
-      {{ notificationMessage }}
+    <!-- Back: Register -->
+    <div class="flip-card__back">
+      <img class="imgIcono" src="https://caimasegall.com.ar/wp-content/uploads/2020/08/logo-UTN-1.png" alt="Logo UTN">
+      <div class="title">Registrate</div>
+      <form class="flip-card__form" (ngSubmit)="register()">
+        <input class="flip-card__input" [(ngModel)]="nombre" name="nombre" placeholder="Nombre" type="text" required>
+        <input class="flip-card__input" [(ngModel)]="mail" name="email" placeholder="E-Mail" type="email" required>
+        <input class="flip-card__input" [(ngModel)]="contrasena" name="contraseña" placeholder="Contraseña" type="password" required>
+        <button class="flip-card__btn" type="submit">Confirmar</button>
+      </form>
     </div>
-  </body>
-</html>
+
+  </div>
+</div>
+
+<!-- Notification component -->
+<div class="notification" *ngIf="showNotification"
+     [ngClass]="{
+       'success': notificationType === 'success',
+       'error': notificationType === 'error',
+       'info': notificationType === 'info'
+     }">
+  {{ notificationMessage }}
+</div>
