@@ -76,7 +76,32 @@ export class OtServiceService {
   }
 
   deleteOT(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/ot/delete${id}`); 
+    return this.http.delete(`${this.apiUrl}/ot/delete${id}`);
+  }
+
+  // Gestion APIs
+  createPiso(nombre: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/piso/create`, { nombre });
+  }
+
+  updatePiso(id: number, nombre: string): Observable<any> {
+    return this.http.put(`${this.apiUrl}/piso/edit${id}`, { nombre });
+  }
+
+  deletePiso(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/piso/delete${id}`);
+  }
+
+  createUsuario(userData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/usuario/`, userData);
+  }
+
+  updateUsuario(id: number, nombre: string): Observable<any> {
+    return this.http.put(`${this.apiUrl}/usuario`, { id, nombre });
+  }
+
+  deleteUsuario(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/usuario/${id}`);
   }
 }
 

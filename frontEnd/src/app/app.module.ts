@@ -10,6 +10,7 @@ import { OrdenVisualComponent } from './components/orden-visual/orden-visual.com
 import { HistorialComponent } from './components/historial/historial.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ProtectedComponent } from './components/ProtectedComponent';
+import { GestionComponent } from './components/gestion/gestion.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { ProtectedComponent } from './components/ProtectedComponent';
     OrdenVisualComponent,
     HistorialComponent,
     ProtectedComponent,
+    GestionComponent,
    
   ],
   imports: [
