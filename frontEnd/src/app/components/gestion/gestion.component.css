@@ -112,3 +112,44 @@ body {
   background-color: #1f6cb0;
   color: #fff;
 }
+
+.tabla-gestion input {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.text-input {
+  width: 100%;
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.btn {
+  padding: 6px 12px;
+  margin-right: 4px;
+  background-color: #1f6cb0;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn:last-child {
+  margin-right: 0;
+}
+
+.btn:hover {
+  background-color: #3791e2;
+}
+
+.btn-delete {
+  background-color: #c0392b;
+}
+
+.btn-delete:hover {
+  background-color: #e74c3c;
+}

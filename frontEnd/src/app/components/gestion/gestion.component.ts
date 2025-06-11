@@ -26,7 +26,11 @@ export class GestionComponent implements OnInit {
     this.loadAll();
   }
 
-  loadAll() {
+  loadAll(keepState: boolean = false) {
+    const openState: any = {};
+    if (keepState) {
+      this.sections.forEach(s => (openState[s.key] = s.open));
+    }
     forkJoin({
       edificios: this.api.getEdificio(''),
       pisos: this.api.getPiso(''),
@@ -42,12 +46,42 @@ export class GestionComponent implements OnInit {
       this.activos = data.activos.map((a: any) => ({ id: a.id, Nombre: a.Nombre }));
       this.usuarios = data.usuarios.map((u: any) => ({ id: u.id, Nombre: u.nombre }));
       this.sections = [
-        { name: 'Edificios', data: this.edificios, key: 'edificio', open: false },
-        { name: 'Pisos', data: this.pisos, key: 'piso', open: false },
-        { name: 'Sectores', data: this.sectores, key: 'sector', open: false },
-        { name: 'Ubicaciones', data: this.ubicaciones, key: 'ubicacion', open: false },
-        { name: 'Activos', data: this.activos, key: 'activo', open: false },
-        { name: 'Operarios', data: this.usuarios, key: 'usuario', open: false }
+        {
+          name: 'Edificios',
+          data: this.edificios,
+          key: 'edificio',
+          open: keepState ? openState['edificio'] : false,
+        },
+        {
+          name: 'Pisos',
+          data: this.pisos,
+          key: 'piso',
+          open: keepState ? openState['piso'] : false,
+        },
+        {
+          name: 'Sectores',
+          data: this.sectores,
+          key: 'sector',
+          open: keepState ? openState['sector'] : false,
+        },
+        {
+          name: 'Ubicaciones',
+          data: this.ubicaciones,
+          key: 'ubicacion',
+          open: keepState ? openState['ubicacion'] : false,
+        },
+        {
+          name: 'Activos',
+          data: this.activos,
+          key: 'activo',
+          open: keepState ? openState['activo'] : false,
+        },
+        {
+          name: 'Operarios',
+          data: this.usuarios,
+          key: 'usuario',
+          open: keepState ? openState['usuario'] : false,
+        },
       ];
     });
   }
@@ -55,22 +89,38 @@ export class GestionComponent implements OnInit {
   add(model: any, collection: string) {
     switch(collection) {
       case 'edificio':
-        this.api.createEdificio({ id: model.id, Nombre: model.Nombre, Direccion: '' }).subscribe(() => this.loadAll());
+        this.api
+          .createEdificio({ id: model.id, Nombre: model.Nombre, Direccion: '' })
+          .subscribe(() => this.loadAll(true));
         break;
       case 'piso':
-        this.api.createPiso({ id: model.id, Nombre: model.Nombre }).subscribe(() => this.loadAll());
+        this.api
+          .createPiso({ id: model.id, Nombre: model.Nombre })
+          .subscribe(() => this.loadAll(true));
         break;
       case 'sector':
-        this.api.createSector({ id: model.id, Sector: model.Nombre, IdEdificio: 1 }).subscribe(() => this.loadAll());
+        this.api
+          .createSector({
+            id: model.id,
+            Sector: model.Nombre,
+            IdEdificio: 1,
+          })
+          .subscribe(() => this.loadAll(true));
         break;
       case 'ubicacion':
-        this.api.createUbicacion({ id: model.id, Nombre: model.Nombre }).subscribe(() => this.loadAll());
+        this.api
+          .createUbicacion({ id: model.id, Nombre: model.Nombre })
+          .subscribe(() => this.loadAll(true));
         break;
       case 'activo':
-        this.api.createActivo({ id: model.id, Nombre: model.Nombre }).subscribe(() => this.loadAll());
+        this.api
+          .createActivo({ id: model.id, Nombre: model.Nombre })
+          .subscribe(() => this.loadAll(true));
         break;
       case 'usuario':
-        this.api.createUsuario({ name: model.Nombre, mail: '', password: '' }).subscribe(() => this.loadAll());
+        this.api
+          .createUsuario({ name: model.Nombre, mail: '', password: '' })
+          .subscribe(() => this.loadAll(true));
         break;
     }
   }
@@ -78,22 +128,22 @@ export class GestionComponent implements OnInit {
   remove(id: number, collection: string) {
     switch(collection) {
       case 'edificio':
-        this.api.deleteEdificio(id).subscribe(() => this.loadAll());
+        this.api.deleteEdificio(id).subscribe(() => this.loadAll(true));
         break;
       case 'piso':
-        this.api.deletePiso(id).subscribe(() => this.loadAll());
+        this.api.deletePiso(id).subscribe(() => this.loadAll(true));
         break;
       case 'sector':
-        this.api.deleteSector(id).subscribe(() => this.loadAll());
+        this.api.deleteSector(id).subscribe(() => this.loadAll(true));
         break;
       case 'ubicacion':
-        this.api.deleteUbicacion(id).subscribe(() => this.loadAll());
+        this.api.deleteUbicacion(id).subscribe(() => this.loadAll(true));
         break;
       case 'activo':
-        this.api.deleteActivo(id).subscribe(() => this.loadAll());
+        this.api.deleteActivo(id).subscribe(() => this.loadAll(true));
         break;
       case 'usuario':
-        this.api.deleteUsuario(id).subscribe(() => this.loadAll());
+        this.api.deleteUsuario(id).subscribe(() => this.loadAll(true));
         break;
     }
   }
@@ -101,22 +151,40 @@ export class GestionComponent implements OnInit {
   update(model: any, collection: string) {
     switch(collection) {
       case 'edificio':
-        this.api.updateEdificio(model.id, { Nombre: model.Nombre, Direccion: '' }).subscribe(() => this.loadAll());
+        this.api
+          .updateEdificio(model.id, {
+            Nombre: model.Nombre,
+            Direccion: '',
+          })
+          .subscribe(() => this.loadAll(true));
         break;
       case 'piso':
-        this.api.updatePiso(model.id, { Nombre: model.Nombre }).subscribe(() => this.loadAll());
+        this.api
+          .updatePiso(model.id, { Nombre: model.Nombre })
+          .subscribe(() => this.loadAll(true));
         break;
       case 'sector':
-        this.api.updateSector(model.id, { Sector: model.Nombre, IdEdificio: model.IdEdificio || 1 }).subscribe(() => this.loadAll());
+        this.api
+          .updateSector(model.id, {
+            Sector: model.Nombre,
+            IdEdificio: model.IdEdificio || 1,
+          })
+          .subscribe(() => this.loadAll(true));
         break;
       case 'ubicacion':
-        this.api.updateUbicacion(model.id, { Nombre: model.Nombre }).subscribe(() => this.loadAll());
+        this.api
+          .updateUbicacion(model.id, { Nombre: model.Nombre })
+          .subscribe(() => this.loadAll(true));
         break;
       case 'activo':
-        this.api.updateActivo(model.id, { Nombre: model.Nombre }).subscribe(() => this.loadAll());
+        this.api
+          .updateActivo(model.id, { Nombre: model.Nombre })
+          .subscribe(() => this.loadAll(true));
         break;
       case 'usuario':
-        this.api.updateUsuario(model.id, { nombre: model.Nombre }).subscribe(() => this.loadAll());
+        this.api
+          .updateUsuario(model.id, { nombre: model.Nombre })
+          .subscribe(() => this.loadAll(true));
         break;
     }
   }

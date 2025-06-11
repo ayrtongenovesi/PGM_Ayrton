@@ -30,16 +30,16 @@
               <tbody>
                 <tr *ngFor="let d of item.data">
                   <td>{{d.id}}</td>
-                  <td><input [(ngModel)]="d.Nombre" /></td>
+                  <td><input class="text-input" [(ngModel)]="d.Nombre" /></td>
                   <td>
-                    <button (click)="update(d, item.key)">Guardar</button>
-                    <button (click)="remove(d.id, item.key)">Borrar</button>
+                    <button class="btn" (click)="update(d, item.key)">Guardar</button>
+                    <button class="btn btn-delete" (click)="remove(d.id, item.key)">Borrar</button>
                   </td>
                 </tr>
                 <tr>
-                  <td><input #newId /></td>
-                  <td><input #newNombre /></td>
-                  <td><button (click)="add({id:newId.value, Nombre:newNombre.value}, item.key); newId.value=''; newNombre.value='';">Agregar</button></td>
+                  <td><input #newId class="text-input" /></td>
+                  <td><input #newNombre class="text-input" /></td>
+                  <td><button class="btn" (click)="add({id:newId.value, Nombre:newNombre.value}, item.key); newId.value=''; newNombre.value='';">Agregar</button></td>
                 </tr>
               </tbody>
             </table>
