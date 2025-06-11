@@ -1,7 +1,8 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: 'Segoe UI', sans-serif;
-  background-color: #0d2c4a;
+  /* Replaced heavy background image with a CSS gradient */
+  background: linear-gradient(135deg, #0d2c4a, #1f6cb0);
   color: #fff;
 }
 
@@ -12,7 +13,8 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-color: #0d2c4a; 
+  /* Match gradient background */
+  background: linear-gradient(135deg, #0d2c4a, #1f6cb0);
 }
 
 .toggle { display: none; }
