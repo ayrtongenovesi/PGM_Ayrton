@@ -5,6 +5,23 @@ body {
   color: #fff;
 }
 
+.info-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.system-title {
+  font-size: 26px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.system-description {
+  font-size: 15px;
+  color: #ddd;
+  margin-top: 8px;
+}
+
 /* Center wrapper */
 .wrapper {
   display: flex;

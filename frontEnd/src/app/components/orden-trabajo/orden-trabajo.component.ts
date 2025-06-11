@@ -22,6 +22,7 @@ import { Tarea } from '../../interfaces/tarea';
 })
 
 export class OrdenTrabajoComponent {
+  maxFecha: string = new Date().toISOString().split('T')[0];
   selectedFecha: string = '';
   selectedEdificio: string = '';
   selectedSector: string = '';
