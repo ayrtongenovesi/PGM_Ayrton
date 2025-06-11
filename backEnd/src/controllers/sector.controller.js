@@ -3,7 +3,7 @@ import {pool} from '../../config/database.js';
 
 export const getSector = async (req,res)=> {
     try {
-        const [rows] = await pool.query('SELECT * FROM sector')
+        const [rows] = await pool.query('SELECT * FROM sector ORDER BY Sector ASC')
         res.json(rows);
     } catch (err) {
         console.error(err);

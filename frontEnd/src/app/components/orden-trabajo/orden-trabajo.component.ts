@@ -94,11 +94,15 @@ export class OrdenTrabajoComponent {
   
   dataSector(){
     this.apiService.getSector('').subscribe(data => {
-      this.datosSector = (Array.isArray(data) ? data : [data]).map((s: any) => ({
-        id_sector: s.id ?? s.Id,
-        nombre: s.Sector ?? s.nombre,
-        id_edificio: s.IdEdificio ?? s.id_edificio
-      }));
+      this.datosSector = (Array.isArray(data) ? data : [data])
+        .map((s: any) => ({
+          id_sector: s.id ?? s.Id,
+          nombre: s.Sector ?? s.nombre,
+          id_edificio: s.IdEdificio ?? s.id_edificio
+        }))
+        .sort((a: Sector, b: Sector) =>
+          a.nombre.localeCompare(b.nombre)
+        );
       console.log(this.datosSector);
     });
   }  

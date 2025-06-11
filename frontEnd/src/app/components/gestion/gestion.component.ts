@@ -53,7 +53,9 @@ export class GestionComponent implements OnInit {
     }).subscribe(data => {
       this.edificios = data.edificios.map((e: any) => ({ id: e.id, Nombre: e.Nombre }));
       this.pisos = data.pisos.map((p: any) => ({ id: p.id, Nombre: p.Nombre }));
-      this.sectores = data.sectores.map((s: any) => ({ id: s.id, Nombre: s.Sector, IdEdificio: s.IdEdificio || 1 }));
+      this.sectores = data.sectores
+        .map((s: any) => ({ id: s.id, Nombre: s.Sector, IdEdificio: s.IdEdificio || 1 }))
+        .sort((a: any, b: any) => a.Nombre.localeCompare(b.Nombre));
       this.ubicaciones = data.ubicaciones.map((u: any) => ({ id: u.id, Nombre: u.Nombre }));
       this.activos = data.activos.map((a: any) => ({ id: a.id, Nombre: a.Nombre }));
       this.usuarios = data.usuarios.map((u: any) => ({ id: u.id, Nombre: u.nombre }));

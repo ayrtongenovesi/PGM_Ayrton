@@ -128,7 +128,8 @@ export class HistorialComponent implements OnInit {
     this.edificios = [...new Set(this.ots.map(ot => ot.Edificio))];
     this.pisos = [...new Set(this.ots.map(ot => ot.Piso))];
     this.ubicaciones = [...new Set(this.ots.map(ot => ot.Ubicacion))];
-    this.sectores = [...new Set(this.ots.map(ot => ot.Sector))];
+    this.sectores = [...new Set(this.ots.map(ot => ot.Sector))]
+      .sort((a, b) => a.localeCompare(b));
     this.activos = [...new Set(this.ots.map(ot => ot.Tipo_Activo))];
     this.operarios = [...new Set(this.ots.map(ot => ot.usuarios))]
   }
