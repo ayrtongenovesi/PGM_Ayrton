@@ -175,7 +175,7 @@ export class HistorialComponent implements OnInit {
           <td class="tabla-sector tablaTXT">${orden.Sector}</td>
           <td class="tabla-sector tablaTXT">${orden.Tipo_Activo}</td>
           <td class="tabla-sector tablaTXT">${orden.usuarios}</td>
-<td class="tabla-operario tablaTXT">${orden.disponible ? 'Finalizada' : 'Pendiente'}</td>
+          <td class="tabla-operario tablaTXT">${orden.disponible === 'Finalizada' ? '✔ Finalizada' : 'Pendiente'}</td>
           <td class="tabla-operario tablaTXT">${orden.Tareas}</td>
           <td class="tabla-operario tablaTXT tablaButon">
             <div class="botones-acciones">
