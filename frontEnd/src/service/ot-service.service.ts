@@ -6,23 +6,59 @@ export interface OrdenTrabajo {
   id: number;
   Edificio: string;
   Piso: string;
-  Sector: string;
   Ubicacion: string;
+  Sector: string;
   Tipo_Activo: string;
+  usuarios: string;
   Tareas: string;
+  fecha?: string;
+  disponible?: string;
 }
 
 @Injectable({
   providedIn: 'root'
-
 })
-
 export class OtServiceService {
+  private readonly apiUrl = 'http://localhost:3000/api';
 
-  private apiUrl = 'http://localhost:3000/api';
- 
   constructor(private http: HttpClient) {}
 
+  // ----- Orden de Trabajo -----
+  getOT(): Observable<OrdenTrabajo[]> {
+    return this.http.get<OrdenTrabajo[]>(`${this.apiUrl}/ot`);
+  }
+
+  createOT(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/ot/create`, data);
+  }
+
+  deleteOT(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/ot/delete/${id}`);
+  }
+
+  updateEstadoOT(id: number, estado: string | boolean): Observable<any> {
+    return this.http.put(`${this.apiUrl}/ot/edit/${id}`, { estado });
+  }
+
+  // ----- Tareas -----
+  getTarea(tarea: string): Observable<any> {
+    const params = new HttpParams().set('tareas', tarea);
+    return this.http.get(`${this.apiUrl}/tareas`, { params });
+  }
+
+  createTarea(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/tareas/create`, data);
+  }
+
+  updateTarea(id: number, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/tareas/edit/${id}`, data);
+  }
+
+  deleteTarea(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/tareas/delete/${id}`);
+  }
+
+  // ----- Datos de apoyo -----
   getCUIA(cuia: string): Observable<any> {
     const params = new HttpParams().set('cuia', cuia);
     return this.http.get(`${this.apiUrl}/cuia`, { params });
@@ -58,101 +94,76 @@ export class OtServiceService {
     return this.http.get(`${this.apiUrl}/ubicacion`, { params });
   }
 
-  getTarea(tarea: string): Observable<any> {
-    const params = new HttpParams().set('tareas', tarea);
-    return this.http.get(`${this.apiUrl}/tareas`, { params });
-  }
-
-  createTarea(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/tareas/create`, data);
-  }
-  updateTarea(id: number, data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/tareas/edit/${id}`, data);
-  }
-  deleteTarea(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/tareas/delete/${id}`);
-  }
-
-  createOT(datos: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/ot/create`, datos); 
-  }
-
-  getOT(): Observable<OrdenTrabajo[]> {
-    return this.http.get<OrdenTrabajo[]>(`${this.apiUrl}/ot`);
-  }
-
-  updateEstadoOT(id: number, estado: string | boolean): Observable<any> {
-    return this.http.put(`${this.apiUrl}/ot/edit/${id}`, { estado });
-  }
-
-  deleteOT(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/ot/delete/${id}`);
-  }
-
-  // Gestion CRUD methods
+  // ----- CRUD auxiliares -----
   createEdificio(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/edificio/create`, data);
   }
+
   updateEdificio(id: number, data: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/edificio/edit/${id}`, data);
   }
-  deleteEdificio(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/edificio/delete/${id}`);
+
+  deleteEdificio(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/edificio/delete/${id}`);
   }
 
   createPiso(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/piso/create`, data);
   }
+
   updatePiso(id: number, data: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/piso/edit/${id}`, data);
   }
-  deletePiso(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/piso/delete/${id}`);
+
+  deletePiso(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/piso/delete/${id}`);
   }
 
   createSector(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/sector/create`, data);
   }
+
   updateSector(id: number, data: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/sector/edit/${id}`, data);
   }
-  deleteSector(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/sector/delete/${id}`);
+
+  deleteSector(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/sector/delete/${id}`);
   }
 
   createUbicacion(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/ubicacion/create`, data);
   }
+
   updateUbicacion(id: number, data: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/ubicacion/edit/${id}`, data);
   }
-  deleteUbicacion(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/ubicacion/delete/${id}`);
+
+  deleteUbicacion(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/ubicacion/delete/${id}`);
   }
 
   createActivo(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/activo/create`, data);
   }
+
   updateActivo(id: number, data: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/activo/edit/${id}`, data);
   }
-  deleteActivo(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/activo/delete/${id}`);
+
+  deleteActivo(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/activo/delete/${id}`);
   }
 
   createUsuario(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/usuario/`, data);
   }
+
   updateUsuario(id: number, data: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/usuario/edit/${id}`, data);
   }
-  deleteUsuario(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/usuario/${id}`);
+
+  deleteUsuario(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/usuario/${id}`);
   }
 }
-
-
-
-
-
-
