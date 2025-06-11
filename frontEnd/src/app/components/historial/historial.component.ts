@@ -101,7 +101,8 @@ export class HistorialComponent implements OnInit {
       const deleteButtons = document.querySelectorAll('.delete-btn');
       deleteButtons.forEach(button => {
         button.addEventListener('click', (event) => {
-          const id = (event.target as HTMLButtonElement).getAttribute('data-id');
+          const target = event.currentTarget as HTMLElement;
+          const id = target.getAttribute('data-id');
           if (id) {
             this.promptdeleteOT(Number(id));
           }
@@ -198,7 +199,8 @@ export class HistorialComponent implements OnInit {
     const deleteButtons = document.querySelectorAll('.delete-btn');
     deleteButtons.forEach(button => {
       button.addEventListener('click', (event) => {
-        const id = (event.target as HTMLElement).closest('button')?.getAttribute('data-id');
+        const target = event.currentTarget as HTMLElement;
+        const id = target.getAttribute('data-id');
         if (id) {
           this.promptdeleteOT(Number(id));
         }
@@ -239,8 +241,9 @@ export class HistorialComponent implements OnInit {
     confirmButton.onclick = () => {
       this.otService.deleteOT(id).subscribe(response => {
         console.log('OT eliminada:', response);
+        this.ots = this.ots.filter(ot => ot.id !== id);
+        this.mostrarTablaFiltrada();
         document.body.removeChild(modal);
-        window.location.reload();
       }, error => {
         console.error('Error al eliminar la OT:', error);
         document.body.removeChild(modal);
