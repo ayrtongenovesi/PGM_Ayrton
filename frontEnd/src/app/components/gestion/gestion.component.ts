@@ -18,8 +18,18 @@ export class GestionComponent implements OnInit {
   tareas: any[] = [];
   sections: any[] = [];
   isAdmin: boolean = false;
+  notificationMessage: string = '';
+  notificationType: string = '';
+  showNotification: boolean = false;
 
   constructor(private api: OtServiceService, private userService: UserService) {}
+
+  private showTempNotification(message: string, type: 'success' | 'error' | 'info') {
+    this.notificationMessage = message;
+    this.notificationType = type;
+    this.showNotification = true;
+    setTimeout(() => (this.showNotification = false), 1000);
+  }
 
   ngOnInit(): void {
     const userType = this.userService.getIdTipoUsuario();
@@ -47,7 +57,7 @@ export class GestionComponent implements OnInit {
       this.ubicaciones = data.ubicaciones.map((u: any) => ({ id: u.id, Nombre: u.Nombre }));
       this.activos = data.activos.map((a: any) => ({ id: a.id, Nombre: a.Nombre }));
       this.usuarios = data.usuarios.map((u: any) => ({ id: u.id, Nombre: u.nombre }));
-      this.tareas = (data.tareas || []).map((t: any) => ({ id: t.id, Nombre: t.descripcion }));
+      this.tareas = (data.tareas || []).map((t: any) => ({ id: t.id, Nombre: t.Descripcion }));
       this.sections = [
         {
           name: 'Edificios',
@@ -134,7 +144,10 @@ export class GestionComponent implements OnInit {
       case 'tarea':
         this.api
           .createTarea({ id: model.id, descripcion: model.Nombre })
-          .subscribe(() => this.loadAll(true));
+          .subscribe(() => {
+            this.loadAll(true);
+            this.showTempNotification('Tarea agregada.', 'success');
+          });
         break;
     }
   }
@@ -160,7 +173,10 @@ export class GestionComponent implements OnInit {
         this.api.deleteUsuario(id).subscribe(() => this.loadAll(true));
         break;
       case 'tarea':
-        this.api.deleteTarea(id).subscribe(() => this.loadAll(true));
+        this.api.deleteTarea(id).subscribe(() => {
+          this.loadAll(true);
+          this.showTempNotification('Tarea eliminada.', 'success');
+        });
         break;
     }
   }
@@ -206,7 +222,10 @@ export class GestionComponent implements OnInit {
       case 'tarea':
         this.api
           .updateTarea(model.id, { descripcion: model.Nombre })
-          .subscribe(() => this.loadAll(true));
+          .subscribe(() => {
+            this.loadAll(true);
+            this.showTempNotification('Tarea actualizada.', 'success');
+          });
         break;
     }
   }

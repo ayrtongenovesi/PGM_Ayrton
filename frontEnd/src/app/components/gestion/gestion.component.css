@@ -153,3 +153,19 @@ body {
 .btn-delete:hover {
   background-color: #e74c3c;
 }
+
+.notification {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 20px;
+  border-radius: 6px;
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: bold;
+  color: white;
+  z-index: 9999;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+.notification.success { background-color: #2ecc71; }
+.notification.error   { background-color: #c0392b; }
+.notification.info    { background-color: #1f6cb0; }

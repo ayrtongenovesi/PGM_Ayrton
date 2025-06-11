@@ -76,14 +76,16 @@ export class HistorialComponent implements OnInit {
             <td class="tabla-operario tablaTXT">${orden.usuarios}</td>
 <td class="tabla-operario tablaTXT">${orden.disponible === 'Finalizada' ? '✔ Finalizada' : 'Pendiente'}</td>
             <td class="tabla-operario tablaTXT">${orden.Tareas}</td>
-            <td class="tabla-operario tablaTXT tablaButon"> 
-  <button class="delete-btn" data-id="${orden.id}">
-    <i class="fas fa-trash-alt"></i>
-  </button>
-  <button class="botonTilde" data-id="${orden.id}">
-    <i class="fas fa-check"></i>
-  </button>
-</td>
+            <td class="tabla-operario tablaTXT tablaButon">
+              <div class="botones-acciones">
+                <button class="botonTilde" data-id="${orden.id}">
+                  <i class="fas fa-check"></i>
+                </button>
+                <button class="delete-btn" data-id="${orden.id}">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </div>
+            </td>
 
           </tr>
         `;
@@ -174,13 +176,15 @@ export class HistorialComponent implements OnInit {
           <td class="tabla-sector tablaTXT">${orden.usuarios}</td>
 <td class="tabla-operario tablaTXT">${orden.disponible ? 'Finalizada' : 'Pendiente'}</td>
           <td class="tabla-operario tablaTXT">${orden.Tareas}</td>
-          <td class="tabla-operario tablaTXT tablaButon"> 
-            <button class="delete-btn" data-id="${orden.id}">
-              <i class="fas fa-trash-alt"></i>
-            </button>
-            <button class="botonTilde" data-id="${orden.id}">
-              <i class="fas fa-check"></i>
-            </button>
+          <td class="tabla-operario tablaTXT tablaButon">
+            <div class="botones-acciones">
+              <button class="botonTilde" data-id="${orden.id}">
+                <i class="fas fa-check"></i>
+              </button>
+              <button class="delete-btn" data-id="${orden.id}">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
           </td>
         </tr>
       `;
