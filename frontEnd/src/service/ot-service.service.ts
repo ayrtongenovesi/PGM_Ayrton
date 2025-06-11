@@ -76,9 +76,71 @@ export class OtServiceService {
   }
 
   deleteOT(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/ot/delete${id}`); 
+    return this.http.delete(`${this.apiUrl}/ot/delete${id}`);
+  }
+
+  // Gestion CRUD methods
+  createEdificio(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/edificio/create`, data);
+  }
+  updateEdificio(id: number, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/edificio/edit/${id}`, data);
+  }
+  deleteEdificio(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/edificio/delete/${id}`);
+  }
+
+  createPiso(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/piso/create`, data);
+  }
+  updatePiso(id: number, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/piso/edit/${id}`, data);
+  }
+  deletePiso(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/piso/delete/${id}`);
+  }
+
+  createSector(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/sector/create`, data);
+  }
+  updateSector(id: number, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/sector/edit/${id}`, data);
+  }
+  deleteSector(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/sector/delete/${id}`);
+  }
+
+  createUbicacion(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/ubicacion/create`, data);
+  }
+  updateUbicacion(id: number, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/ubicacion/edit/${id}`, data);
+  }
+  deleteUbicacion(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/ubicacion/delete/${id}`);
+  }
+
+  createActivo(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/activo/create`, data);
+  }
+  updateActivo(id: number, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/activo/edit/${id}`, data);
+  }
+  deleteActivo(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/activo/delete/${id}`);
+  }
+
+  createUsuario(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/usuario/`, data);
+  }
+  updateUsuario(id: number, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/usuario`, data);
+  }
+  deleteUsuario(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/usuario/${id}`);
   }
 }
+
 
 
 

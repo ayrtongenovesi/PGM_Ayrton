@@ -5,9 +5,9 @@ const router = express.Router()
 
 router.get('/sector', getSector);
 
-router.put('/sector/edit:id', updateSector )
+router.put('/sector/edit/:id', updateSector)
 
-router.delete('/sector/delete:id', deleteSector )
+router.delete('/sector/delete/:id', deleteSector)
 
 router.post('/sector/create', createSector )
 

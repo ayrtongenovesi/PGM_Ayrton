@@ -5,7 +5,7 @@ const router = express.Router()
 
 router.get('/ubicacion', getUbicacion);
 
-router.put('/ubicacion/edit:id', updateUbicacion)
+router.put('/ubicacion/edit/:id', updateUbicacion)
 
 router.delete('/ubicacion/delete/:id', deleteUbicacion)
 

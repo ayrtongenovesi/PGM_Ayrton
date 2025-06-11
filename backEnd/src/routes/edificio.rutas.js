@@ -5,9 +5,9 @@ const router = express.Router()
 
 router.get('/edificio', getEdificio)
 
-router.put('/edificio/edit:id', updateEdificio)
+router.put('/edificio/edit/:id', updateEdificio)
 
-router.delete('/edificio/delete:id', deleteEdificio)
+router.delete('/edificio/delete/:id', deleteEdificio)
 
 router.post('/edificio/create', createEdificio)
 

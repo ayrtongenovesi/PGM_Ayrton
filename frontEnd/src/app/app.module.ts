@@ -8,6 +8,7 @@ import { LoginComponent } from './components/login/login.component';
 import { OrdenTrabajoComponent } from './components/orden-trabajo/orden-trabajo.component';
 import { OrdenVisualComponent } from './components/orden-visual/orden-visual.component';
 import { HistorialComponent } from './components/historial/historial.component';
+import { GestionComponent } from './components/gestion/gestion.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ProtectedComponent } from './components/ProtectedComponent';
 
@@ -21,6 +22,7 @@ import { ProtectedComponent } from './components/ProtectedComponent';
     OrdenVisualComponent,
     HistorialComponent,
     ProtectedComponent,
+    GestionComponent,
    
   ],
   imports: [

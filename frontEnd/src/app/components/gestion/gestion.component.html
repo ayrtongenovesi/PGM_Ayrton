@@ -1,0 +1,28 @@
+<div class="gestion-container">
+  <h2>Gestión</h2>
+  <div class="seccion" *ngFor="let item of [{name:'Edificios', data:edificios, key:'edificio'}, {name:'Pisos', data:pisos, key:'piso'}, {name:'Sectores', data:sectores, key:'sector'}, {name:'Ubicaciones', data:ubicaciones, key:'ubicacion'}, {name:'Activos', data:activos, key:'activo'}, {name:'Operarios', data:usuarios, key:'usuario'}]">
+    <h3>{{item.name}}</h3>
+    <table class="tabla-gestion">
+      <thead>
+        <tr><th>ID</th><th>Nombre</th><th>Acciones</th></tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let d of item.data">
+          <td>{{d.id}}</td>
+          <td>
+            <input [(ngModel)]="d.Nombre" />
+          </td>
+          <td>
+            <button (click)="update(d, item.key)">Guardar</button>
+            <button (click)="remove(d.id, item.key)">Borrar</button>
+          </td>
+        </tr>
+        <tr>
+          <td><input #newId /></td>
+          <td><input #newNombre /></td>
+          <td><button (click)="add({id:newId.value, Nombre:newNombre.value}, item.key); newId.value=''; newNombre.value='';">Agregar</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

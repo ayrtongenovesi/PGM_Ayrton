@@ -1,0 +1,4 @@
+.gestion-container { padding:20px; }
+.seccion { margin-bottom:40px; }
+.tabla-gestion { width:100%; border-collapse:collapse; }
+.tabla-gestion th, .tabla-gestion td { border:1px solid #ccc; padding:5px; }

@@ -10,43 +10,44 @@ export const getUbicacion = async (req,res)=> {
     }
 }
 
-export const createUbicacion =async (req,res)=>{
-   
+export const createUbicacion = async (req, res) => {
+    const { id, Nombre } = req.body;
     try {
-        const[result] = await pool.query('INSERT INTO ubicaion (//DATOS DE CODIGO//) VALUES(?,?,?)', [/ datps codigo/])
+        const [result] = await pool.query('INSERT INTO ubicacion (id, Nombre) VALUES (?, ?)', [id, Nombre]);
+        res.json({ id, Nombre });
     } catch (err) {
-        console.error(err)
-        res.status(500).json({message: 'Error Servicio Interno', error: err.message})
+        console.error(err);
+        res.status(500).json({ message: 'Error Servicio Interno', error: err.message });
     }
 }
 
-export const deleteUbicacion= async(req,res)=>{
-    const {ubicacion} = req.params
+export const deleteUbicacion = async (req, res) => {
+    const { id } = req.params;
     try {
-        const [result] = await pool.query('DELETE FROM ubicacion WHERE ubicacion = ?', [ubicacion])
+        const [result] = await pool.query('DELETE FROM ubicacion WHERE id = ?', [id]);
         if (result.affectedRows === 0) {
-            return res.status(404).json({message:'ubicacion no encontrado'})
-            
+            return res.status(404).json({ message: 'ubicacion no encontrado' });
         }
-        res.status(204).send()
+        res.status(204).send();
     } catch (err) {
-        console.error(err)
-        res.status(500).json({message: 'Error Servicio Interno', error: err.message})
+        console.error(err);
+        res.status(500).json({ message: 'Error Servicio Interno', error: err.message });
     }
 }
 
-export const updateUbicacion = async (req,res)=>{
-    const {ubicacion} = req.params
-    
+export const updateUbicacion = async (req, res) => {
+    const { id } = req.params;
+    const { Nombre } = req.body;
+
     try {
-        const [result] =await pool.query('UPDATE ubicacion SET (????) = ? ', [ubicacion])
+        const [result] = await pool.query('UPDATE ubicacion SET Nombre = ? WHERE id = ?', [Nombre, id]);
         if (result.affectedRows === 0) {
-            return res.status(404).json({message:'ubicacion no encontrado'})
+            return res.status(404).json({ message: 'ubicacion no encontrado' });
         }
-        res.json({ubicacion})
+        res.json({ id, Nombre });
     } catch (err) {
-        console.error(err)
-        res.status(500).json({message: 'Error Servicio Interno', error: err.message})
+        console.error(err);
+        res.status(500).json({ message: 'Error Servicio Interno', error: err.message });
     }
 
 }

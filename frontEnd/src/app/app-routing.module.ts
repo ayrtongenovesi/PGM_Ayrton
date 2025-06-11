@@ -5,6 +5,7 @@ import { EntornoComponent } from './components/entorno/entorno.component';
 import { LoginComponent } from './components/login/login.component';
 import { OrdenVisualComponent } from './components/orden-visual/orden-visual.component';
 import { HistorialComponent } from './components/historial/historial.component';
+import { GestionComponent } from './components/gestion/gestion.component';
 import { LoginGuard } from '../service/guards/login.guard'; 
 
 export const routes: Routes = [
@@ -28,6 +29,11 @@ export const routes: Routes = [
     component: HistorialComponent,
     canActivate: [LoginGuard]
   },
+  {
+    path: 'gestion',
+    component: GestionComponent,
+    canActivate: [LoginGuard]
+  },
 ];
 
 @NgModule({
@@ -35,3 +41,4 @@ export const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
