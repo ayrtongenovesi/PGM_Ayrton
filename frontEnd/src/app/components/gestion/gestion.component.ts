@@ -49,7 +49,7 @@ export class GestionComponent implements OnInit {
       ubicaciones: this.api.getUbicacion(''),
       activos: this.api.getAT(''),
       usuarios: this.api.getUser(''),
-      tareas: this.api.getTarea('')
+      tareas: this.api.getTarea()
     }).subscribe(data => {
       this.edificios = data.edificios.map((e: any) => ({ id: e.id, Nombre: e.Nombre }));
       this.pisos = data.pisos.map((p: any) => ({ id: p.id, Nombre: p.Nombre }));
@@ -106,40 +106,54 @@ export class GestionComponent implements OnInit {
   }
 
   add(model: any, collection: string) {
-    switch(collection) {
+    switch (collection) {
       case 'edificio':
         this.api
           .createEdificio({ id: Number(model.id), Nombre: model.Nombre, Direccion: '' })
-          .subscribe(() => this.loadAll(true));
+          .subscribe(() => {
+            this.loadAll(true);
+            this.showTempNotification('Edificio agregado.', 'success');
+          });
         break;
       case 'piso':
         this.api
           .createPiso({ id: Number(model.id), Nombre: model.Nombre })
-          .subscribe(() => this.loadAll(true));
+          .subscribe(() => {
+            this.loadAll(true);
+            this.showTempNotification('Piso agregado.', 'success');
+          });
         break;
       case 'sector':
         this.api
-          .createSector({
-            id: Number(model.id),
-            Sector: model.Nombre,
-            IdEdificio: 1,
-          })
-          .subscribe(() => this.loadAll(true));
+          .createSector({ id: Number(model.id), Sector: model.Nombre, IdEdificio: 1 })
+          .subscribe(() => {
+            this.loadAll(true);
+            this.showTempNotification('Sector agregado.', 'success');
+          });
         break;
       case 'ubicacion':
         this.api
           .createUbicacion({ id: Number(model.id), Nombre: model.Nombre })
-          .subscribe(() => this.loadAll(true));
+          .subscribe(() => {
+            this.loadAll(true);
+            this.showTempNotification('Ubicación agregada.', 'success');
+          });
         break;
       case 'activo':
         this.api
           .createActivo({ id: Number(model.id), Nombre: model.Nombre })
-          .subscribe(() => this.loadAll(true));
+          .subscribe(() => {
+            this.loadAll(true);
+            this.showTempNotification('Activo agregado.', 'success');
+          });
         break;
       case 'usuario':
         this.api
           .createUsuario({ name: model.Nombre, mail: '', password: '' })
-          .subscribe(() => this.loadAll(true));
+          .subscribe(() => {
+            this.loadAll(true);
+            this.showTempNotification('Operario agregado.', 'success');
+          });
         break;
       case 'tarea':
         this.api
@@ -153,24 +167,42 @@ export class GestionComponent implements OnInit {
   }
 
   remove(id: number, collection: string) {
-    switch(collection) {
+    switch (collection) {
       case 'edificio':
-        this.api.deleteEdificio(Number(id)).subscribe(() => this.loadAll(true));
+        this.api.deleteEdificio(Number(id)).subscribe(() => {
+          this.loadAll(true);
+          this.showTempNotification('Edificio eliminado.', 'success');
+        });
         break;
       case 'piso':
-        this.api.deletePiso(Number(id)).subscribe(() => this.loadAll(true));
+        this.api.deletePiso(Number(id)).subscribe(() => {
+          this.loadAll(true);
+          this.showTempNotification('Piso eliminado.', 'success');
+        });
         break;
       case 'sector':
-        this.api.deleteSector(Number(id)).subscribe(() => this.loadAll(true));
+        this.api.deleteSector(Number(id)).subscribe(() => {
+          this.loadAll(true);
+          this.showTempNotification('Sector eliminado.', 'success');
+        });
         break;
       case 'ubicacion':
-        this.api.deleteUbicacion(Number(id)).subscribe(() => this.loadAll(true));
+        this.api.deleteUbicacion(Number(id)).subscribe(() => {
+          this.loadAll(true);
+          this.showTempNotification('Ubicación eliminada.', 'success');
+        });
         break;
       case 'activo':
-        this.api.deleteActivo(Number(id)).subscribe(() => this.loadAll(true));
+        this.api.deleteActivo(Number(id)).subscribe(() => {
+          this.loadAll(true);
+          this.showTempNotification('Activo eliminado.', 'success');
+        });
         break;
       case 'usuario':
-        this.api.deleteUsuario(Number(id)).subscribe(() => this.loadAll(true));
+        this.api.deleteUsuario(Number(id)).subscribe(() => {
+          this.loadAll(true);
+          this.showTempNotification('Operario eliminado.', 'success');
+        });
         break;
       case 'tarea':
         this.api.deleteTarea(Number(id)).subscribe(() => {
@@ -182,19 +214,22 @@ export class GestionComponent implements OnInit {
   }
 
   update(model: any, collection: string) {
-    switch(collection) {
+    switch (collection) {
       case 'edificio':
         this.api
-          .updateEdificio(Number(model.id), {
-            Nombre: model.Nombre,
-            Direccion: '',
-          })
-          .subscribe(() => this.loadAll(true));
+          .updateEdificio(Number(model.id), { Nombre: model.Nombre, Direccion: '' })
+          .subscribe(() => {
+            this.loadAll(true);
+            this.showTempNotification('Edificio actualizado.', 'success');
+          });
         break;
       case 'piso':
         this.api
           .updatePiso(Number(model.id), { Nombre: model.Nombre })
-          .subscribe(() => this.loadAll(true));
+          .subscribe(() => {
+            this.loadAll(true);
+            this.showTempNotification('Piso actualizado.', 'success');
+          });
         break;
       case 'sector':
         this.api
@@ -202,22 +237,34 @@ export class GestionComponent implements OnInit {
             Sector: model.Nombre,
             IdEdificio: model.IdEdificio || 1,
           })
-          .subscribe(() => this.loadAll(true));
+          .subscribe(() => {
+            this.loadAll(true);
+            this.showTempNotification('Sector actualizado.', 'success');
+          });
         break;
       case 'ubicacion':
         this.api
           .updateUbicacion(Number(model.id), { Nombre: model.Nombre })
-          .subscribe(() => this.loadAll(true));
+          .subscribe(() => {
+            this.loadAll(true);
+            this.showTempNotification('Ubicación actualizada.', 'success');
+          });
         break;
       case 'activo':
         this.api
           .updateActivo(Number(model.id), { Nombre: model.Nombre })
-          .subscribe(() => this.loadAll(true));
+          .subscribe(() => {
+            this.loadAll(true);
+            this.showTempNotification('Activo actualizado.', 'success');
+          });
         break;
       case 'usuario':
         this.api
           .updateUsuario(Number(model.id), { nombre: model.Nombre })
-          .subscribe(() => this.loadAll(true));
+          .subscribe(() => {
+            this.loadAll(true);
+            this.showTempNotification('Operario actualizado.', 'success');
+          });
         break;
       case 'tarea':
         this.api
