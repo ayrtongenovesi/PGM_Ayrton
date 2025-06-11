@@ -10,43 +10,44 @@ export const getTarea = async (req,res)=> {
     }
 }
 
-export const createTarea =async (req,res)=>{
-   
+export const createTarea = async (req, res) => {
+    const { id, descripcion } = req.body;
     try {
-        const[result] = await pool.query('INSERT INTO tarea (//DATOS DE CODIGO//) VALUES(?,?,?)', [/ datps codigo/])
+        const [result] = await pool.query('INSERT INTO tareas (id, Descripcion) VALUES (?, ?)', [id, descripcion]);
+        res.json({ id, descripcion });
     } catch (err) {
-        console.error(err)
-        res.status(500).json({message: 'Error Servicio Interno', error: err.message})
+        console.error(err);
+        res.status(500).json({message: 'Error Servicio Interno', error: err.message});
     }
 }
 
-export const deleteTarea= async(req,res)=>{
-    const {tarea} = req.params
+export const deleteTarea = async (req, res) => {
+    const { id } = req.params;
     try {
-        const [result] = await pool.query('DELETE FROM tarea WHERE sector = ?', [tarea])
+        const [result] = await pool.query('DELETE FROM tareas WHERE id = ?', [id]);
         if (result.affectedRows === 0) {
-            return res.status(404).json({message:'tarea no encontrado'})
-            
+            return res.status(404).json({message: 'tarea no encontrada'});
         }
-        res.status(204).send()
+        res.status(204).send();
     } catch (err) {
-        console.error(err)
-        res.status(500).json({message: 'Error Servicio Interno', error: err.message})
+        console.error(err);
+        res.status(500).json({message: 'Error Servicio Interno', error: err.message});
     }
 }
 
-export const updateTarea = async (req,res)=>{
-    const {tarea} = req.params
-    
+export const updateTarea = async (req, res) => {
+    const { id } = req.params;
+    const { descripcion } = req.body;
+
     try {
-        const [result] =await pool.query('UPDATE tarea SET (????) = ? ', [tarea])
+        const [result] = await pool.query('UPDATE tareas SET Descripcion = ? WHERE id = ?', [descripcion, id]);
         if (result.affectedRows === 0) {
-            return res.status(404).json({message:'tarea no encontrado'})
+            return res.status(404).json({message: 'tarea no encontrada'});
         }
-        res.json({tarea})
+        res.json({ id, descripcion });
     } catch (err) {
-        console.error(err)
-        res.status(500).json({message: 'Error Servicio Interno', error: err.message})
+        console.error(err);
+        res.status(500).json({message: 'Error Servicio Interno', error: err.message});
     }
 
 }

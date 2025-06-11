@@ -67,10 +67,10 @@ export class OtServiceService {
     return this.http.post(`${this.apiUrl}/tareas/create`, data);
   }
   updateTarea(id: number, data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/tareas/edit${id}`, data);
+    return this.http.put(`${this.apiUrl}/tareas/edit/${id}`, data);
   }
   deleteTarea(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/tareas/delete${id}`);
+    return this.http.delete(`${this.apiUrl}/tareas/delete/${id}`);
   }
 
   createOT(datos: any): Observable<any> {
