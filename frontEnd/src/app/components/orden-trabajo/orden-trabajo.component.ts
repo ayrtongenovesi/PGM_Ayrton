@@ -241,6 +241,14 @@ export class OrdenTrabajoComponent {
     this.selectedUsuario = '';
     this.selectedTareas = '';
     this.pdfUrl = '';
+    this.selectedFecha = '';
+    if (this.fechaInput) {
+      this.fechaInput.nativeElement.value = '';
+    }
+    const fechaSeleccionada = document.getElementById('fechaSeleccionada');
+    if (fechaSeleccionada) {
+      fechaSeleccionada.innerText = '';
+    }
   }
 
  imprimirPagina(){
