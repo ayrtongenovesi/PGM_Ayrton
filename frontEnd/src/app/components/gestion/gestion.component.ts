@@ -49,7 +49,7 @@ export class GestionComponent implements OnInit {
       ubicaciones: this.api.getUbicacion(''),
       activos: this.api.getAT(''),
       usuarios: this.api.getUser(''),
-      tareas: this.api.getTarea('')
+      tareas: this.api.getTarea()
     }).subscribe(data => {
       this.edificios = data.edificios.map((e: any) => ({ id: e.id, Nombre: e.Nombre }));
       this.pisos = data.pisos.map((p: any) => ({ id: p.id, Nombre: p.Nombre }));

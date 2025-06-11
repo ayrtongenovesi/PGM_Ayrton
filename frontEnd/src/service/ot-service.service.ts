@@ -15,6 +15,11 @@ export interface OrdenTrabajo {
   disponible?: string;
 }
 
+export interface Tarea {
+  id: number;
+  Descripcion: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -41,17 +46,16 @@ export class OtServiceService {
   }
 
   // ----- Tareas -----
-  getTarea(tarea: string): Observable<any> {
-    const params = new HttpParams().set('tareas', tarea);
-    return this.http.get(`${this.apiUrl}/tareas`, { params });
+  getTarea(): Observable<Tarea[]> {
+    return this.http.get<Tarea[]>(`${this.apiUrl}/tareas`);
   }
 
-  createTarea(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/tareas/create`, data);
+  createTarea(data: { id: number; descripcion: string }): Observable<Tarea> {
+    return this.http.post<Tarea>(`${this.apiUrl}/tareas/create`, data);
   }
 
-  updateTarea(id: number, data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/tareas/edit/${id}`, data);
+  updateTarea(id: number, data: { descripcion: string }): Observable<Tarea> {
+    return this.http.put<Tarea>(`${this.apiUrl}/tareas/edit/${id}`, data);
   }
 
   deleteTarea(id: number): Observable<void> {
