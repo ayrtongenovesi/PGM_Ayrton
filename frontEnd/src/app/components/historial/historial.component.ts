@@ -239,20 +239,18 @@ export class HistorialComponent implements OnInit {
     confirmButton.innerText = 'Sí';
     confirmButton.classList.add('modal-confirm-button');
     confirmButton.onclick = () => {
-      this.otService.deleteOT(id).subscribe(
-        () => {
-          this.otService.getOT().subscribe((ots: any[]) => {
-            this.ots = ots;
-            this.extractUniqueValues();
-            this.mostrarTablaFiltrada();
-            document.body.removeChild(modal);
-          });
+      this.otService.deleteOT(id).subscribe({
+        next: () => {
+          this.ots = this.ots.filter(ot => ot.id !== id);
+          this.extractUniqueValues();
+          this.mostrarTablaFiltrada();
+          document.body.removeChild(modal);
         },
-        (error) => {
+        error: (error) => {
           console.error('Error al eliminar la OT:', error);
           document.body.removeChild(modal);
         }
-      );
+      });
     };
 
     const cancelButton = document.createElement('button');
