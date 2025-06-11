@@ -86,7 +86,7 @@ export class OtServiceService {
   }
 
   deleteOT(id: number): Observable<any> {
-    return this.http.delete(`${this.apiUrl}/ot/delete${id}`);
+    return this.http.delete(`${this.apiUrl}/ot/delete/${id}`);
   }
 
   // Gestion CRUD methods
@@ -144,7 +144,7 @@ export class OtServiceService {
     return this.http.post(`${this.apiUrl}/usuario/`, data);
   }
   updateUsuario(id: number, data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/usuario`, data);
+    return this.http.put(`${this.apiUrl}/usuario/edit/${id}`, data);
   }
   deleteUsuario(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/usuario/${id}`);

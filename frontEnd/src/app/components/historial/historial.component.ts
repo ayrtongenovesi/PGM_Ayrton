@@ -111,7 +111,8 @@ export class HistorialComponent implements OnInit {
       const confirmButtons = document.querySelectorAll('.botonTilde');
       confirmButtons.forEach(button => {
         button.addEventListener('click', (event) => {
-          const id = (event.target as HTMLButtonElement).getAttribute('data-id');
+          const target = event.currentTarget as HTMLElement;
+          const id = target.getAttribute('data-id');
           if (id) {
             this.cambiarEstado(Number(id), true);
           }
@@ -207,7 +208,8 @@ export class HistorialComponent implements OnInit {
     const confirmButtons = document.querySelectorAll('.botonTilde');
     confirmButtons.forEach(button => {
       button.addEventListener('click', (event) => {
-        const id = (event.target as HTMLElement).closest('button')?.getAttribute('data-id');
+        const target = event.currentTarget as HTMLElement;
+        const id = target.getAttribute('data-id');
         if (id) {
           this.cambiarEstado(Number(id), true);
         }
@@ -268,7 +270,7 @@ export class HistorialComponent implements OnInit {
     const nuevaOrden = this.ots.find(orden => orden.id === id);
     if (nuevaOrden) {
       // Actualizamos directamente el estado en pantalla
-      nuevaOrden.disponible = estado;
+      nuevaOrden.disponible = estado ? 'Finalizada' : 'Pendiente';
 
       this.otService.updateEstadoOT(id, 'Finalizada').subscribe(
         (response) => {

@@ -7,7 +7,7 @@ router.get('/ot', getOT)
 
 router.put('/ot/edit/:id', updateEstadoOT);
 
-router.delete('/ot/delete:id', deleteOT)
+router.delete('/ot/delete/:id', deleteOT)
 
 router.post('/ot/create', createOT)
 
