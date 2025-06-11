@@ -241,11 +241,10 @@ export class HistorialComponent implements OnInit {
     confirmButton.onclick = () => {
       this.otService.deleteOT(id).subscribe({
         next: () => {
-          this.otService.getOT().subscribe((ots: any[]) => {
-            this.ots = ots;
-            this.extractUniqueValues();
-            this.mostrarTablaFiltrada();
-          });
+          // Actualiza la lista local eliminando la OT sin necesidad de recargar
+          this.ots = this.ots.filter(ot => ot.id !== id);
+          this.extractUniqueValues();
+          this.mostrarTablaFiltrada();
           document.body.removeChild(modal);
         },
         error: (error) => {
