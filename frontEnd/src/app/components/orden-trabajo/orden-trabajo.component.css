@@ -71,7 +71,7 @@ body {
 .content {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   padding: 40px;
   background-color: #eef2f5;
 }

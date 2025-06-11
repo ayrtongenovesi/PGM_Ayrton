@@ -15,6 +15,7 @@ export class GestionComponent implements OnInit {
   ubicaciones: any[] = [];
   activos: any[] = [];
   usuarios: any[] = [];
+  tareas: any[] = [];
   sections: any[] = [];
   isAdmin: boolean = false;
 
@@ -37,7 +38,8 @@ export class GestionComponent implements OnInit {
       sectores: this.api.getSector(''),
       ubicaciones: this.api.getUbicacion(''),
       activos: this.api.getAT(''),
-      usuarios: this.api.getUser('')
+      usuarios: this.api.getUser(''),
+      tareas: this.api.getTarea('')
     }).subscribe(data => {
       this.edificios = data.edificios.map((e: any) => ({ id: e.id, Nombre: e.Nombre }));
       this.pisos = data.pisos.map((p: any) => ({ id: p.id, Nombre: p.Nombre }));
@@ -45,6 +47,7 @@ export class GestionComponent implements OnInit {
       this.ubicaciones = data.ubicaciones.map((u: any) => ({ id: u.id, Nombre: u.Nombre }));
       this.activos = data.activos.map((a: any) => ({ id: a.id, Nombre: a.Nombre }));
       this.usuarios = data.usuarios.map((u: any) => ({ id: u.id, Nombre: u.nombre }));
+      this.tareas = (data.tareas || []).map((t: any) => ({ id: t.id, Nombre: t.descripcion }));
       this.sections = [
         {
           name: 'Edificios',
@@ -81,6 +84,12 @@ export class GestionComponent implements OnInit {
           data: this.usuarios,
           key: 'usuario',
           open: keepState ? openState['usuario'] : false,
+        },
+        {
+          name: 'Tareas',
+          data: this.tareas,
+          key: 'tarea',
+          open: keepState ? openState['tarea'] : false,
         },
       ];
     });
@@ -122,6 +131,11 @@ export class GestionComponent implements OnInit {
           .createUsuario({ name: model.Nombre, mail: '', password: '' })
           .subscribe(() => this.loadAll(true));
         break;
+      case 'tarea':
+        this.api
+          .createTarea({ id: model.id, descripcion: model.Nombre })
+          .subscribe(() => this.loadAll(true));
+        break;
     }
   }
 
@@ -144,6 +158,9 @@ export class GestionComponent implements OnInit {
         break;
       case 'usuario':
         this.api.deleteUsuario(id).subscribe(() => this.loadAll(true));
+        break;
+      case 'tarea':
+        this.api.deleteTarea(id).subscribe(() => this.loadAll(true));
         break;
     }
   }
@@ -184,6 +201,11 @@ export class GestionComponent implements OnInit {
       case 'usuario':
         this.api
           .updateUsuario(model.id, { nombre: model.Nombre })
+          .subscribe(() => this.loadAll(true));
+        break;
+      case 'tarea':
+        this.api
+          .updateTarea(model.id, { descripcion: model.Nombre })
           .subscribe(() => this.loadAll(true));
         break;
     }

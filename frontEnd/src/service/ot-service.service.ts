@@ -63,6 +63,16 @@ export class OtServiceService {
     return this.http.get(`${this.apiUrl}/tareas`, { params });
   }
 
+  createTarea(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/tareas/create`, data);
+  }
+  updateTarea(id: number, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/tareas/edit${id}`, data);
+  }
+  deleteTarea(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/tareas/delete${id}`);
+  }
+
   createOT(datos: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/ot/create`, datos); 
   }
