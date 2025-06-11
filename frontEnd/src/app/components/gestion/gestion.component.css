@@ -1,4 +1,114 @@
-.gestion-container { padding:20px; }
-.seccion { margin-bottom:40px; }
-.tabla-gestion { width:100%; border-collapse:collapse; }
-.tabla-gestion th, .tabla-gestion td { border:1px solid #ccc; padding:5px; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f5f8fa;
+  color: #111;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  height: 100vh;
+}
+
+.sidebar {
+  background-color: #0d2c4a;
+  color: #fff;
+  padding: 20px 0;
+  box-shadow: 3px 0 8px rgba(0, 0, 0, 0.15);
+}
+
+.imgIcono {
+  height: 60px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+.ULestilo {
+  list-style: none;
+  padding: 0;
+}
+
+.FlexLista {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.txtNav,
+.txtSalir {
+  display: block;
+  width: 85%;
+  padding: 12px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.3s;
+}
+
+.txtNav {
+  background-color: #1f6cb0;
+}
+
+.txtNav:hover {
+  background-color: #3791e2;
+}
+
+.txtSalir {
+  background-color: #c0392b;
+}
+
+.txtSalir:hover {
+  background-color: #e74c3c;
+}
+
+.content {
+  padding: 40px;
+  background-color: #eef2f5;
+  overflow-y: auto;
+}
+
+.gestion-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.accordion {
+  background-color: #1f6cb0;
+  color: white;
+  cursor: pointer;
+  padding: 12px;
+  border-radius: 6px;
+  margin-top: 20px;
+}
+
+.seccion {
+  margin-bottom: 20px;
+}
+
+.tabla-gestion {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.tabla-gestion th,
+.tabla-gestion td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+}
+
+.tabla-gestion thead {
+  background-color: #1f6cb0;
+  color: #fff;
+}

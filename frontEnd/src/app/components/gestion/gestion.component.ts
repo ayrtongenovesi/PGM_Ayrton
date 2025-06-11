@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { OtServiceService } from '../../../service/ot-service.service';
+import { UserService } from '../../../service/services/user.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-gestion',
@@ -13,20 +15,41 @@ export class GestionComponent implements OnInit {
   ubicaciones: any[] = [];
   activos: any[] = [];
   usuarios: any[] = [];
+  sections: any[] = [];
+  isAdmin: boolean = false;
 
-  constructor(private api: OtServiceService) {}
+  constructor(private api: OtServiceService, private userService: UserService) {}
 
   ngOnInit(): void {
+    const userType = this.userService.getIdTipoUsuario();
+    this.isAdmin = userType === 2;
     this.loadAll();
   }
 
   loadAll() {
-    this.api.getEdificio('').subscribe(d => this.edificios = d);
-    this.api.getPiso('').subscribe(d => this.pisos = d);
-    this.api.getSector('').subscribe(d => this.sectores = d);
-    this.api.getUbicacion('').subscribe(d => this.ubicaciones = d);
-    this.api.getAT('').subscribe(d => this.activos = d);
-    this.api.getUser('').subscribe(d => this.usuarios = d);
+    forkJoin({
+      edificios: this.api.getEdificio(''),
+      pisos: this.api.getPiso(''),
+      sectores: this.api.getSector(''),
+      ubicaciones: this.api.getUbicacion(''),
+      activos: this.api.getAT(''),
+      usuarios: this.api.getUser('')
+    }).subscribe(data => {
+      this.edificios = data.edificios;
+      this.pisos = data.pisos;
+      this.sectores = data.sectores;
+      this.ubicaciones = data.ubicaciones;
+      this.activos = data.activos;
+      this.usuarios = data.usuarios;
+      this.sections = [
+        { name: 'Edificios', data: this.edificios, key: 'edificio', open: false },
+        { name: 'Pisos', data: this.pisos, key: 'piso', open: false },
+        { name: 'Sectores', data: this.sectores, key: 'sector', open: false },
+        { name: 'Ubicaciones', data: this.ubicaciones, key: 'ubicacion', open: false },
+        { name: 'Activos', data: this.activos, key: 'activo', open: false },
+        { name: 'Operarios', data: this.usuarios, key: 'usuario', open: false }
+      ];
+    });
   }
 
   add(model: any, collection: string) {
@@ -96,5 +119,14 @@ export class GestionComponent implements OnInit {
         this.api.updateUsuario(model.id, model).subscribe(() => this.loadAll());
         break;
     }
+  }
+
+  toggle(section: any) {
+    section.open = !section.open;
+  }
+
+  logout() {
+    this.userService.logout();
+    window.location.href = '/login';
   }
 }
