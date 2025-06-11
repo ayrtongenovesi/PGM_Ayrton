@@ -35,12 +35,12 @@ export class GestionComponent implements OnInit {
       activos: this.api.getAT(''),
       usuarios: this.api.getUser('')
     }).subscribe(data => {
-      this.edificios = data.edificios;
-      this.pisos = data.pisos;
-      this.sectores = data.sectores;
-      this.ubicaciones = data.ubicaciones;
-      this.activos = data.activos;
-      this.usuarios = data.usuarios;
+      this.edificios = data.edificios.map((e: any) => ({ id: e.id, Nombre: e.Nombre }));
+      this.pisos = data.pisos.map((p: any) => ({ id: p.id, Nombre: p.Nombre }));
+      this.sectores = data.sectores.map((s: any) => ({ id: s.id, Nombre: s.Sector, IdEdificio: s.IdEdificio || 1 }));
+      this.ubicaciones = data.ubicaciones.map((u: any) => ({ id: u.id, Nombre: u.Nombre }));
+      this.activos = data.activos.map((a: any) => ({ id: a.id, Nombre: a.Nombre }));
+      this.usuarios = data.usuarios.map((u: any) => ({ id: u.id, Nombre: u.nombre }));
       this.sections = [
         { name: 'Edificios', data: this.edificios, key: 'edificio', open: false },
         { name: 'Pisos', data: this.pisos, key: 'piso', open: false },
@@ -55,22 +55,22 @@ export class GestionComponent implements OnInit {
   add(model: any, collection: string) {
     switch(collection) {
       case 'edificio':
-        this.api.createEdificio(model).subscribe(() => this.loadAll());
+        this.api.createEdificio({ id: model.id, Nombre: model.Nombre, Direccion: '' }).subscribe(() => this.loadAll());
         break;
       case 'piso':
-        this.api.createPiso(model).subscribe(() => this.loadAll());
+        this.api.createPiso({ id: model.id, Nombre: model.Nombre }).subscribe(() => this.loadAll());
         break;
       case 'sector':
-        this.api.createSector(model).subscribe(() => this.loadAll());
+        this.api.createSector({ id: model.id, Sector: model.Nombre, IdEdificio: 1 }).subscribe(() => this.loadAll());
         break;
       case 'ubicacion':
-        this.api.createUbicacion(model).subscribe(() => this.loadAll());
+        this.api.createUbicacion({ id: model.id, Nombre: model.Nombre }).subscribe(() => this.loadAll());
         break;
       case 'activo':
-        this.api.createActivo(model).subscribe(() => this.loadAll());
+        this.api.createActivo({ id: model.id, Nombre: model.Nombre }).subscribe(() => this.loadAll());
         break;
       case 'usuario':
-        this.api.createUsuario(model).subscribe(() => this.loadAll());
+        this.api.createUsuario({ name: model.Nombre, mail: '', password: '' }).subscribe(() => this.loadAll());
         break;
     }
   }
@@ -101,22 +101,22 @@ export class GestionComponent implements OnInit {
   update(model: any, collection: string) {
     switch(collection) {
       case 'edificio':
-        this.api.updateEdificio(model.id, model).subscribe(() => this.loadAll());
+        this.api.updateEdificio(model.id, { Nombre: model.Nombre, Direccion: '' }).subscribe(() => this.loadAll());
         break;
       case 'piso':
-        this.api.updatePiso(model.id, model).subscribe(() => this.loadAll());
+        this.api.updatePiso(model.id, { Nombre: model.Nombre }).subscribe(() => this.loadAll());
         break;
       case 'sector':
-        this.api.updateSector(model.id, model).subscribe(() => this.loadAll());
+        this.api.updateSector(model.id, { Sector: model.Nombre, IdEdificio: model.IdEdificio || 1 }).subscribe(() => this.loadAll());
         break;
       case 'ubicacion':
-        this.api.updateUbicacion(model.id, model).subscribe(() => this.loadAll());
+        this.api.updateUbicacion(model.id, { Nombre: model.Nombre }).subscribe(() => this.loadAll());
         break;
       case 'activo':
-        this.api.updateActivo(model.id, model).subscribe(() => this.loadAll());
+        this.api.updateActivo(model.id, { Nombre: model.Nombre }).subscribe(() => this.loadAll());
         break;
       case 'usuario':
-        this.api.updateUsuario(model.id, model).subscribe(() => this.loadAll());
+        this.api.updateUsuario(model.id, { nombre: model.Nombre }).subscribe(() => this.loadAll());
         break;
     }
   }
