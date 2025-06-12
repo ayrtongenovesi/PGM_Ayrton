@@ -25,6 +25,7 @@ export const createPiso = async (req, res) => {
 export const deletePiso = async (req, res) => {
     const { id } = req.params;
     try {
+        await pool.query('DELETE FROM cuia WHERE idPN = ?', [id]);
         const [result] = await pool.query('DELETE FROM piso_nivel WHERE id = ?', [id]);
         if (result.affectedRows === 0) {
             return res.status(404).json({ message: 'piso no encontrado' });
