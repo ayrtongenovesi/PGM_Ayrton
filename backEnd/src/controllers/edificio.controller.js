@@ -24,6 +24,10 @@ export const createEdificio = async (req, res) => {
 export const deleteEdificio = async (req, res) => {
     const { id } = req.params;
     try {
+        const [[ed]] = await pool.query('SELECT Nombre FROM edificio WHERE id = ?', [id]);
+        await pool.query('DELETE FROM cuia WHERE idE = ?', [id]);
+        await pool.query('DELETE FROM sector WHERE IdEdificio = ?', [id]);
+        await pool.query('DELETE FROM ot WHERE Edificio = ?', [ed?.Nombre]);
         const [result] = await pool.query('DELETE FROM edificio WHERE id = ?', [id]);
         if (result.affectedRows === 0) {
             return res.status(404).json({ message: 'edificio no encontrado' });

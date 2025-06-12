@@ -9,6 +9,6 @@ router.put('/ubicacion/edit/:id', updateUbicacion)
 
 router.delete('/ubicacion/delete/:id', deleteUbicacion)
 
-router.post('/ubicacion/create', createUbicacion)
+router.post('/ubicacion/create', createUbicacion);
 
-export default router
+export default router;

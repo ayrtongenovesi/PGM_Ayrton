@@ -89,6 +89,18 @@ body {
   padding: 12px;
   border-radius: 6px;
   margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.arrow {
+  margin-left: auto;
+  width: 6px;
+  height: 6px;
+  border-right: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  transform: rotate(45deg);
 }
 
 .seccion {
