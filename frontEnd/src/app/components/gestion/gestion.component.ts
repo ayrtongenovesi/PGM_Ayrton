@@ -151,7 +151,7 @@ export class GestionComponent implements OnInit {
         break;
       case 'usuario':
         this.api
-          .createUsuario({ name: model.Nombre, mail: '', password: '' })
+          .createUsuario({ nombre: model.Nombre, mail: '', IdTipoUsuario: 2, contraseña: '' })
           .subscribe(() => {
             this.loadAll(true);
             this.showTempNotification('Operario agregado.', 'success');

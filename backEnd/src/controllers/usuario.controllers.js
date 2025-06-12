@@ -10,23 +10,27 @@ export const getUser = async (req,res)=> {
     }
 }
 
-    export const createUser =async (req,res)=>{
-        const {name, mail, password}= req.body;
-        try {
-            const[result] = await pool.query('INSERT INTO usuario (name,mail,password) VALUES(?,?,?)', [name, mail, password])
-        } catch (err) {
-            console.error(err)
-            res.status(500).json({message: 'Error Servicio Interno', error: err.message})
-        }
+export const createUser =async (req,res)=>{
+    const {nombre, mail, IdTipoUsuario = 2, contraseña}= req.body;
+    try {
+        const [result] = await pool.query(
+            'INSERT INTO usuario (nombre, mail, IdTipoUsuario, contraseña) VALUES (?,?,?,?)',
+            [nombre, mail, IdTipoUsuario, contraseña]
+        )
+        res.status(201).json({id: result.insertId, nombre, mail, IdTipoUsuario})
+    } catch (err) {
+        console.error(err)
+        res.status(500).json({message: 'Error Servicio Interno', error: err.message})
     }
+}
     
 export const deleteUser= async(req,res)=>{
     const {id} = req.params
     try {
-        const [result] = await pool.query('DELETE FROM usuario WHERE id_usuario = ?', [id])
+        const [result] = await pool.query('DELETE FROM usuario WHERE id = ?', [id])
         if (result.affectedRows === 0) {
             return res.status(404).json({message:'Usuario no encontrado'})
-            
+
         }
         res.status(204).send()
     } catch (err) {
@@ -39,7 +43,7 @@ export const updateUser = async (req,res)=>{
     const {id} = req.params
     const {nombre} = req.body
     try {
-        const [result] =await pool.query('UPDATE usuario SET nombre = ? WHERE id_usuario = ?', [nombre, id])
+        const [result] =await pool.query('UPDATE usuario SET nombre = ? WHERE id = ?', [nombre, id])
         if (result.affectedRows === 0) {
             return res.status(404).json({message:'Usuario no encontrado'})
         }
