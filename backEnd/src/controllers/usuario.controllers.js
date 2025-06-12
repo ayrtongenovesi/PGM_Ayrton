@@ -26,16 +26,24 @@ export const createUser = async (req, res) => {
     
 export const deleteUser = async (req, res) => {
     const { id } = req.params
+    const conn = await pool.getConnection();
     try {
-        const [[u]] = await pool.query('SELECT nombre FROM usuario WHERE id = ?', [id])
-        await pool.query('DELETE FROM ot WHERE usuarios = ?', [u?.nombre])
-        const [result] = await pool.query('DELETE FROM usuario WHERE id = ?', [id])
+        await conn.beginTransaction();
+        const [[u]] = await conn.query('SELECT nombre FROM usuario WHERE id = ?', [id])
+        await conn.query('DELETE FROM ot WHERE usuarios = ?', [u?.nombre])
+        const [result] = await conn.query('DELETE FROM usuario WHERE id = ?', [id])
         if (result.affectedRows === 0) {
+            await conn.rollback();
+            conn.release();
             return res.status(404).json({message:'Usuario no encontrado'})
 
         }
+        await conn.commit();
+        conn.release();
         res.status(204).send()
     } catch (err) {
+        await conn.rollback();
+        conn.release();
         console.error(err)
         res.status(500).json({message: 'Error Servicio Interno', error: err.message})
     }

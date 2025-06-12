@@ -23,16 +23,24 @@ export const createTarea = async (req, res) => {
 
 export const deleteTarea = async (req, res) => {
     const { id } = req.params;
+    const conn = await pool.getConnection();
     try {
-        const [[t]] = await pool.query('SELECT Descripcion FROM tareas WHERE id = ?', [id]);
-        await pool.query('DELETE FROM activo_tareas WHERE Idtarea = ?', [id]);
-        await pool.query('DELETE FROM ot WHERE Tareas = ?', [t?.Descripcion]);
-        const [result] = await pool.query('DELETE FROM tareas WHERE id = ?', [id]);
+        await conn.beginTransaction();
+        const [[t]] = await conn.query('SELECT Descripcion FROM tareas WHERE id = ?', [id]);
+        await conn.query('DELETE FROM activo_tareas WHERE Idtarea = ?', [id]);
+        await conn.query('DELETE FROM ot WHERE Tareas = ?', [t?.Descripcion]);
+        const [result] = await conn.query('DELETE FROM tareas WHERE id = ?', [id]);
         if (result.affectedRows === 0) {
+            await conn.rollback();
+            conn.release();
             return res.status(404).json({message: 'tarea no encontrada'});
         }
+        await conn.commit();
+        conn.release();
         res.status(204).send();
     } catch (err) {
+        await conn.rollback();
+        conn.release();
         console.error(err);
         res.status(500).json({message: 'Error Servicio Interno', error: err.message});
     }

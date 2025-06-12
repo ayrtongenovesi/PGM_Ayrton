@@ -23,16 +23,24 @@ export const createUbicacion = async (req, res) => {
 
 export const deleteUbicacion = async (req, res) => {
     const { id } = req.params;
+    const conn = await pool.getConnection();
     try {
-        const [[u]] = await pool.query('SELECT Nombre FROM ubicacion WHERE id = ?', [id]);
-        await pool.query('DELETE FROM cuia WHERE idU = ?', [id]);
-        await pool.query('DELETE FROM ot WHERE Ubicacion = ?', [u?.Nombre]);
-        const [result] = await pool.query('DELETE FROM ubicacion WHERE id = ?', [id]);
+        await conn.beginTransaction();
+        const [[u]] = await conn.query('SELECT Nombre FROM ubicacion WHERE id = ?', [id]);
+        await conn.query('DELETE FROM cuia WHERE idU = ?', [id]);
+        await conn.query('DELETE FROM ot WHERE Ubicacion = ?', [u?.Nombre]);
+        const [result] = await conn.query('DELETE FROM ubicacion WHERE id = ?', [id]);
         if (result.affectedRows === 0) {
+            await conn.rollback();
+            conn.release();
             return res.status(404).json({ message: 'ubicacion no encontrado' });
         }
+        await conn.commit();
+        conn.release();
         res.status(204).send();
     } catch (err) {
+        await conn.rollback();
+        conn.release();
         console.error(err);
         res.status(500).json({ message: 'Error Servicio Interno', error: err.message });
     }

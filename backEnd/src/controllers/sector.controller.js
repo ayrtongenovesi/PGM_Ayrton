@@ -24,16 +24,24 @@ export const createSector = async (req, res) => {
 
 export const deleteSector = async (req, res) => {
     const { id } = req.params;
+    const conn = await pool.getConnection();
     try {
-        const [[sec]] = await pool.query('SELECT Sector FROM sector WHERE id = ?', [id]);
-        await pool.query('DELETE FROM cuia WHERE idS = ?', [id]);
-        await pool.query('DELETE FROM ot WHERE Sector = ?', [sec?.Sector]);
-        const [result] = await pool.query('DELETE FROM sector WHERE id = ?', [id]);
+        await conn.beginTransaction();
+        const [[sec]] = await conn.query('SELECT Sector FROM sector WHERE id = ?', [id]);
+        await conn.query('DELETE FROM cuia WHERE idS = ?', [id]);
+        await conn.query('DELETE FROM ot WHERE Sector = ?', [sec?.Sector]);
+        const [result] = await conn.query('DELETE FROM sector WHERE id = ?', [id]);
         if (result.affectedRows === 0) {
+            await conn.rollback();
+            conn.release();
             return res.status(404).json({ message: 'sector no encontrado' });
         }
+        await conn.commit();
+        conn.release();
         res.status(204).send();
     } catch (err) {
+        await conn.rollback();
+        conn.release();
         console.error(err);
         res.status(500).json({ message: 'Error Servicio Interno', error: err.message });
     }
