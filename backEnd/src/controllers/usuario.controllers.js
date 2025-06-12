@@ -10,23 +10,27 @@ export const getUser = async (req,res)=> {
     }
 }
 
-    export const createUser =async (req,res)=>{
-        const {name, mail, password}= req.body;
-        try {
-            const[result] = await pool.query('INSERT INTO usuario (name,mail,password) VALUES(?,?,?)', [name, mail, password])
-        } catch (err) {
-            console.error(err)
-            res.status(500).json({message: 'Error Servicio Interno', error: err.message})
-        }
-    }
-    
-export const deleteUser= async(req,res)=>{
-    const {id} = req.params
+export const createUser = async (req, res) => {
+    const { name, mail, password } = req.body;
     try {
-        const [result] = await pool.query('DELETE FROM usuario WHERE id_usuario = ?', [id])
+        const [result] = await pool.query(
+            'INSERT INTO usuario (nombre, mail, contraseña, IdTipoUsuario) VALUES (?, ?, ?, ?)',
+            [name, mail, password, 1]
+        );
+        res.json({ id: result.insertId, nombre: name, mail });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Error Servicio Interno', error: err.message });
+    }
+}
+    
+export const deleteUser = async (req, res) => {
+    const { id } = req.params
+    try {
+        const [result] = await pool.query('DELETE FROM usuario WHERE id = ?', [id])
         if (result.affectedRows === 0) {
             return res.status(404).json({message:'Usuario no encontrado'})
-            
+
         }
         res.status(204).send()
     } catch (err) {
@@ -35,11 +39,11 @@ export const deleteUser= async(req,res)=>{
     }
 }
 
-export const updateUser = async (req,res)=>{
-    const {id} = req.params
-    const {nombre} = req.body
+export const updateUser = async (req, res) => {
+    const { id } = req.params
+    const { nombre } = req.body
     try {
-        const [result] =await pool.query('UPDATE usuario SET nombre = ? WHERE id_usuario = ?', [nombre, id])
+        const [result] = await pool.query('UPDATE usuario SET nombre = ? WHERE id = ?', [nombre, id])
         if (result.affectedRows === 0) {
             return res.status(404).json({message:'Usuario no encontrado'})
         }

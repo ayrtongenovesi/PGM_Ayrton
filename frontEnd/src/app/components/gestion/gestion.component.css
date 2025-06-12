@@ -89,6 +89,13 @@ body {
   padding: 12px;
   border-radius: 6px;
   margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.arrow {
+  margin-left: auto;
 }
 
 .seccion {

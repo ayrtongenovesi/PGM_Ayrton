@@ -21,7 +21,7 @@
       <div class="gestion-container">
         <h2>Gestión</h2>
         <div class="seccion" *ngFor="let item of sections">
-          <h3 class="accordion" (click)="toggle(item)">{{item.name}}</h3>
+          <h3 class="accordion" (click)="toggle(item)">{{item.name}}<span class="arrow">&#9660;</span></h3>
           <div *ngIf="item.open">
             <table class="tabla-gestion">
               <thead>
