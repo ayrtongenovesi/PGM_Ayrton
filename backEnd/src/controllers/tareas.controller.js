@@ -24,7 +24,9 @@ export const createTarea = async (req, res) => {
 export const deleteTarea = async (req, res) => {
     const { id } = req.params;
     try {
+        const [[t]] = await pool.query('SELECT Descripcion FROM tareas WHERE id = ?', [id]);
         await pool.query('DELETE FROM activo_tareas WHERE Idtarea = ?', [id]);
+        await pool.query('DELETE FROM ot WHERE Tareas = ?', [t?.Descripcion]);
         const [result] = await pool.query('DELETE FROM tareas WHERE id = ?', [id]);
         if (result.affectedRows === 0) {
             return res.status(404).json({message: 'tarea no encontrada'});

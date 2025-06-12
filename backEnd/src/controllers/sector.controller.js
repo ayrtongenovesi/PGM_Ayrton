@@ -25,7 +25,9 @@ export const createSector = async (req, res) => {
 export const deleteSector = async (req, res) => {
     const { id } = req.params;
     try {
+        const [[sec]] = await pool.query('SELECT Sector FROM sector WHERE id = ?', [id]);
         await pool.query('DELETE FROM cuia WHERE idS = ?', [id]);
+        await pool.query('DELETE FROM ot WHERE Sector = ?', [sec?.Sector]);
         const [result] = await pool.query('DELETE FROM sector WHERE id = ?', [id]);
         if (result.affectedRows === 0) {
             return res.status(404).json({ message: 'sector no encontrado' });
